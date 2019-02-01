@@ -1,4 +1,5 @@
 android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
     buildToolsVersion '28.0.3'
     compileSdkVersion 28
     sourceSets {
@@ -21,18 +22,52 @@ android {
         applicationId "com.msgkatz.ratesapp"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.1.2"
+        versionCode 9
+        versionName "0.1.8b"
 
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        config_debug {
+            //noinspection GroovyAssignabilityCheck
+//            keyAlias globalConfiguration.getAt("CR_DEBUG_KEY_ALIAS")
+//            //noinspection GroovyAssignabilityCheck
+//            keyPassword globalConfiguration.getAt("CR_DEBUG_KEY_PASSWORD")
+//
+//            storeFile file(globalConfiguration.getAt("CR_RELEASE_KEY_PATH"))
+//            //noinspection GroovyAssignabilityCheck
+//            storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
+
+            //ext.enableCrashlytics = false
+        }
+        config_release {
+            //noinspection GroovyAssignabilityCheck
+            keyAlias globalConfiguration.getAt("CR_RELEASE_KEY_ALIAS")
+            //noinspection GroovyAssignabilityCheck
+            keyPassword globalConfiguration.getAt("CR_RELEASE_KEY_PASSWORD")
+            storeFile file(globalConfiguration.getAt("CR_RELEASE_KEY_PATH"))
+            //noinspection GroovyAssignabilityCheck
+            storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
+
+            //ext.enableCrashlytics = true
+            //ext.enableCrashlytics = false
+        }
+    }
+
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config_release
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config_debug
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
