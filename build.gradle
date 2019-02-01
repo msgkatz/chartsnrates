@@ -1,0 +1,179 @@
+buildscript {
+    
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.3'
+        classpath 'com.google.gms:google-services:4.0.1'
+        classpath 'io.fabric.tools:gradle:1.25.4'
+        
+
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = "charts-n-rates"
+        gdxVersion = '1.9.8'
+        roboVMVersion = '2.3.3'
+        box2DLightsVersion = '1.4'
+        ashleyVersion = '1.7.0'
+        aiVersion = '1.8.0'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://maven.google.com/' }
+        google()
+    }
+}
+
+project(":android") {
+    apply plugin: "android"
+    apply plugin: 'io.fabric'
+
+    configurations { natives }
+
+    dependencies {
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+        implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+
+
+        def daggerVersion = '2.18' //'2.6'
+        def retrofitVersion = '2.3.0'
+        def butterknife_version = '8.5.1'
+        def lifecycle_version = '1.1.1'
+        def android_support = '28.0.0'  //'27.1.0'
+        def glide_version = '4.2.0'
+
+        implementation "com.android.support:support-fragment:$android_support"
+        implementation "com.android.support:appcompat-v7:$android_support"
+        //implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+        implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
+
+        implementation "com.android.support:design:$android_support"
+        implementation "com.android.support:support-v4:$android_support"
+        implementation "com.android.support:recyclerview-v7:$android_support"
+        implementation "com.android.support:cardview-v7:$android_support"
+        implementation "com.android.support:transition:$android_support"
+        implementation 'com.android.support:multidex:1.0.3'
+
+        //compile "android.arch.lifecycle:runtime:$lifecycle_version"
+        //annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+
+        implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+
+        // old dagger libs - remove after update
+        //implementation "com.google.dagger:dagger:$daggerVersion"
+        //annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
+//        implementation "com.google.dagger:dagger-android:$daggerVersion"
+//        implementation "com.google.dagger:dagger-android-support:$daggerVersion" // if you use the support libraries
+//        annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+        // Dagger dependencies
+        annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+        implementation "com.google.dagger:dagger:$daggerVersion"
+        implementation "com.google.dagger:dagger-android:$daggerVersion"
+        implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+        annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+        implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+        implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
+
+        implementation "com.jakewharton:butterknife:$butterknife_version"
+        annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+        implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+        implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+
+        implementation 'org.glassfish:javax.annotation:10.0-b28'
+
+        implementation 'de.hdodenhof:circleimageview:2.1.0'
+
+        implementation 'com.facebook.stetho:stetho:1.5.0'
+        implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+        api 'com.google.guava:guava:26.0-android'
+
+
+        implementation "com.github.bumptech.glide:glide:$glide_version"
+        annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+        implementation 'com.google.firebase:firebase-core:16.0.1'
+
+        // Add dependency
+        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+        
+    }
+}
+
+project(":ios") {
+    apply plugin: "java"
+    apply plugin: "robovm"
+
+
+    dependencies {
+        compile project(":core")
+        compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+        compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+        
+    }
+}
+
+project(":core") {
+    apply plugin: "java"
+
+
+    dependencies {
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        
+    }
+}
+
+tasks.eclipse.doLast {
+    delete ".project"
+}
