@@ -1,7 +1,7 @@
 
 # Charts-n-Rates 
 
-<img src="screenshots/cnr_demo.gif" width="200" align="right" hspace="20">
+<img src="screenshots/cnr_demo.gif" width="400" align="right" hspace="20">
 
 *Cryptocurrency charts and rates app based on Binance exchange data*
 
