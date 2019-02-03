@@ -9,6 +9,7 @@ import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
 import com.msgkatz.ratesapp.data.net.wsocks.BinanceWSocksApi;
 import com.msgkatz.ratesapp.data.repo.DataRepo;
 import com.msgkatz.ratesapp.domain.IDataRepo;
+import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
 import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus;
 import com.msgkatz.ratesapp.presentation.common.messaging.RxBus;
 import com.msgkatz.ratesapp.utils.Parameters;
@@ -111,6 +112,13 @@ public class AppModule {
     IRxBus providesUIMessaging()
     {
         return new RxBus();
+    }
+
+    @Provides
+    @Singleton
+    TabInfoStorer providesTabInfo(App application)
+    {
+        return new TabInfoStorer(application.getApplicationContext());
     }
 
 }

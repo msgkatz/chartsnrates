@@ -57,7 +57,7 @@ public class LoaderExtendedActor extends BaseLoaderActor {
     public void act(float f) {
         super.act(f);
 
-        if (timeStart > 15)
+        if (timeStart > 7)
             timeStart = 1.0f;
         this.timeStart += f;
         this.timeStartInt++;
