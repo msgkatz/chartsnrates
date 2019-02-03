@@ -27,6 +27,7 @@ import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver;
 import com.msgkatz.ratesapp.domain.interactors.params.PriceHistoryParams;
 import com.msgkatz.ratesapp.presentation.common.Layout;
+import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
 import com.msgkatz.ratesapp.presentation.entities.TabItem;
@@ -61,6 +62,9 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
 
     @BindView(R.id.bottom_navigation)
     TabLayout bottom_navigation;
+
+    @Inject
+    TabInfoStorer tabInfoStorer;
 
     private TabItem[] tabItems = new TabItem[4];
     private Map<String, Integer> tabPositions = new HashMap<>();
@@ -106,40 +110,28 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
     }
 
     private void initTabs() {
-        Resources res = getResources();
-        TypedArray icons = res.obtainTypedArray(R.array.tab_icons);
-        TypedArray names = res.obtainTypedArray(R.array.tab_names);
-        //int color = CommonUtil.getColor(App.getInstance(), R.color.main_tabs_item_selected);
-        int color = CommonUtil.getColor(this, R.color.main_tabs_item_selected);
 
-        for (int index = 0; index < icons.length(); index++)
+        if (!tabInfoStorer.isInitialised())
+            tabInfoStorer.initTabs();
+
+        int idx = 0;
+        for (TabItem item : tabInfoStorer.getItems())
         {
-            Drawable drawable = icons.getDrawable(index);
-            //DrawableCompat.setTint(drawable, color);
-            drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(this, R.color.main_tabs_item_selected),PorterDuff.Mode.SRC_IN));
-            String name = names.getString(index);
-
-
-
-            if (index == 0) {
+            if (idx == 0) {
                 bottom_navigation.addTab(bottom_navigation.newTab()
-                        .setIcon(drawable)
+                        .setIcon(item.iconDrawable)
                         //.setText(name)
-                        .setTag(name), true);
+                        .setTag(item.quoteAssetName), true);
             }
             else {
                 bottom_navigation.addTab(bottom_navigation.newTab()
-                        .setIcon(drawable)
+                        .setIcon(item.iconDrawable)
                         //.setText(name)
-                        .setTag(name));
+                        .setTag(item.quoteAssetName));
             }
-
-            tabPositions.put(name, Integer.valueOf(index));
-            tabImages.put(name, drawable);
+            idx++;
         }
 
-        icons.recycle();
-        names.recycle();
         bottom_navigation.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.main_tabs_item_selected));
         bottom_navigation.setSelectedTabIndicatorHeight(CommonUtil.dpToPx(1));
         bottom_navigation.addOnTabSelectedListener(this);
@@ -185,13 +177,6 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
             });
 
         }
-    }
-
-    public Drawable getImageByTabName(String name)
-    {
-//        Integer position = tabPositions.get(name);
-//        return bottom_navigation.getTabAt(position.intValue()).getIcon();
-        return tabImages.get(name);
     }
 
     @Override

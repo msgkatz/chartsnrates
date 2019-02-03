@@ -28,7 +28,6 @@ public class BinanceWSocksClient {
     private int messageCount;
 
     private static volatile BinanceWSocksClient binanceWSocksClient;
-    //private /*static*/ volatile BinanceWSocksClient binanceWSocksClient;
 
     private static volatile OkHttpClient okHttpClient =
             new OkHttpClient.Builder()
@@ -42,10 +41,7 @@ public class BinanceWSocksClient {
     private Thread webSocketConnectionThread;
     private volatile WebSocket webSocket;
     private volatile WSocksStatusType webSocketStatus = WSocksStatusType.getType(WSocksStatusType.DISCONNECT);
-    //BinanceWSocksClient
 
-
-    //private WebSocketCallBack f16498q = new C40386(this);
     private WebSocketCallBackInner webSocketCallBackInner = new WebSocketCallBackInner(this);
 
     class WebSocketCallBackInner extends WSocksListener {
@@ -126,12 +122,10 @@ public class BinanceWSocksClient {
             synchronized (BinanceWSocksClient.class) {
                 this.binanceWSocksClientInternal.webSocket = null;
                 this.binanceWSocksClientInternal.setSocketStatus(WSocksStatusType.DISCONNECT, reconnect);
-                //this.binanceWSocksClientInternal.m23455i();
                 webSocket.cancel();
                 if (reconnect) {
                     this.binanceWSocksClientInternal.setSocketStatus(WSocksStatusType.RECONNECT);
                     this.binanceWSocksClientInternal.connect("");
-                    //this.wsSingletoneHolder.connect("");
                 } else {
                     this.binanceWSocksClientInternal.setSocketStatus(WSocksStatusType.ERROR);
                 }
@@ -151,8 +145,6 @@ public class BinanceWSocksClient {
             }
         }
 
-        //tmp.setUrl(url);
-
         return tmp;
     }
 
@@ -164,12 +156,9 @@ public class BinanceWSocksClient {
                 tmp = oldClient;
                 if (tmp == null) {
                     tmp = new BinanceWSocksClient(context, handler, url, hashKey);
-                    //oldClient = tmp;
                 }
             }
         }
-
-        //tmp.setUrl(url);
 
         return tmp;
     }
@@ -212,10 +201,6 @@ public class BinanceWSocksClient {
                     }
 
                     BinanceWSocksClient.this.webSocketStatus.setCurrentType(WSocksStatusType.RECONNECT);
-
-//                    if (cmdToSend != null && cmdToSend.length() > 0
-//                            && WebSocketSingletoneBtx.this.webSocketCallBackDemo instanceof C403312)
-//                        ((C403312)WebSocketSingletoneBtx.this.webSocketCallBackDemo).setCmdToRunOnConnect(cmdToSend);
 
                     BinanceWSocksClient.this.webSocket
                             = okHttpClient.newWebSocket(b.build(), BinanceWSocksClient.this.webSocketCallBackInner);
@@ -277,13 +262,11 @@ public class BinanceWSocksClient {
                 {
                     Logs.e(TAG, "client connect...");
                     this.messageCount = 0;
-                    //wSocksHandler.mo2910u();
                 }
 
                 if (statusType.equals(WSocksStatusType.RECONNECT))
                 {
                     Logs.e(TAG, "client reconnect...");
-                    //wSocksHandler.mo2911v();
                 }
 
                 if (statusType.equals(WSocksStatusType.DISCONNECT) && !reconnect)

@@ -64,11 +64,20 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
         candlesInternal.clear();
         Interval _interval = innerModel.getIntervalMap().get(interval);
 
+        cleanContainer(symbol, _interval); // iss-3 implementation
         initSchedule(symbol, _interval);
         initStream(symbol, _interval);
         initControlThread();
 
         return relayBase;
+    }
+
+    private void cleanContainer(final String symbol, final Interval interval) {
+        candles = holdMap.get(symbol + "_" + interval.getSymbol());
+        if (candles != null && !candles.isEmpty())
+        {
+            candles.clear();
+        }
     }
 
     long lastTime = -1;
