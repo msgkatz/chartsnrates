@@ -1,8 +1,12 @@
 package com.msgkatz.ratesapp.presentation.ui.splash;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.view.View;
 
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
@@ -14,10 +18,13 @@ import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver;
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
 import com.msgkatz.ratesapp.presentation.common.Layout;
+import com.msgkatz.ratesapp.utils.Logs;
 
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by msgkatz on 15/08/2018.
@@ -27,19 +34,36 @@ import javax.inject.Inject;
 @Layout(id = R.layout.activity_splash)
 public class SplashActivity extends BaseActivity {
 
+    private final static int MAX_COUNT = 1;
+
+    @BindView(R.id.reconnect)
+    ConstraintLayout btn_reconnect;
+
     @Inject
     GetAssets mGetAssets;
 
     @Inject
     GetPlatformInfo mGetPlatformInfo;
 
-    Handler mHandler = new Handler();
+    private Handler mHandler = new Handler();
+    private int counter = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AnimatedActivity);
         super.onCreate(savedInstanceState);
 
+        btn_reconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btn_reconnect.setVisibility(View.GONE);
+                counter = 0;
+                loadAssets();
+            }
+        });
+
+        counter = 0;
         loadAssets();
 
     }
@@ -54,10 +78,29 @@ public class SplashActivity extends BaseActivity {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            counter = 0;
                             loadPlatformInfo();
                         }
                     });
 
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                super.onError(exception);
+
+                counter++;
+                if (counter < MAX_COUNT)
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadAssets();
+                        }
+                    }, 50);
+                else {
+                    Logs.e(SplashActivity.this, counter + " " + exception.getMessage());
+                    initErrorMessage();
+                }
             }
         }, null);
     }
@@ -78,7 +121,33 @@ public class SplashActivity extends BaseActivity {
                     });
 
             }
+
+            @Override
+            public void onError(Throwable exception) {
+                super.onError(exception);
+
+                counter++;
+                if (counter < MAX_COUNT)
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadPlatformInfo();
+                        }
+                    }, 50);
+                else {
+                    Logs.e(SplashActivity.this, counter + " " + exception.getMessage());
+                    initErrorMessage();
+                }
+
+            }
         }, null);
+    }
+
+    private void initErrorMessage()
+    {
+        btn_reconnect.setVisibility(View.VISIBLE);
+        btn_reconnect.setAlpha(0.0f);
+        btn_reconnect.animate().alpha(1.0f);
     }
 
     private void initUI()
