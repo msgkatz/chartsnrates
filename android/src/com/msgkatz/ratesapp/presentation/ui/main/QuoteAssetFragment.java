@@ -14,6 +14,7 @@ import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 import com.msgkatz.ratesapp.presentation.common.Layout;
+import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
 import com.msgkatz.ratesapp.presentation.common.mvp.BasePresenter;
 import com.msgkatz.ratesapp.presentation.ui.main.base.BaseMainFragment;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainRouter;
@@ -47,6 +48,9 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
     @Inject
     QuoteAssetPresenter mQuoteAssetPresenter;
 
+    @Inject
+    TabInfoStorer tabInfoStorer;
+
     private String mQuoteAssetName;
     private QuoteAssetAdapterThreaded mAdapter;
 
@@ -75,16 +79,24 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        setupRecycler();
+        // setupRecycler();
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        setupRecycler();
+
+    }
 
     private void setupRecycler()
     {
-        Drawable placeholder = ((MainActivity)getActivity()).getImageByTabName(mQuoteAssetName);
+        //Drawable placeholder = ((MainActivity)getActivity()).getImageByTabName(mQuoteAssetName);
+        Drawable placeholder = tabInfoStorer.getDrawableByQuoteAssetName(mQuoteAssetName);
+
         mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mRecyclerView.setAdapter(mAdapter);
