@@ -154,7 +154,9 @@ public class PreRenderer implements Controller {
                         this._graphicController.checkForVertical((CandleData) candleData);
                         this._graphicController.candleDataArray.add(candleData);
                     }
-                    this._graphicController.minTime = ((CandleData) this._graphicController.candleDataArray.first()).getTime();
+
+                    this._graphicController.setMinTime(((CandleData) this._graphicController.candleDataArray.first()).getTime());
+
                     if (this._graphicController.stageControllerListener != null) {
                         this._graphicController.stageControllerListener.setChartType(this._graphicController.chartType);
                     }
@@ -194,7 +196,7 @@ public class PreRenderer implements Controller {
 
                 public void run() {
                     this._graphicController.candleDataArray = tmpArrayTotal;
-                    this._graphicController.minTime = ((CandleData) this._graphicController.candleDataArray.first()).getTime();
+                    this._graphicController.setMinTime(((CandleData) this._graphicController.candleDataArray.first()).getTime());
                     this._graphicController.newVerticalDataArray.clear();
                     for (int i = 0; i < this._graphicController.candleDataArray.size; i++) {
                         this._graphicController.checkForVertical((CandleData) this._graphicController.candleDataArray.get(i));
@@ -261,6 +263,15 @@ public class PreRenderer implements Controller {
         return 0;
     }
 
+    public long getMinTime() {
+        return minTime;
+    }
+
+    public void setMinTime(long minTime) {
+        // Logs.s(TAG, "setMinTime:: prev=" + this.minTime + ", new=" + minTime);
+        this.minTime = minTime;
+    }
+
     // endregion
 
     // region Helper methods
@@ -317,10 +328,14 @@ public class PreRenderer implements Controller {
     }
 
     public void loadHistoryBlock() {
-        long j = this.minTime;
+
+        long j = this.getMinTime();
+
         //this.minTime = (this.minTime - ((long) this.chartTimeFrame)) - ((long) (600 * this.chartTimeFrame));
-        this.minTime = (this.minTime - currentInterval.getPerBlockDefaultMs()/1000);
-        long j2 = this.minTime;
+        this.setMinTime(getMinTime() - currentInterval.getPerBlockDefaultMs()/1000);
+
+        long j2 = this.getMinTime();
+
         UUID randomUUID = UUID.randomUUID();
         renderLoader(true, randomUUID.toString());
         this.chartDataListener.initPriceHistory(chartDataListener.getToolName(),

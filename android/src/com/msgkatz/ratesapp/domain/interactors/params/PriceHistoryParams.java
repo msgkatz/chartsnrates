@@ -1,5 +1,7 @@
 package com.msgkatz.ratesapp.domain.interactors.params;
 
+import android.support.annotation.NonNull;
+
 import com.msgkatz.ratesapp.utils.Parameters;
 
 /**
@@ -86,4 +88,21 @@ public class PriceHistoryParams extends CommonParams {
 
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("PriceHistoryParams:: symbol=");
+        sb.append(symbol);
+        sb.append(", interval=");
+        sb.append(interval);
+        sb.append(", startTime=");
+        sb.append(startTime);
+        sb.append(", endTime=");
+        sb.append(endTime);
+        sb.append(", limit=");
+        sb.append(limit);
+
+        return sb.toString();
+    }
 }
