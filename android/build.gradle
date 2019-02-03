@@ -22,8 +22,8 @@ android {
         applicationId "com.msgkatz.ratesapp"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 10
-        versionName "0.1.9b"
+        versionCode 11
+        versionName "0.1.10b"
 
         multiDexEnabled true
 
