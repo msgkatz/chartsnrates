@@ -220,6 +220,8 @@ public class ChartGdxPresenter extends BaseChartGdxPresenter
         PriceHistoryParams priceHistoryParams =
                 new PriceHistoryParams(toolName.toUpperCase(), interval, null, endTime);
 
+        // Logs.d(TAG, priceHistoryParams.toString());
+
         observerPriceHistory = new ResponseObserver<Optional<List<Candle>>, List<Candle>>() {
             @Override
             public void doNext(List<Candle> candles) {
