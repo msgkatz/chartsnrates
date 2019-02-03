@@ -9,7 +9,7 @@ import static com.msgkatz.ratesapp.domain.entities.Interval.fromString;
 
 /**
  * Created by msgkatz on 20/07/2018.
- * 
+ *
  */
 
 public class Parameters {

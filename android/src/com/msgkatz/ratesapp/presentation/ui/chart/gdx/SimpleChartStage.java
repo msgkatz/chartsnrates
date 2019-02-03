@@ -476,6 +476,9 @@ public class SimpleChartStage extends Stage implements GestureDetector.GestureLi
         }
 
         this.minHistoricalX = (float) ((CandleData) this.candleDataArray.first()).getIdxByScaledDensity();
+
+        this.firstX = (float) ((CandleData) this.candleDataArray.first()).getIdxByScaledDensity();
+
         this.runningXAlter = (float) ((CandleData) _candleDataArray.peek()).getIdxByScaledDensity();
         this.runningX = (float) ((CandleData) _candleDataArray.peek()).getIdxByScaledDensity();
         this.runningXNew = (float) ((CandleData) _candleDataArray.peek()).getIdxByScaledDensity();
@@ -832,13 +835,7 @@ public class SimpleChartStage extends Stage implements GestureDetector.GestureLi
             this.deltaForLowestPrices = this.priceLowMin2 - this.priceLowMin1;
             this.runningY = ((((float) ((CandleData) this.candleDataArray.peek()).getPriceClose()) - this.priceLowMin2) * this.ratioHeightPricesDelta2) + (GdxSettings.heightExtraChartFull + GdxSettings.heightMainChartBorder);
             this.runningYDelta = this.runningY - this.runningYPrev;
-            /**
-             for (i3 = 0; i3 < this.newIndicatorActorArray.size; i3++) {
-             if (((NewIndicatorActor) this.newIndicatorActorArray.get(i3)).mo3681w() == IndicatorEnum.MACD) {
-             ((MACDActor) this.newIndicatorActorArray.get(i3)).m22190x();
-             }
-             }
-             **/
+
         }
     }
 
