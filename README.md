@@ -3,12 +3,13 @@
 
 *App for cryptocurrency charts and rates based on Binance exchange data*
 
+<img src="screenshots/cnr_demo2.gif" width="200" align="right" hspace="20">
+
 Chart-n-Rates is a showcase of android application, that uses realtime data to build stock charts and infolists.<br/> 
 It pulls data in from [Binance Exchange](https://www.binance.com/en), using both REST and Web Socket [APIs](https://github.com/binance-exchange/binance-official-api-docs) of Binance platform.<br/> 
 It demonstrates the use of [libGDX](https://github.com/libgdx/libgdx) to create realtime charts with the help of OpenGL 2D-graphics.<br/>
 App demonstrates also the use of [material principles](https://www.google.com/design/spec/material-design/introduction.html#introduction-principles) to create simple and understandable UIs.
 
-<img src="screenshots/cnr_demo.gif" width="500" align="right" hspace="20">
 
 **[Install on Google Play](https://play.google.com/store/apps/details?id=com.msgkatz.ratesapp)**
 
