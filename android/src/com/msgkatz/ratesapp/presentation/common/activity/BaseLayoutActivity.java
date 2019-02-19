@@ -1,13 +1,12 @@
 package com.msgkatz.ratesapp.presentation.common.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.msgkatz.ratesapp.presentation.common.Layout;
 import com.msgkatz.ratesapp.utils.Logs;
 
 import java.lang.annotation.Annotation;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

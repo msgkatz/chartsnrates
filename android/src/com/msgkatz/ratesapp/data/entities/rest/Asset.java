@@ -1,12 +1,12 @@
 package com.msgkatz.ratesapp.data.entities.rest;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.msgkatz.ratesapp.utils.Parameters;
 
 import javax.annotation.Generated;
+
+import androidx.annotation.NonNull;
 
 /**
  * Assets are BTC, ETH, etc.

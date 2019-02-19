@@ -8,12 +8,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-
+import com.google.android.material.tabs.TabLayout;
 import com.msgkatz.ratesapp.App;
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.data.entities.Candle;
@@ -45,6 +40,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.DaggerFragment;

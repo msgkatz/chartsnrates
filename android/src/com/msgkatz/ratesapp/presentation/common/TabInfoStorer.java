@@ -6,8 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.presentation.entities.TabItem;
 import com.msgkatz.ratesapp.utils.CommonUtil;
@@ -19,6 +17,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.core.content.ContextCompat;
 
 public class TabInfoStorer {
 

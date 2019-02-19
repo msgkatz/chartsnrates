@@ -1,8 +1,5 @@
 package com.msgkatz.ratesapp.presentation.ui.main;
 
-import android.support.annotation.Nullable;
-
-import com.msgkatz.ratesapp.App;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 import com.msgkatz.ratesapp.domain.interactors.GetAssets;
@@ -22,6 +19,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by msgkatz on 10/09/2018.

@@ -1,15 +1,15 @@
 package com.msgkatz.ratesapp.presentation.common.fragment;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
-
 import com.msgkatz.ratesapp.presentation.common.mvp.BasePresenter;
 import com.msgkatz.ratesapp.presentation.common.mvp.BaseView;
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetParentView;
 
 import java.lang.ref.WeakReference;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 /**
  * Created by msgkatz on 11/09/2018.

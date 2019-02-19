@@ -1,11 +1,8 @@
 package com.msgkatz.ratesapp.presentation.ui.splash;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
 import android.view.View;
 
 import com.msgkatz.ratesapp.R;
@@ -24,6 +21,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 
 /**

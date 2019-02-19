@@ -4,10 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewManager;
 import android.view.ViewStub;
 import android.view.WindowManager;
@@ -22,6 +18,8 @@ import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
 import com.msgkatz.ratesapp.presentation.entities.ToolFormat;
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 
 /**
@@ -60,7 +58,7 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
         PowerManager mgr = (PowerManager)getSystemService(Context.POWER_SERVICE);
         if (mgr != null) {
-            wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ChartsnRatesWakeLock");
+            wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, ":ChartsnRatesWakeLock");
 
         }
 
