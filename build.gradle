@@ -88,7 +88,7 @@ project(":android") {
         //implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
 
         // https://mvnrepository.com/artifact/androidx.constraintlayout/constraintlayout
-        implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: '2.0.0-alpha2'
+        implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
 
         implementation "com.android.support:design:$android_support"
