@@ -18,6 +18,7 @@ import com.msgkatz.ratesapp.presentation.ui.main.base.MainRouter;
 import com.msgkatz.ratesapp.presentation.common.widget.EndOffsetItemDecoration;
 import com.msgkatz.ratesapp.utils.CommonUtil;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,9 +97,18 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
     private void setupRecycler()
     {
         //Drawable placeholder = ((MainActivity)getActivity()).getImageByTabName(mQuoteAssetName);
-        Drawable placeholder = tabInfoStorer.getDrawableByQuoteAssetName(mQuoteAssetName);
+        //Drawable placeholder = tabInfoStorer.getDrawableByQuoteAssetName(mQuoteAssetName);
 
-        mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder);
+        Drawable placeholder = tabInfoStorer.getSmallDrawableByQuoteAssetName(mQuoteAssetName);
+        int[] paddings;
+        if (mQuoteAssetName.contains("ETH")) {
+            paddings = new int[] {20, 30};
+        } else {
+            paddings = new int[] {20, 20};
+        }
+
+
+        mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder, paddings);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mRecyclerView.setAdapter(mAdapter);
 

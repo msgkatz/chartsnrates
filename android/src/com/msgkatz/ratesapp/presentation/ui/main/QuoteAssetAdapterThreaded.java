@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 import com.msgkatz.ratesapp.utils.CommonUtil;
@@ -50,6 +52,7 @@ public class QuoteAssetAdapterThreaded extends RecyclerView.Adapter<RecyclerView
 
     private Context context;
     private Drawable placeholder;
+    private int[] padding;
     private List<PriceSimple> priceSimpleList = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
     private final ArrayDeque<List<PriceSimple>> pendingUpdates = new ArrayDeque<>();
@@ -61,10 +64,11 @@ public class QuoteAssetAdapterThreaded extends RecyclerView.Adapter<RecyclerView
         this.context = context;
     }
 
-    public QuoteAssetAdapterThreaded(Context context, Drawable placeholder)
+    public QuoteAssetAdapterThreaded(Context context, Drawable placeholder, int[] padding)
     {
         this.context = context;
         this.placeholder = placeholder;
+        this.padding = padding;
     }
 
     public QuoteAssetAdapterThreaded(Context context, List<PriceSimple> priceSimpleList)
@@ -189,7 +193,9 @@ public class QuoteAssetAdapterThreaded extends RecyclerView.Adapter<RecyclerView
             mHolder.mContainer.setMaxHeight(CommonUtil.dpToPx(88));
 
             //RequestOptions requestOptions = new RequestOptions().placeholder(placeholder);
-            RequestOptions requestOptions = new RequestOptions().fallback(placeholder).error(placeholder);
+
+            mHolder.mLogo.setPadding(padding[0], padding[1], padding[0], padding[1]);
+            RequestOptions requestOptions = new RequestOptions().fitCenter().placeholder(placeholder).fallback(placeholder).error(placeholder);
             Glide.with(context)
                     //.asDrawable()
                     .load(priceSimple.getTool().getBaseAsset().getLogoFullUrl())
