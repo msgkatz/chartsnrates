@@ -124,8 +124,11 @@ project(":android") {
 
 //        implementation "com.jakewharton:butterknife:$butterknife_version"
 //        annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
-        implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
-        annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
+//        implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
+//        annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
+
+        implementation 'com.jakewharton:butterknife:10.2.0'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
         implementation 'com.squareup.okhttp3:okhttp:3.10.0'
         implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
