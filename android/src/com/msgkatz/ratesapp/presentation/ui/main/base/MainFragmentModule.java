@@ -1,14 +1,13 @@
 package com.msgkatz.ratesapp.presentation.ui.main.base;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-
 import com.msgkatz.ratesapp.di.common.BaseFragmentModule;
 import com.msgkatz.ratesapp.di.scope.PerFragment;
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetFragment;
 
 import javax.inject.Named;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;

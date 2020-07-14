@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.base;
 
-import android.support.v4.app.Fragment;
-
 import com.msgkatz.ratesapp.di.common.BaseChildFragmentModule;
 import com.msgkatz.ratesapp.di.scope.PerChildFragment;
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartGdxFragment;
@@ -9,6 +7,7 @@ import com.msgkatz.ratesapp.presentation.ui.chart.ChartGdxPresenter;
 
 import javax.inject.Named;
 
+import androidx.fragment.app.Fragment;
 import dagger.Binds;
 import dagger.Module;
 

@@ -1,12 +1,12 @@
 package com.msgkatz.ratesapp.presentation.ui.main;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
-
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 
 /**
  * Created by msgkatz on 13/09/2018.

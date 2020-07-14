@@ -2,12 +2,9 @@ package com.msgkatz.ratesapp.presentation.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewManager;
 import android.view.ViewStub;
 import android.view.WindowManager;
@@ -21,6 +18,11 @@ import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
 import com.msgkatz.ratesapp.presentation.entities.ToolFormat;
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 
@@ -45,6 +47,8 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
     private PowerManager.WakeLock wakeLock;
 
+    private BaseFragment chartParentFragment = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +64,17 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
         PowerManager mgr = (PowerManager)getSystemService(Context.POWER_SERVICE);
         if (mgr != null) {
-            wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ChartsnRatesWakeLock");
+            wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, ":ChartsnRatesWakeLock");
 
         }
 
         initScreen(toolName, toolPrice);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handleOrientationChange();
     }
 
     @Override
@@ -83,6 +93,19 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
             wakeLock.release();
     }
 
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        handleOrientationChange();
+    }
+
+    private void handleOrientationChange() {
+        boolean islandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (chartParentFragment != null) {
+            chartParentFragment.setConfigurationChange(islandscape);
+        }
+    }
+
     private void initScreen(String toolName, double toolPrice)
     {
         //add fragment
@@ -91,6 +114,7 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
     private void addBackStack(BaseFragment fragment, boolean isAddToBackStack)
     {
+        chartParentFragment = fragment;
         addBackStack(fragment, isAddToBackStack, false);
     }
 
@@ -147,5 +171,11 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     @Override
     public void exit() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        chartParentFragment = null;
+        super.onDestroy();
     }
 }

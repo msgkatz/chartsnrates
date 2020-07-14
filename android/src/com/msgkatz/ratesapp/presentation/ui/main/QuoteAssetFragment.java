@@ -2,9 +2,6 @@ package com.msgkatz.ratesapp.presentation.ui.main;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +24,9 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 /**
@@ -44,7 +44,8 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
 
     @BindView(R.id.title_main) TextView mTitleMain;
     @BindView(R.id.title_2nd) TextView mTitle2nd;
-    @BindView(R.id.rvlist) RecyclerView mRecyclerView;
+    @BindView(R.id.rvlist)
+    RecyclerView mRecyclerView;
 
     @Inject
     QuoteAssetPresenter mQuoteAssetPresenter;

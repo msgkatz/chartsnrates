@@ -2,10 +2,12 @@ package com.msgkatz.ratesapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 import com.msgkatz.ratesapp.di.app.DaggerAppComponent;
+
 import javax.inject.Inject;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
