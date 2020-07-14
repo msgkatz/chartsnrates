@@ -29,4 +29,9 @@ public class BaseActivity extends BaseLayoutActivity implements HasSupportFragme
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
+
+    @Override
+    public void setFullscreenMode(boolean isFullscreen) {
+
+    }
 }
