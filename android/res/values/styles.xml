@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base Splash theme. -->
     <style name="AppThemeSplash" parent="Theme.AppCompat.Light.NoActionBar" />
@@ -27,7 +27,9 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
+
 
     <style name="AnimatedChangeActivity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_slide_in_right</item>
