@@ -147,4 +147,8 @@ public abstract class BaseFragment extends Fragment implements BaseView, HasSupp
     }
 
     public abstract BasePresenter getPresenter();
+
+    public void setConfigurationChange(boolean isLandscape) {
+
+    }
 }

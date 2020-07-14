@@ -2,6 +2,7 @@ package com.msgkatz.ratesapp.presentation.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.ViewManager;
@@ -20,6 +21,9 @@ import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 
 /**
@@ -42,6 +46,8 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     private double mToolPrice;
 
     private PowerManager.WakeLock wakeLock;
+
+    private BaseFragment chartParentFragment = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,12 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        handleOrientationChange();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -81,6 +93,19 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
             wakeLock.release();
     }
 
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        handleOrientationChange();
+    }
+
+    private void handleOrientationChange() {
+        boolean islandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (chartParentFragment != null) {
+            chartParentFragment.setConfigurationChange(islandscape);
+        }
+    }
+
     private void initScreen(String toolName, double toolPrice)
     {
         //add fragment
@@ -89,6 +114,7 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
     private void addBackStack(BaseFragment fragment, boolean isAddToBackStack)
     {
+        chartParentFragment = fragment;
         addBackStack(fragment, isAddToBackStack, false);
     }
 
@@ -145,5 +171,11 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     @Override
     public void exit() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        chartParentFragment = null;
+        super.onDestroy();
     }
 }

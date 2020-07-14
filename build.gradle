@@ -85,7 +85,7 @@ project(":android") {
         def android_support = '28.0.0'  //'27.1.0'
         def glide_version = '4.8.0' //'4.2.0'
         def adxFrag = '1.2.5'
-        def adxAppComp = '1.1.0'
+        def adxAppComp = '1.2.0-alpha02' //'1.1.0'
         def adxMaterialVersion = '1.1.0-beta01'
         def adxLegacyV4 = '1.0.0'
         def adxRecycler = '1.0.0'

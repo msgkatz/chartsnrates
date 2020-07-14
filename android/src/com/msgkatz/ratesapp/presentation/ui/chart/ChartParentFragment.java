@@ -3,6 +3,7 @@ package com.msgkatz.ratesapp.presentation.ui.chart;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -32,6 +33,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,6 +62,7 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
     @BindView(R.id.title_main2) TextView mTitleMain2;
     @BindView(R.id.title_2nd) TextView mTitle2nd;
     @BindView(R.id.rate) CurrentRateLayout mRate;
+    @BindView(R.id.rate2) CurrentRateLayout mRate2;
     @BindView(R.id.rv_interval_list)
     RecyclerView mRecyclerView;
 
@@ -107,6 +110,7 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
 
         mTitleMain.setText(mToolName);
         mRate.setRate(mToolPrice);
+        mRate2.setRate(mToolPrice);
         mTitle2nd.setVisibility(View.INVISIBLE);
         ((ChartParentPresenter)getPresenter()).provideToolName(mToolName);
 
@@ -160,6 +164,25 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
 
     }
 
+    @Override
+    public void setConfigurationChange(boolean isLandscape) {
+        Log.e(TAG, "setConfigurationChange isLandscape=" + isLandscape);
+        int height = 0;
+        if (isLandscape) {
+            mRate2.setVisibility(View.VISIBLE);
+            mRate.setVisibility(View.GONE);
+            height = CommonUtil.dpToPx(50);
+        } else {
+            mRate.setVisibility(View.VISIBLE);
+            mRate2.setVisibility(View.GONE);
+            height = CommonUtil.dpToPx(100);
+        }
+
+        ViewGroup.LayoutParams lp = mRecyclerView.getLayoutParams();
+        lp.height = height;
+        mRecyclerView.setLayoutParams(lp);
+    }
+
     private void modifyBackButtonHitArea()
     {
         final int extraArea = CommonUtil.dpToPx(35);
@@ -209,6 +232,7 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
     @Override
     public void updatePrice(double newPrice) {
         mRate.setRate(newPrice);
+        mRate2.setRate(newPrice);
     }
 
     @Override

@@ -76,14 +76,21 @@ abstract class BaseRotationActivity : AppCompatActivity(), IOrientationListener 
         setFullscreenMode( isFullscreen )
     }
 
-    override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration?) {
-        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig)
+    private var isInMultiWindowModeInner = false
+    override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode)
+        this.isInMultiWindowModeInner = isInMultiWindowMode
         handleOrientationConfigurationChanged()
     }
+//    override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration?) {
+//        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig!!)
+//        handleOrientationConfigurationChanged()
+//    }
 
     private fun isInMultiWindowModeCompat(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            isInMultiWindowMode
+        return if (Build.VERSION.SDK_INT >= 24) { ///Build.VERSION_CODES.N) {
+            //isInMultiWindowMode
+            isInMultiWindowModeInner
         } else {
             false
         }
