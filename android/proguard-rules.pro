@@ -18,15 +18,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
+#-printconfiguration config.txt
 -verbose
-
--dontwarn com.google.android.material.**
--keep class com.google.android.material.** { *; }
-
--dontwarn androidx.**
--keep class androidx.** { *; }
--keep interface androidx.** { *; }
 
 -dontwarn android.support.**
 -dontwarn com.badlogic.gdx.backends.android.AndroidFragmentApplication
@@ -123,8 +116,6 @@
 # platform version.  We know about them, and they are safe.
 -dontwarn android.support.**
 
--dontwarn android.**
-
 
 -keep class ** implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
@@ -154,36 +145,16 @@
     <init>();
 }
 
--keep class java.lang.** { *; }
--dontwarn java.lang.**
+#-dontwarn android.**
 
--keep class java.io.** { *; }
--dontwarn java.io.**
+-dontwarn com.google.android.material.**
+-keep class com.google.android.material.** { *; }
 
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
 
--keep class android.os.** { *; }
--dontwarn android.os.**
-
--keep class java.util.** { *; }
--dontwarn java.util.**
-
--keep class java.nio.** { *; }
--dontwarn java.nio.**
-
--keep class java.net.** { *; }
--dontwarn java.net.**
-
--keep class java.security.** { *; }
--dontwarn java.security.**
-
--keep class javax.net.** { *; }
--dontwarn javax.net.**
-
--keep class org.apache.commons.** { *; }
--dontwarn org.apache.commons.**
-
--keep class org.apache.http.** { *; }
--dontwarn org.apache.http.**
-
--keep class dalvik.system.** { *; }
--dontwarn dalvik.system.**
+-dontwarn org.reactivestreams.FlowAdapters
+-dontwarn org.reactivestreams.**
+-dontwarn java.util.concurrent.flow.**
+-dontwarn java.util.concurrent.**
