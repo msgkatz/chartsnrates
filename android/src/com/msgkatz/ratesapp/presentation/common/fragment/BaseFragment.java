@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,9 @@ import java.lang.annotation.Annotation;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.AndroidInjector;
@@ -147,4 +147,8 @@ public abstract class BaseFragment extends Fragment implements BaseView, HasSupp
     }
 
     public abstract BasePresenter getPresenter();
+
+    public void setConfigurationChange(boolean isLandscape) {
+
+    }
 }

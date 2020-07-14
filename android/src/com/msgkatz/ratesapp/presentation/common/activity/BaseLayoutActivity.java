@@ -1,12 +1,19 @@
 package com.msgkatz.ratesapp.presentation.common.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.msgkatz.ratesapp.presentation.common.Layout;
+import com.msgkatz.ratesapp.presentation.common.activity.rotation.BaseRotationActivity;
+import com.msgkatz.ratesapp.presentation.common.activity.rotation.behavior.BaseOrientationBehaviour;
+import com.msgkatz.ratesapp.presentation.common.activity.rotation.behavior.DefaultOrientationBehaviour;
+import com.msgkatz.ratesapp.presentation.common.activity.rotation.behavior.TabletOrientationBehaviour;
 import com.msgkatz.ratesapp.utils.Logs;
+import com.msgkatz.ratesapp.utils.UtilsKt;
 
 import java.lang.annotation.Annotation;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -15,7 +22,7 @@ import butterknife.Unbinder;
  * Created by msgkatz on 15/08/2018.
  */
 
-public abstract class BaseLayoutActivity extends AppCompatActivity {
+public abstract class BaseLayoutActivity extends BaseRotationActivity /*AppCompatActivity*/ {
 
     private Unbinder unbinder;
 
@@ -42,4 +49,17 @@ public abstract class BaseLayoutActivity extends AppCompatActivity {
             unbinder.unbind();
         }
     }
+
+    @NotNull
+    @Override
+    public BaseOrientationBehaviour onCreateOrientationBehaviour() {
+        boolean isTablet = UtilsKt.isTablet(this);
+        if (isTablet) {
+            return new TabletOrientationBehaviour(this, this);
+        } else {
+            return new DefaultOrientationBehaviour(getApplicationContext(), this);
+        }
+    }
+
+
 }

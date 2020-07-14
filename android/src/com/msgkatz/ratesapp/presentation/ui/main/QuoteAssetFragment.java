@@ -2,9 +2,6 @@ package com.msgkatz.ratesapp.presentation.ui.main;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +18,15 @@ import com.msgkatz.ratesapp.presentation.ui.main.base.MainRouter;
 import com.msgkatz.ratesapp.presentation.common.widget.EndOffsetItemDecoration;
 import com.msgkatz.ratesapp.utils.CommonUtil;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 /**
@@ -43,7 +44,8 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
 
     @BindView(R.id.title_main) TextView mTitleMain;
     @BindView(R.id.title_2nd) TextView mTitle2nd;
-    @BindView(R.id.rvlist) RecyclerView mRecyclerView;
+    @BindView(R.id.rvlist)
+    RecyclerView mRecyclerView;
 
     @Inject
     QuoteAssetPresenter mQuoteAssetPresenter;
@@ -95,9 +97,18 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
     private void setupRecycler()
     {
         //Drawable placeholder = ((MainActivity)getActivity()).getImageByTabName(mQuoteAssetName);
-        Drawable placeholder = tabInfoStorer.getDrawableByQuoteAssetName(mQuoteAssetName);
+        //Drawable placeholder = tabInfoStorer.getDrawableByQuoteAssetName(mQuoteAssetName);
 
-        mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder);
+        Drawable placeholder = tabInfoStorer.getSmallDrawableByQuoteAssetName(mQuoteAssetName);
+        int[] paddings;
+        if (mQuoteAssetName.contains("ETH")) {
+            paddings = new int[] {20, 30};
+        } else {
+            paddings = new int[] {20, 20};
+        }
+
+
+        mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder, paddings);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mRecyclerView.setAdapter(mAdapter);
 

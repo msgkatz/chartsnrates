@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.domain.entities;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by msgkatz on 30/08/2018.

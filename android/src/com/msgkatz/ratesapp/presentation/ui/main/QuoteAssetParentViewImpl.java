@@ -1,16 +1,13 @@
 package com.msgkatz.ratesapp.presentation.ui.main;
 
-
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import com.msgkatz.ratesapp.presentation.common.mvp.BasePresenter;
 import com.msgkatz.ratesapp.presentation.ui.main.base.BaseMainDummyFragment;
 
 import javax.inject.Inject;
 
-import static android.arch.lifecycle.Lifecycle.State.STARTED;
+import androidx.lifecycle.Lifecycle;
+
 
 /**
  * Created by msgkatz on 11/09/2018.

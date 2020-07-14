@@ -6,14 +6,12 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
 import com.msgkatz.ratesapp.App;
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.data.entities.Candle;
@@ -36,6 +34,7 @@ import com.msgkatz.ratesapp.presentation.ui.main.base.MainRouter;
 import com.msgkatz.ratesapp.utils.CommonUtil;
 import com.msgkatz.ratesapp.utils.Logs;
 import com.msgkatz.ratesapp.utils.Parameters;
+import com.msgkatz.ratesapp.utils.UtilsKt;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +44,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.DaggerFragment;
@@ -87,6 +89,8 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
     protected void onStart() {
         super.onStart();
 
+
+
         if (isFirst) {
             new Handler().postDelayed(
                     new Runnable() {
@@ -104,6 +108,8 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
     @Override
     protected void onResume() {
         super.onResume();
+
+        //updatePaddings2();
 
         //initQuoteAssets();
 
@@ -229,6 +235,28 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+    }
+
+    private void updatePaddings() {
+        if (1==1) return;
+        boolean isHidden = UtilsKt.isSystemUiVisible(getWindow());
+        if (!isHidden) return;
+        if (Build.VERSION.SDK_INT <= 18) {
+            UtilsKt.setSystemUiHidden(!isHidden, this);
+        } else {
+            UtilsKt.setSystemUiHiddenSticky(!isHidden, this);
+        }
+    }
+
+    private void updatePaddings2() {
+        View decorView = getWindow().getDecorView();
+        // Hide both the navigation bar and the status bar.
+        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+        // a general rule, you should design your app to hide the status bar whenever you
+        // hide the navigation bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
 }

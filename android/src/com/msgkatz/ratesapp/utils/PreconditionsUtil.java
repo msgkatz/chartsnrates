@@ -14,10 +14,8 @@ package com.msgkatz.ratesapp.utils;
  * the License.
  */
 
-//import org.jetbrains.annotations.Nullable;
 
-
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Static convenience methods that help a method or constructor check whether it was invoked

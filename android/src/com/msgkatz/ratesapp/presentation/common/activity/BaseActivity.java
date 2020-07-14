@@ -2,10 +2,9 @@ package com.msgkatz.ratesapp.presentation.common.activity;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-
 import javax.inject.Inject;
 
+import androidx.fragment.app.Fragment;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -29,5 +28,10 @@ public class BaseActivity extends BaseLayoutActivity implements HasSupportFragme
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void setFullscreenMode(boolean isFullscreen) {
+
     }
 }

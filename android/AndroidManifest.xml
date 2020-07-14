@@ -59,8 +59,9 @@
             android:theme="@style/AnimatedActivity"
             android:windowSoftInputMode="adjustNothing" />
 
+        <!-- android:screenOrientation="portrait" -->
         <activity
-            android:screenOrientation="portrait"
+
             android:name=".presentation.ui.chart.ChartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"

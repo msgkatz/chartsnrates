@@ -1,8 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.chart;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,9 @@ import com.msgkatz.ratesapp.presentation.ui.chart.gdx.prerenderer.PreRenderer;
 import com.msgkatz.ratesapp.utils.Logs;
 
 import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by msgkatz on 15/09/2018.

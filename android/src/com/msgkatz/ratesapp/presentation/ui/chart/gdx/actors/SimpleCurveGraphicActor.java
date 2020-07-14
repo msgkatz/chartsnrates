@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.gdx.actors;
 
-import android.support.v4.content.ContextCompat;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -24,6 +22,8 @@ import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.presentation.entities.CandleData;
 import com.msgkatz.ratesapp.utils.gdx.ChartShaderUtil;
 import com.msgkatz.ratesapp.utils.gdx.GdxSettings;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by msgkatz on 29/03/2018.
