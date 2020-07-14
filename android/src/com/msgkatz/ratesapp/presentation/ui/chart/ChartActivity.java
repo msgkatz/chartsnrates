@@ -3,8 +3,10 @@ package com.msgkatz.ratesapp.presentation.ui.chart;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.view.View;
 import android.view.ViewManager;
 import android.view.ViewStub;
 import android.view.WindowManager;
@@ -18,6 +20,7 @@ import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
 import com.msgkatz.ratesapp.presentation.entities.ToolFormat;
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter;
+import com.msgkatz.ratesapp.utils.UtilsKt;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -68,6 +71,7 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
         }
 
+
         initScreen(toolName, toolPrice);
     }
 
@@ -80,6 +84,8 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     @Override
     protected void onResume() {
         super.onResume();
+
+        //updatePaddings2();
 
         if (wakeLock != null)
             wakeLock.acquire();
@@ -177,5 +183,26 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     protected void onDestroy() {
         chartParentFragment = null;
         super.onDestroy();
+    }
+
+
+    private void updatePaddings() {
+        boolean isHidden = UtilsKt.isSystemUiVisible(getWindow());
+        if (Build.VERSION.SDK_INT <= 18) {
+            UtilsKt.setSystemUiHidden(true, this);
+        } else {
+            UtilsKt.setSystemUiHiddenSticky(true, this);
+        }
+    }
+
+    private void updatePaddings2() {
+        View decorView = getWindow().getDecorView();
+        // Hide both the navigation bar and the status bar.
+        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+        // a general rule, you should design your app to hide the status bar whenever you
+        // hide the navigation bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 }
