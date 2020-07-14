@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.support.v4.content.ContextCompat;
 
 import com.msgkatz.ratesapp.R;
@@ -45,9 +46,13 @@ public class TabInfoStorer {
             Drawable drawable = icons.getDrawable(index);
             //DrawableCompat.setTint(drawable, color);
             drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(appContext, R.color.main_tabs_item_selected), PorterDuff.Mode.SRC_IN));
+
+            Drawable sd = new ScaleDrawable(icons.getDrawable(index), 0, 22, 22).getDrawable();
+            sd.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(appContext, R.color.main_tabs_item_selected), PorterDuff.Mode.SRC_IN));
+
             String name = names.getString(index);
 
-            TabItem item = new TabItem(drawable, name);
+            TabItem item = new TabItem(drawable, sd, name);
 
             items.add(item);
 
@@ -76,5 +81,12 @@ public class TabInfoStorer {
             return items.get(tabPositions.get(name)).iconDrawable;
         else
             return items.get(0).iconDrawable;
+    }
+
+    public Drawable getSmallDrawableByQuoteAssetName(String name) {
+        if (tabPositions.containsKey(name))
+            return items.get(tabPositions.get(name)).smallDrawable;
+        else
+            return items.get(0).smallDrawable;
     }
 }

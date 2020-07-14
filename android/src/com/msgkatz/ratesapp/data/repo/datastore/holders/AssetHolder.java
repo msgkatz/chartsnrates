@@ -13,12 +13,15 @@ import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -44,7 +47,7 @@ public class AssetHolder implements IHolderBase<Map<String, Asset>> {
     @Override
     public Flowable<Optional<Map<String, Asset>>> getData() {
         if (data == null) {
-            return htmlApi.getAssets()
+            return htmlApi.getAssets().onExceptionResumeNext(Flowable.just(Response.error(404, ResponseBody.create(MediaType.parse("text/plain"), "err"))))
                     .map(new Function<Response<List<Asset>>, Optional<Map<String, Asset>>>() {
                         @Override
                         public Optional<Map<String, Asset>> apply(Response<List<Asset>> listResponse) throws Exception {
