@@ -28,7 +28,7 @@
 -dontwarn com.badlogic.gdx.jnigen.BuildTarget*
 -dontwarn com.badlogic.gdx.graphics.g2d.freetype.FreetypeBuild
 
--keep class com.badlogic.gdx.controllers.android.AndroidControllers
+#-keep class com.badlogic.gdx.controllers.android.AndroidControllers
 
 #-keep class sun.misc.Unsafe { *; }
 #-keep class sun.misc.Unsafe.** { *; }
@@ -39,6 +39,10 @@
 -dontwarn java.lang.ClassValue
 
 -dontnote com.google.common.util.concurrent.**
+
+-keep class com.badlogic.gdx.backends.android.AndroidInputThreePlus
+-keepnames class com.badlogic.gdx.backends.android.AndroidInput*
+#-keepclassmembers class com.badlogic.gdx.backends.android.AndroidInput* {<init>(...);}
 
 -keepclassmembers class com.badlogic.gdx.backends.android.AndroidInput* {
    <init>(com.badlogic.gdx.Application, android.content.Context, java.lang.Object, com.badlogic.gdx.backends.android.AndroidApplicationConfiguration);
