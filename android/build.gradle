@@ -1,6 +1,6 @@
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.2'
     compileSdkVersion 28
     sourceSets {
         main {
@@ -20,12 +20,14 @@ android {
     }
     defaultConfig {
         applicationId "com.msgkatz.ratesapp"
-        minSdkVersion 15
-        targetSdkVersion 28
+        minSdkVersion 16
+        targetSdkVersion 29
         versionCode 16
         versionName "0.1.15"
 
         multiDexEnabled true
+
+        manifestPlaceholders = [useCrashlytics: "false"]
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -40,7 +42,6 @@ android {
 //            //noinspection GroovyAssignabilityCheck
 //            storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
 
-            //ext.enableCrashlytics = false
         }
         config_release {
             //noinspection GroovyAssignabilityCheck
@@ -50,9 +51,6 @@ android {
             storeFile file(globalConfiguration.getAt("CR_RELEASE_KEY_PATH"))
             //noinspection GroovyAssignabilityCheck
             storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
-
-            //ext.enableCrashlytics = true
-            //ext.enableCrashlytics = false
         }
     }
 
@@ -61,11 +59,17 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config_release
+            manifestPlaceholders.useCrashlytics = "true"
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //signingConfig signingConfigs.config_debug
+            firebaseCrashlytics {
+                // If you don't need crash reporting for your debug build,
+                // you can speed up your build by disabling mapping file uploading.
+                mappingFileUploadEnabled false
+            }
         }
 
     }
@@ -78,8 +82,6 @@ android {
         javaMaxHeapSize "4g"
     }
 }
-
-apply plugin: 'com.google.gms.google-services'
 
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders

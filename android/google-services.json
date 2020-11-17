@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1071077889257-qrkao50g8n05o49isu113u1n50v1gsge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.msgkatz.ratesapp",
+            "certificate_hash": "4f309aa45bd8a120d7e904e1df84a415e0595007"
+          }
+        },
+        {
           "client_id": "1071077889257-qec83mlg9a8p4l6vnae3k8oc7sthr3jb.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -22,21 +30,16 @@
       "api_key": [
         {
           "current_key": "AIzaSyDZKreJE3mbtdLQWyj8lOaCYHNNWNhChqg"
-        },
-        {
-          "current_key": "AIzaSyDZKreJE3mbtdLQWyj8lOaCYHNNWNhChqg"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071077889257-qec83mlg9a8p4l6vnae3k8oc7sthr3jb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
