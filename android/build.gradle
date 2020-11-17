@@ -22,8 +22,8 @@ android {
         applicationId "com.msgkatz.ratesapp"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 16
-        versionName "0.1.15"
+        versionCode 17
+        versionName "0.1.16"
 
         multiDexEnabled true
 
@@ -57,9 +57,12 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            multiDexKeepFile file('multidex-config.txt')
+            multiDexKeepProguard file('multidex-config.pro')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config_release
             manifestPlaceholders.useCrashlytics = "true"
+
         }
         debug {
             minifyEnabled false
