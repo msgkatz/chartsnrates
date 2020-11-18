@@ -1,7 +1,7 @@
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     buildToolsVersion '29.0.2'
-    compileSdkVersion 28
+    compileSdkVersion 29
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
