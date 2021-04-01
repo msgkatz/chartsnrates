@@ -15,12 +15,12 @@
             <KeyAttribute
                 android:alpha="0.3"
                 motion:framePosition="50"
-                motion:target="@id/stocks" />
+                motion:motionTarget="@id/stocks" />
 
             <KeyAttribute
                 android:alpha="0.1"
                 motion:framePosition="50"
-                motion:target="@id/title_2nd" />
+                motion:motionTarget="@id/title_2nd" />
         </KeyFrameSet>
 
     </Transition>
