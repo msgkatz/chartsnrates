@@ -2,22 +2,27 @@ apply from: 'buildsystem/dependenciesCR.gradle'
 
 buildscript {
 
-    ext.kotlin_version = '1.4.10'
+    ext.kotlin_version = '1.7.0' //'1.7.0' //''1.6.21' //'1.3.72' //'1.3.50'
+    ext.gradleVersion = '7.2.2' //'4.2.0' //'3.5.4'
 
     repositories {
-        mavenLocal()
+
+        google()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url 'https://plugins.gradle.org/m2/' }
+        mavenLocal()
         //jcenter()
-        google()
+
     }
     dependencies {
+        classpath 'com.android.tools.build:gradle:' + gradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.android.tools.build:gradle:4.1.1'
+
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.3'
-        classpath 'com.google.gms:google-services:4.3.4'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.2'
+        classpath 'com.android.tools.build:gradle:7.2.2'
     }
 }
 
@@ -36,15 +41,22 @@ allprojects {
     }
 
     repositories {
-        mavenLocal()
+        //mavenLocal()
+        google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         //jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url 'https://maven.google.com/' }
-        google()
-        maven { url 'https://jitpack.io' }
+
+
+        mavenLocal()
+    }
+
+    configurations {
+        sharedImpl
     }
 }
 
@@ -96,14 +108,14 @@ project(":android") {
         def adxTransition = '1.3.1'
         def adxMultidexVersion = '2.0.1'
 
-        implementation "androidx.core:core-ktx:1.3.2"
+        implementation "androidx.core:core-ktx:1.8.0" //1.3.2"
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-        implementation "androidx.fragment:fragment:$adxFrag"
-        implementation "androidx.appcompat:appcompat:$adxAppComp"
+        implementation "androidx.fragment:fragment:1.5.1" //1.3.2" //$adxFrag"
+        implementation "androidx.appcompat:appcompat:1.5.1" //$adxAppComp"
         //implementation 'com.android.support.constraint:constraint-layout:1.1.3'
         implementation 'androidx.constraintlayout:constraintlayout:2.1.0-beta01'
-        implementation "com.google.android.material:material:$adxMaterialVersion"
+        implementation "com.google.android.material:material:1.7.0-rc01" //$adxMaterialVersion"
         implementation "androidx.legacy:legacy-support-v4:$adxLegacyV4"
         implementation "androidx.recyclerview:recyclerview:$adxRecycler"
         implementation "androidx.cardview:cardview:$adxCardviewVersion"
@@ -139,7 +151,7 @@ project(":android") {
         implementation 'com.facebook.stetho:stetho:1.5.0'
         implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
-        api 'com.google.guava:guava:26.0-android'
+        api 'com.google.guava:guava:27.0.1-android'
 
 
         implementation "com.github.bumptech.glide:glide:$glide_version"
