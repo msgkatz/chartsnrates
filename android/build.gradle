@@ -1,7 +1,7 @@
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     buildToolsVersion = '30.0.3'
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     sourceSets {
         main {
@@ -17,15 +17,17 @@ android {
         androidTest.setRoot('tests')
     }
     packagingOptions {
-        exclude 'META-INF/robovm/ios/robovm.xml'
+        resources {
+            excludes += ['META-INF/robovm/ios/robovm.xml']
+        }
     }
     defaultConfig {
         applicationId "com.msgkatz.ratesapp"
 
         minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 19
-        versionName "0.2.0"
+        targetSdkVersion 33
+        versionCode 20
+        versionName "0.2.1"
 
         multiDexEnabled true
 
@@ -164,8 +166,8 @@ eclipse {
     }
 
     jdt {
-        sourceCompatibility = 1.6
-        targetCompatibility = 1.6
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
     }
 
     classpath {
