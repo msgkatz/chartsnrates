@@ -1,12 +1,12 @@
 package com.msgkatz.ratesapp.utils.gdx;
 
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.msgkatz.ratesapp.App;
 import com.msgkatz.ratesapp.R;
-
-import androidx.annotation.ColorRes;
-import androidx.core.content.ContextCompat;
 
 /**
  * Created by msgkatz on 16/09/2018.

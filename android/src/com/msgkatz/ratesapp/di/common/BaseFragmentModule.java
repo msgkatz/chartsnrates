@@ -1,11 +1,12 @@
 package com.msgkatz.ratesapp.di.common;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.msgkatz.ratesapp.di.scope.PerFragment;
 
 import javax.inject.Named;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import dagger.Module;
 import dagger.Provides;
 

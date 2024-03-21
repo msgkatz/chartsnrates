@@ -7,8 +7,6 @@ import com.msgkatz.ratesapp.data.entities.wsocks.StreamComboBase;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamEvent;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamEventType;
 
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 
 /**

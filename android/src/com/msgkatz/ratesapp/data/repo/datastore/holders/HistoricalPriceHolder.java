@@ -6,7 +6,6 @@ import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
 import com.msgkatz.ratesapp.domain.entities.Interval;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
-import com.msgkatz.ratesapp.utils.Parameters;
 
 import java.util.List;
 import java.util.Map;

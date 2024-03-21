@@ -15,12 +15,8 @@ import com.msgkatz.ratesapp.data.repo.InnerModel;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import com.msgkatz.ratesapp.utils.Logs;
 
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;

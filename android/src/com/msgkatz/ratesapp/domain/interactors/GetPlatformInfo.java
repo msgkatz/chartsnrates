@@ -1,6 +1,5 @@
 package com.msgkatz.ratesapp.domain.interactors;
 
-import com.msgkatz.ratesapp.data.entities.rest.PlatformInfoDT;
 import com.msgkatz.ratesapp.domain.IDataRepo;
 import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
 import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;

@@ -2,7 +2,6 @@ package com.msgkatz.ratesapp.data.repo;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
-import com.msgkatz.ratesapp.data.entities.rest.PriceSimpleDT;
 import com.msgkatz.ratesapp.data.repo.datastore.AssetToolDataStore;
 import com.msgkatz.ratesapp.data.repo.datastore.CurrentToolPriceDataStore;
 import com.msgkatz.ratesapp.data.repo.datastore.IntervalListDataStore;

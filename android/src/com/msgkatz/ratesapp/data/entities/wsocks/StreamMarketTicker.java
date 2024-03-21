@@ -1,8 +1,5 @@
 package com.msgkatz.ratesapp.data.entities.wsocks;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Individual Symbol Ticker Streamed data
  *

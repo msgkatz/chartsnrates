@@ -5,7 +5,7 @@ import android.view.View;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
-import com.badlogic.gdx.backends.android.AndroidInputFactory;
+import com.badlogic.gdx.backends.android.DefaultAndroidInput;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -55,8 +55,10 @@ public class BaseGdxAppFragment extends AndroidFragmentApplication {
     public View initializeForView(ApplicationListener listener, AndroidApplicationConfiguration config) {
 
         View view = super.initializeForView(listener, config);
-        this.input = AndroidInputFactory.newAndroidInput(this,
+        this.input = new DefaultAndroidInput(this,
                 getContext().getApplicationContext(), view, config);
+//        this.input = AndroidInputFactory.newAndroidInput(this,
+//                getContext().getApplicationContext(), view, config);
         return view;
     }
 }

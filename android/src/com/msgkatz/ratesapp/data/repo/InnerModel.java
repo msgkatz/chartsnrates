@@ -1,6 +1,5 @@
 package com.msgkatz.ratesapp.data.repo;
 
-import com.google.common.collect.Multimap;
 import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
 import com.msgkatz.ratesapp.domain.entities.Interval;

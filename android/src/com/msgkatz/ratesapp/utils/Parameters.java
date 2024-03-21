@@ -1,11 +1,11 @@
 package com.msgkatz.ratesapp.utils;
 
+import static com.msgkatz.ratesapp.domain.entities.Interval.fromString;
+
 import com.msgkatz.ratesapp.domain.entities.Interval;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static com.msgkatz.ratesapp.domain.entities.Interval.fromString;
 
 /**
  * Created by msgkatz on 20/07/2018.

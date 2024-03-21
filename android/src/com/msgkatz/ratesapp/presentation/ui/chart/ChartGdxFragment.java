@@ -69,7 +69,8 @@ public class ChartGdxFragment extends BaseChartGdxFragment implements ChartGdxVi
         this.androidApplicationConfiguration.useAccelerometer = false;
         this.androidApplicationConfiguration.useGyroscope = false;
         this.androidApplicationConfiguration.useCompass = false;
-        this.androidApplicationConfiguration.useGLSurfaceView20API18 = true;
+        //this.androidApplicationConfiguration.useGL20 = true;
+        //this.androidApplicationConfiguration.useGLSurfaceView20API18 = true;
 
         setRetainInstance(true);
     }
