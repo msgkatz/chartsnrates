@@ -2,7 +2,6 @@ package com.msgkatz.ratesapp.data.entities.wsocks;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.msgkatz.ratesapp.domain.entities.Interval;
 
 /**
  * Kline/Candlestick Streamed data (internal part):

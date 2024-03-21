@@ -2,8 +2,6 @@ package com.msgkatz.ratesapp.domain.interactors.base;
 
 import com.msgkatz.ratesapp.utils.PreconditionsUtil;
 
-import java.lang.reflect.Type;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

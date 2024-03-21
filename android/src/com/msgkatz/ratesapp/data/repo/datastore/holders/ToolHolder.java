@@ -10,7 +10,6 @@ import com.msgkatz.ratesapp.data.repo.InnerModel;
 import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
 import com.msgkatz.ratesapp.domain.entities.Tool;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
-import com.msgkatz.ratesapp.utils.Parameters;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.data.net.wsocks.client;
 
-import android.util.Log;
-
 import com.msgkatz.ratesapp.utils.Logs;
 
 import java.util.Arrays;

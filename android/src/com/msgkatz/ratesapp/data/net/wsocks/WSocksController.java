@@ -10,7 +10,6 @@ import com.msgkatz.ratesapp.utils.Logs;
 import com.msgkatz.ratesapp.utils.Parameters;
 import com.msgkatz.ratesapp.utils.WorkerThread;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

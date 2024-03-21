@@ -2,7 +2,6 @@ package com.msgkatz.ratesapp.domain;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
-import com.msgkatz.ratesapp.data.entities.rest.PriceSimpleDT;
 import com.msgkatz.ratesapp.domain.entities.Interval;
 import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;

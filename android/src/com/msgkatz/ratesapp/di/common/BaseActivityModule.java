@@ -2,12 +2,14 @@ package com.msgkatz.ratesapp.di.common;
 
 import android.app.Activity;
 import android.content.Context;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.msgkatz.ratesapp.di.scope.PerActivity;
 
 import javax.inject.Named;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
