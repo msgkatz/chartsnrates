@@ -1,8 +1,8 @@
 package com.msgkatz.ratesapp.domain.interactors.params;
 
-import com.msgkatz.ratesapp.utils.Parameters;
-
 import androidx.annotation.NonNull;
+
+import com.msgkatz.ratesapp.utils.Parameters;
 
 /**
  * Created by msgkatz on 23/08/2018.

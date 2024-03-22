@@ -1,8 +1,8 @@
 package com.msgkatz.ratesapp.domain.entities;
 
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
-
 import androidx.annotation.NonNull;
+
+import com.msgkatz.ratesapp.data.entities.rest.Asset;
 
 /**
  * Created by msgkatz on 30/08/2018.

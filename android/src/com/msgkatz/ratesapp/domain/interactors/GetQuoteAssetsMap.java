@@ -6,7 +6,6 @@ import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.Map;
-import java.util.Set;
 
 import io.reactivex.Observable;
 

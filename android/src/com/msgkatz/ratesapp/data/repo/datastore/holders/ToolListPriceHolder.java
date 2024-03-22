@@ -1,13 +1,7 @@
 package com.msgkatz.ratesapp.data.repo.datastore.holders;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
-import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
 import com.msgkatz.ratesapp.data.entities.rest.PriceSimpleDT;
 import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
@@ -16,9 +10,7 @@ import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

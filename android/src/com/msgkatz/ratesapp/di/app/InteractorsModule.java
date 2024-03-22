@@ -8,9 +8,9 @@ import com.msgkatz.ratesapp.domain.interactors.GetIntervalByName;
 import com.msgkatz.ratesapp.domain.interactors.GetIntervals;
 import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo;
 import com.msgkatz.ratesapp.domain.interactors.GetPriceHistory;
+import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssets;
 import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap;
 import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices;
-import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssets;
 import com.msgkatz.ratesapp.domain.interactors.GetTools;
 
 import javax.inject.Singleton;

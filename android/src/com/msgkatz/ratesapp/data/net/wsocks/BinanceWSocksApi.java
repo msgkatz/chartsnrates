@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.data.net.wsocks;
 
-import java.util.List;
-
 import io.reactivex.Flowable;
 
 /**

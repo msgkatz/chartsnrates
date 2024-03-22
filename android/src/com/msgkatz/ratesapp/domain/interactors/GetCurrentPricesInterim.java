@@ -4,7 +4,6 @@ import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.domain.IDataRepo;
 import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
-import com.msgkatz.ratesapp.domain.interactors.params.PriceHistoryParams;
 import com.msgkatz.ratesapp.domain.interactors.params.PriceRealtimeParams;
 
 import java.util.List;

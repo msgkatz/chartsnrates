@@ -34,7 +34,7 @@ public class CommonUtil {
         return dp;
     }
 
-    public static android.graphics.drawable.Drawable setTint(android.graphics.drawable.Drawable d, int color) {
+    public static Drawable setTint(Drawable d, int color) {
         Drawable wrappedDrawable = DrawableCompat.wrap(d);
         DrawableCompat.setTint(wrappedDrawable, color);
         return wrappedDrawable;
