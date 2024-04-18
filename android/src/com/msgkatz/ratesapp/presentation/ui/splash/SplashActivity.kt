@@ -30,7 +30,7 @@ class SplashActivity : BaseActivity() {
     public lateinit var mGetAssets: GetAssets
 
     @Inject
-    public lateinit var mGetPlatformInfo: GetPlatformInfo 
+    public lateinit var mGetPlatformInfo: GetPlatformInfo
 
     private val mHandler = Handler()
     private var counter = 0
