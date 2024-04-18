@@ -7,7 +7,7 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.Window
-import com.msgkatz.ratesapp.BuildConfig
+//import com.msgkatz.ratesapp.BuildConfig
 import com.msgkatz.ratesapp.R
 
 fun isTablet(context: Context): Boolean {
@@ -38,8 +38,8 @@ fun setSystemUiHidden(isHidden: Boolean, activity: Activity) {
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 fun setSystemUiHiddenSticky(isHidden: Boolean, activity: Activity) {
-    if (BuildConfig.DEBUG)
-        Log.e("setSystemUiHiddenSticky", "isHidden = ${isHidden}")
+//    if (BuildConfig.DEBUG)
+//        Log.e("setSystemUiHiddenSticky", "isHidden = ${isHidden}")
     if (!isHidden) {
         activity.window.decorView.systemUiVisibility = 0
         return

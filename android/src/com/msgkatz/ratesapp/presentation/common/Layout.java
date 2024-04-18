@@ -13,7 +13,7 @@ import androidx.annotation.LayoutRes;
  * Created by gkostyaev on 18/12/2017.
  */
 
-
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Layout {

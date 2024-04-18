@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
 
 public class CurrentRateLayout extends RelativeLayout {
 
-    @BindView(R.id.price) TextView mPrice;
-    @BindView(R.id.delta_layout) LinearLayout mDeltaLayout;
-    @BindView(R.id.price_delta_direction) ImageView mDirection;
-    @BindView(R.id.price_delta) TextView mPriceDelta;
+    TextView mPrice;
+    LinearLayout mDeltaLayout;
+    ImageView mDirection;
+    TextView mPriceDelta;
 
     private double lastRate = -1;
     private boolean isInitialized = false;
@@ -49,7 +49,12 @@ public class CurrentRateLayout extends RelativeLayout {
 
     private void initComponent() {
         View view = inflate(getContext(), R.layout.view_current_rate, this);
-        ButterKnife.bind(this, view);
+
+        mPrice = view.findViewById(R.id.price);
+        mDeltaLayout = view.findViewById(R.id.delta_layout);
+        mDirection = view.findViewById(R.id.price_delta_direction);
+        mPriceDelta = view.findViewById(R.id.price_delta);
+
         mDeltaLayout.setVisibility(View.INVISIBLE);
     }
 

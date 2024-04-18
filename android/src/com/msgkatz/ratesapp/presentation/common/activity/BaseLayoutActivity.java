@@ -21,7 +21,7 @@ import butterknife.Unbinder;
 /**
  * Created by msgkatz on 15/08/2018.
  */
-
+@Deprecated
 public abstract class BaseLayoutActivity extends BaseRotationActivity /*AppCompatActivity*/ {
 
     private Unbinder unbinder;

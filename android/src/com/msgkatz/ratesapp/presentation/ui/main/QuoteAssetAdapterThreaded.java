@@ -261,20 +261,28 @@ public class QuoteAssetAdapterThreaded extends RecyclerView.Adapter<RecyclerView
 
 
     public static class QuoteAssetViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.container)
         ConstraintLayout mContainer;
-        @BindView(R.id.image) CircleImageView mLogo;
-        @BindView(R.id.title_main) TextView mTitleMain;
-        @BindView(R.id.title_2nd) TextView mTitle2nd;
-
-        @BindView(R.id.price) TextView mPrice;
-        @BindView(R.id.delta_layout) LinearLayout mDeltaLayout;
-        @BindView(R.id.price_delta_direction) ImageView mDirection;
-        @BindView(R.id.price_delta) TextView mPriceDelta;
+        CircleImageView mLogo;
+        TextView mTitleMain;
+        TextView mTitle2nd;
+        TextView mPrice;
+        LinearLayout mDeltaLayout;
+        ImageView mDirection;
+        TextView mPriceDelta;
 
         public QuoteAssetViewHolder(View itemView) {
             super(itemView);
+
+            mContainer = itemView.findViewById(R.id.container);
+            mLogo = itemView.findViewById(R.id.image);
+            mTitleMain = itemView.findViewById(R.id.title_main);
+            mTitle2nd = itemView.findViewById(R.id.title_2nd);
+
+            mPrice = itemView.findViewById(R.id.price);
+            mDeltaLayout = itemView.findViewById(R.id.delta_layout);
+            mDirection = itemView.findViewById(R.id.price_delta_direction);
+            mPriceDelta = itemView.findViewById(R.id.price_delta);
+
             ButterKnife.bind(this, itemView);
         }
     }

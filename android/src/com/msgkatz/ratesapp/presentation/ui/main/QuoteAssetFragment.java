@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.databinding.FragmentQuoteAssetAlterBinding;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
 import com.msgkatz.ratesapp.presentation.common.Layout;
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
@@ -34,7 +35,7 @@ import butterknife.BindView;
  */
 
 @SuppressWarnings("WeakerAccess")
-@Layout(id = R.layout.fragment_quote_asset_alter)
+//@Layout(id = R.layout.fragment_quote_asset_alter)
 public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetView
 {
     public static final String TAG = QuoteAssetFragment.class.getSimpleName();
@@ -42,10 +43,12 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
     public static final String KEY_QUOTE_ASSET_NAME = "com.msgkatz.ratesapp.quoteasset.name";
     public static final String KEY_QUOTE_ASSET_ID = "com.msgkatz.ratesapp.quoteasset.id";
 
-    @BindView(R.id.title_main) TextView mTitleMain;
-    @BindView(R.id.title_2nd) TextView mTitle2nd;
-    @BindView(R.id.rvlist)
-    RecyclerView mRecyclerView;
+    private FragmentQuoteAssetAlterBinding binding;
+
+//    @BindView(R.id.title_main) TextView mTitleMain;
+//    @BindView(R.id.title_2nd) TextView mTitle2nd;
+//    @BindView(R.id.rvlist)
+//    RecyclerView mRecyclerView;
 
     @Inject
     QuoteAssetPresenter mQuoteAssetPresenter;
@@ -79,11 +82,14 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        // setupRecycler();
 
+        binding = FragmentQuoteAssetAlterBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         return view;
+
+//        View view = super.onCreateView(inflater, container, savedInstanceState);
+//        return view;
     }
 
     @Override
@@ -92,6 +98,12 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
 
         setupRecycler();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     private void setupRecycler()
@@ -109,11 +121,11 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
 
 
         mAdapter = new QuoteAssetAdapterThreaded(this.getContext(), placeholder, paddings);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mRecyclerView.setAdapter(mAdapter);
+        binding.rvlist.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        binding.rvlist.setAdapter(mAdapter);
 
         EndOffsetItemDecoration itemDecoration = new EndOffsetItemDecoration(CommonUtil.dpToPx(60));
-        mRecyclerView.addItemDecoration(itemDecoration);
+        binding.rvlist.addItemDecoration(itemDecoration);
 
         //ViewCompat.setNestedScrollingEnabled(mRecyclerView, false);
 
@@ -135,9 +147,9 @@ public class QuoteAssetFragment extends BaseMainFragment implements QuoteAssetVi
      */
     @Override
     public void updateQuoteAsset(Asset quoteAset) {
-        mTitleMain.setText(String.format(Locale.getDefault(), "%1$s %2$s",
+        binding.titleMain.setText(String.format(Locale.getDefault(), "%1$s %2$s",
                 quoteAset.getNameShort(), getResources().getString(R.string.screen_one_markets)));
-        mTitle2nd.setText(quoteAset.getNameLong());
+        binding.title2nd.setText(quoteAset.getNameLong());
     }
 
     @Override

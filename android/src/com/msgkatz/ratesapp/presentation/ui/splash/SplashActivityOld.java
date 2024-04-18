@@ -14,7 +14,6 @@ import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver;
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
-import com.msgkatz.ratesapp.presentation.common.Layout;
 import com.msgkatz.ratesapp.utils.Logs;
 
 import java.util.Map;
@@ -22,19 +21,18 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import butterknife.BindView;
 
 /**
  * Created by msgkatz on 15/08/2018.
  */
 
 @SuppressWarnings ("WeakerAccess")
-@Layout(id = R.layout.activity_splash)
-public class SplashActivity extends BaseActivity {
+//@Layout(id = R.layout.activity_splash)
+public class SplashActivityOld extends BaseActivity {
 
     private final static int MAX_COUNT = 1;
 
-    @BindView(R.id.reconnect)
+    //@BindView(R.id.reconnect)
     ConstraintLayout btn_reconnect;
 
     @Inject
@@ -96,7 +94,7 @@ public class SplashActivity extends BaseActivity {
                         }
                     }, 50);
                 else {
-                    Logs.e(SplashActivity.this, counter + " " + exception.getMessage());
+                    Logs.e(SplashActivityOld.this, counter + " " + exception.getMessage());
                     initErrorMessage();
                 }
             }
@@ -133,7 +131,7 @@ public class SplashActivity extends BaseActivity {
                         }
                     }, 50);
                 else {
-                    Logs.e(SplashActivity.this, counter + " " + exception.getMessage());
+                    Logs.e(SplashActivityOld.this, counter + " " + exception.getMessage());
                     initErrorMessage();
                 }
 

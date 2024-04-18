@@ -33,7 +33,7 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created by msgkatz on 09/09/2018.
  */
 
-public abstract class BaseFragment extends Fragment implements BaseView, HasSupportFragmentInjector {
+public abstract class BaseFragment extends BaseLayoutDummyFragment implements BaseView, HasSupportFragmentInjector {
 
     @Inject
     protected Context activityContext;
@@ -45,9 +45,6 @@ public abstract class BaseFragment extends Fragment implements BaseView, HasSupp
 
     @Inject
     DispatchingAndroidInjector<Fragment> childFragmentInjector;
-
-    private Unbinder unbinder;
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -80,26 +77,7 @@ public abstract class BaseFragment extends Fragment implements BaseView, HasSupp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Logs.d("onCreateView %s", this.getClass().getSimpleName());
-        Class cls = getClass();
-        if (!cls.isAnnotationPresent(Layout.class)) {
-            return null;
-        }
-        Annotation annotation = cls.getAnnotation(Layout.class);
-        Layout layout = (Layout) annotation;
-
-        try
-        {
-            View view = inflater.inflate(layout.id(), null);
-            unbinder = ButterKnife.bind(this, view);
-            return view;
-        }
-        catch (Exception ex)
-        {
-            Logs.e("INFLATE WTF", ex.getMessage() + "\n" + ex.getCause());
-            ex.printStackTrace();
-        }
-        return null;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -127,9 +105,6 @@ public abstract class BaseFragment extends Fragment implements BaseView, HasSupp
 
     @Override
     public void onDestroyView() {
-        Logs.d("onDestroyView %s", this.getClass().getSimpleName());
-        if (unbinder != null)
-            unbinder.unbind();
 
         if (getPresenter() != null)
             getPresenter().setView(null);

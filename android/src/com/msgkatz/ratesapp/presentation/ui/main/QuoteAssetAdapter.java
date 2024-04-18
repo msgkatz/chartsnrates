@@ -176,18 +176,38 @@ public class QuoteAssetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public static class QuoteAssetViewHolder extends RecyclerView.ViewHolder {
 
-        public @BindView(R.id.image) CircleImageView mLogo;
-        @BindView(R.id.title_main) TextView mTitleMain;
-        @BindView(R.id.title_2nd) TextView mTitle2nd;
-
-        @BindView(R.id.price) TextView mPrice;
-        @BindView(R.id.delta_layout) LinearLayout mDeltaLayout;
-        @BindView(R.id.price_delta_direction) ImageView mDirection;
-        @BindView(R.id.price_delta) TextView mPriceDelta;
+        //public @BindView(R.id.image)
+        CircleImageView mLogo;
+        //@BindView(R.id.title_main)
+        TextView mTitleMain;
+        //@BindView(R.id.title_2nd)
+        TextView mTitle2nd;
+        //@BindView(R.id.price)
+        TextView mPrice;
+        //@BindView(R.id.delta_layout)
+        LinearLayout mDeltaLayout;
+        //@BindView(R.id.price_delta_direction)
+        ImageView mDirection;
+        //@BindView(R.id.price_delta)
+        TextView mPriceDelta;
 
         public QuoteAssetViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+
+            mLogo = itemView.findViewById(R.id.image);
+
+            mTitleMain = itemView.findViewById(R.id.title_main);
+
+            mTitle2nd = itemView.findViewById(R.id.title_2nd);
+
+            mPrice = itemView.findViewById(R.id.price);
+
+            mDeltaLayout = itemView.findViewById(R.id.delta_layout);
+
+            mDirection = itemView.findViewById(R.id.price_delta_direction);
+
+            mPriceDelta = itemView.findViewById(R.id.price_delta);
+            //ButterKnife.bind(this, itemView);
         }
     }
 }

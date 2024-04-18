@@ -106,12 +106,16 @@ public class ChartIntervalsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static class ChartIntervalsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.title_main) TextView mTitleMain;
-        @BindView(R.id.title_bg) ImageView mTitleBackground;
+        //@BindView(R.id.title_main)
+        TextView mTitleMain;
+        //@BindView(R.id.title_bg)
+        ImageView mTitleBackground;
 
         public ChartIntervalsViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mTitleMain = itemView.findViewById(R.id.title_main);
+            mTitleBackground = itemView.findViewById(R.id.title_bg);
+            //ButterKnife.bind(this, itemView);
         }
     }
 }
