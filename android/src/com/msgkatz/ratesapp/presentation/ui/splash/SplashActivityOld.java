@@ -26,6 +26,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  * Created by msgkatz on 15/08/2018.
  */
 
+@Deprecated
 @SuppressWarnings ("WeakerAccess")
 //@Layout(id = R.layout.activity_splash)
 public class SplashActivityOld extends BaseActivity {

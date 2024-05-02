@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SplashActivity : BaseActivity() {
 
     companion object {
-        private val MAX_COUNT = 1
+        val MAX_COUNT = 1
     }
 
 
