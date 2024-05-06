@@ -8,6 +8,7 @@ import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityModule;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivity;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivityNew;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivityOld;
+import com.msgkatz.ratesapp.presentation.ui.splash.base.SplashActivityModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -16,7 +17,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBindingModule {
 
     @PerActivity
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivityNew bindSplashActivityNew();
 
     @PerActivity

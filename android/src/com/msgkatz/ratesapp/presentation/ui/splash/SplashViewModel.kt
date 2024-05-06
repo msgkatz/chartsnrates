@@ -97,7 +97,8 @@ class SplashViewModel @Inject constructor(
     public fun tryReconnect() {
         viewModelScope.launch {
             _uiState.value = _uiState
-                .value.copy(loading = true)
+                .value.copy(loading = true, errorLoading = false)
+            loadAssets()
         }
 
     }
@@ -113,16 +114,19 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun initUI() {
-        showHomeActivity()
+        viewModelScope.launch {
+            _uiState.value = _uiState
+                .value.copy(loading = false, errorLoading = false, loaded = true)
+        }
+        //showHomeActivity()
         //finish()
     }
 
-    private fun showHomeActivity() {
-        //startActivity(Intent(this, MainActivity::class.java))
-    }
+
 }
 
 data class SplashUIState(
     val loading: Boolean = false,
-    val errorLoading: Boolean = false
+    val errorLoading: Boolean = false,
+    val loaded: Boolean = false,
 )
