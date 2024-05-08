@@ -8,6 +8,7 @@ import com.msgkatz.ratesapp.di.scope.PerFragment;
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetFragment;
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetPresenter;
+import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -24,6 +25,10 @@ public abstract class MainActivityModule {
     @PerFragment
     @Binds
     abstract BaseMainPresenter quoteAssetPresenter(QuoteAssetPresenter presenter);
+
+    @PerFragment
+    @Binds
+    abstract QuoteAssetViewModel quoteAssetViewModel(QuoteAssetViewModel viewModel);
 
     //NOTE:  IF you want to have something be only in the Fragment scope but not activity mark a
     //@provides or @Binds method as @FragmentScoped.  Use case is when there are multiple fragments

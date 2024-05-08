@@ -2,6 +2,10 @@ package com.msgkatz.ratesapp.domain.entities;
 
 import androidx.annotation.NonNull;
 
+import com.msgkatz.ratesapp.utils.NumFormatUtil;
+
+import java.util.Locale;
+
 /**
  * Created by msgkatz on 30/08/2018.
  */
@@ -24,6 +28,9 @@ public class PriceSimple implements Comparable<PriceSimple> {
     public double getPrice() {
         return price;
     }
+
+
+
 
     @Override
     public String toString() {
@@ -53,5 +60,23 @@ public class PriceSimple implements Comparable<PriceSimple> {
 
         return this.tool.getName()
                 .equals(o.getTool().getName());
+    }
+
+    /***
+     * Methods for composables
+     * */
+    public String getPriceFormatted() {
+        return NumFormatUtil.getFormattedPrice(getPrice());
+    }
+
+
+    public String getPair() {
+        return String.format(Locale.getDefault(), "%1$s/%2$s",
+                getTool().getBaseAsset().getNameShort(),
+                getTool().getQuoteAsset().getNameShort());
+    }
+
+    public String getBaseAssetNameLong() {
+        return getTool().getBaseAsset().getNameLong();
     }
 }
