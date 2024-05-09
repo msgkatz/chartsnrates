@@ -20,7 +20,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 class QuoteAssetViewModel @Inject constructor(
-    private val quoteAssetName: String,
+    private val quoteAssetName: String?,
     private val mGetQuoteAssetsMap: GetQuoteAssetsMap,
     private val mGetToolListPrices: GetToolListPrices
 ): ViewModel() {
@@ -39,6 +39,10 @@ class QuoteAssetViewModel @Inject constructor(
     private var observerToolListPrices: ResponseObserver<Optional<Map<String, Set<PriceSimple>>>, Map<String, Set<PriceSimple>>>? = null
     private var observerQuoteAssets: ResponseObserver<Optional<Map<String, Asset>>, Map<String, Asset>>? = null
     private var quoteAsset: Asset? = null
+
+    init {
+        onStart()
+    }
 
     fun onStart() {
         observerQuoteAssets = object : ResponseObserver<Optional<Map<String, Asset>>, Map<String, Asset>>() {
@@ -62,8 +66,12 @@ class QuoteAssetViewModel @Inject constructor(
 
     fun onStop() {
         viewModelScope.launch {
-            if (observerQuoteAssets != null) observerQuoteAssets?.dispose()
-            if (observerToolListPrices != null) observerToolListPrices?.dispose()
+            if (observerQuoteAssets != null) {
+                observerQuoteAssets?.dispose(); observerQuoteAssets = null
+            }
+            if (observerToolListPrices != null) {
+                observerToolListPrices?.dispose(); observerToolListPrices = null
+            }
         }
     }
 
@@ -110,6 +118,11 @@ class QuoteAssetViewModel @Inject constructor(
         viewModelScope.launch {
             mGetToolListPrices.execute(observerToolListPrices, null)
         }
+    }
+
+    override fun onCleared() {
+        onStop()
+        super.onCleared()
     }
 
 }
