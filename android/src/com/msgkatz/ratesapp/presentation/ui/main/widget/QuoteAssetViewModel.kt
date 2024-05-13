@@ -2,27 +2,29 @@ package com.msgkatz.ratesapp.presentation.ui.main.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msgkatz.ratesapp.R
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.Placeholder
+import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.data.entities.rest.Asset
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap
 import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
+import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetPresenter
 import com.msgkatz.ratesapp.utils.Logs
 import com.msgkatz.ratesapp.utils.Parameters
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
 
 class QuoteAssetViewModel @Inject constructor(
     private val quoteAssetName: String?,
     private val mGetQuoteAssetsMap: GetQuoteAssetsMap,
-    private val mGetToolListPrices: GetToolListPrices
+    private val mGetToolListPrices: GetToolListPrices,
+    private val tabInfoStorer: TabInfoStorer
 ): ViewModel() {
 
     companion object {
@@ -84,10 +86,14 @@ class QuoteAssetViewModel @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalGlideComposeApi::class)
     private fun updatePriceList(list: List<PriceSimple>?) {
         viewModelScope.launch {
             if (list != null)
-                _priceListUiState.value = PriceListUIState.PriceList(list)
+                _priceListUiState.value = PriceListUIState.PriceList(
+                    list,
+                    placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName))
+                )
             else
                 _priceListUiState.value = PriceListUIState.Empty
         }
@@ -136,5 +142,5 @@ sealed interface QuoteAssetUIState {
 sealed interface PriceListUIState {
     data object Loading : PriceListUIState
     data object Empty : PriceListUIState
-    data class PriceList(val priceList: List<PriceSimple>) : PriceListUIState
+    data class PriceList @OptIn(ExperimentalGlideComposeApi::class) constructor(val priceList: List<PriceSimple>, var placeHolder: Placeholder) : PriceListUIState
 }

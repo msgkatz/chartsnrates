@@ -22,12 +22,16 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.Placeholder
+import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.data.entities.rest.Asset
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.domain.entities.Tool
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PriceListItem(
     priceSimple: PriceSimple,
@@ -35,11 +39,16 @@ fun PriceListItem(
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
+    iconPlaceholder: Placeholder,
     description: String = "",
 ) {
     ListItem(
         leadingContent = {
-            PriceListItemIcon(imageUrl, iconModifier.size(42.dp))
+            PriceListItemIcon(
+                imageUrl = imageUrl,
+                iconPlaceholder = iconPlaceholder,
+                modifier = iconModifier.size(42.dp)
+            )
         },
         headlineContent = {
             Text(text = priceSimple.getPair())
@@ -78,8 +87,9 @@ fun PriceListItem(
     )
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun PriceListItemIcon(imageUrl: String, modifier: Modifier = Modifier) {
+private fun PriceListItemIcon(imageUrl: String, iconPlaceholder: Placeholder, modifier: Modifier = Modifier) {
     if (imageUrl.isEmpty()) {
         Icon(
             modifier = modifier
@@ -94,10 +104,12 @@ private fun PriceListItemIcon(imageUrl: String, modifier: Modifier = Modifier) {
             imageUrl = imageUrl,
             contentDescription = null,
             modifier = modifier,
+            placeholder = iconPlaceholder
         )
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
 private fun PriceListItemPreview() {
@@ -113,6 +125,7 @@ private fun PriceListItemPreview() {
                 priceSimple = PriceSimple(Tool("BTCBNB", Asset(0,"BTC", "Bitcoin"), Asset(0,"BNB", "Binance Coin")), 23.105),
                 imageUrl = "",
                 onItemClick = { },
+                iconPlaceholder = placeholder(R.drawable.cur_bnb),
 
             )
         }

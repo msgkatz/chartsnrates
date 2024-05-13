@@ -6,6 +6,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.placeholder
+import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 
@@ -30,6 +33,7 @@ fun QuoteAssetScreen(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
 fun QuoteAssetScreenWithDataPreview(
@@ -43,7 +47,7 @@ fun QuoteAssetScreenWithDataPreview(
     ) {
         QuoteAssetScreen(
             quoteAssetUIState = QuoteAssetUIState.Data(priceSimpleList.get(0).tool.baseAsset),
-            priceListUIState = PriceListUIState.PriceList(priceSimpleList),
+            priceListUIState = PriceListUIState.PriceList(priceSimpleList, placeholder(R.drawable.cur_bnb)),
             onPriceItemClick = {}
         )
     }

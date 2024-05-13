@@ -11,8 +11,10 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun QuoteAssetBody(
     priceListUIState: PriceListUIState,
@@ -37,12 +39,13 @@ fun QuoteAssetBody(
                 is PriceListUIState.Empty -> {}
                 is PriceListUIState.PriceList -> {
                     priceListUIState.priceList.forEach {
-                        val id = it.tool
+                        val id = it.tool.name
                         item(key = id) { 
                             PriceListItem(
                                 priceSimple = it,
                                 imageUrl = it.getTool().getBaseAsset().getLogoFullUrl(),
-                                onItemClick = { onPriceItemClick(it) }
+                                onItemClick = { onPriceItemClick(it) },
+                                iconPlaceholder = priceListUIState.placeHolder
                             )
                         }
                     }
