@@ -18,21 +18,18 @@ import dagger.android.ContributesAndroidInjector;
 @Module(includes = BaseActivityModule.class)
 public abstract class MainActivityModule {
 
-    @PerFragment
-    @ContributesAndroidInjector(modules = MainFragmentModule.class)
-    abstract QuoteAssetFragment mainFragmentInjector();
-
-    //@PerActivity
-    @PerFragment
-    @Binds
-    abstract BaseMainPresenter quoteAssetPresenter(QuoteAssetPresenter presenter);
-
 //    @PerFragment
-//    @ContributesAndroidInjector(modules = MainFragmentNewModule.class)
-//    abstract QuoteAssetFragmentNew mainFragmentNewInjector();
+//    @ContributesAndroidInjector(modules = MainFragmentModule.class)
+//    abstract QuoteAssetFragment mainFragmentInjector();
+//
+//    //@PerActivity
 //    @PerFragment
 //    @Binds
-//    abstract QuoteAssetViewModel quoteAssetViewModel(QuoteAssetViewModel viewModel);
+//    abstract BaseMainPresenter quoteAssetPresenter(QuoteAssetPresenter presenter);
+
+    @PerFragment
+    @ContributesAndroidInjector(modules = MainFragmentNewModule.class)
+    abstract QuoteAssetFragmentNew mainFragmentNewInjector();
 
     //NOTE:  IF you want to have something be only in the Fragment scope but not activity mark a
     //@provides or @Binds method as @FragmentScoped.  Use case is when there are multiple fragments

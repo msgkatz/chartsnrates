@@ -18,16 +18,16 @@ class PriceListPreviewParameterProvider: PreviewParameterProvider<List<PriceSimp
                 ),
                 PriceSimple(
                     Tool(
-                        "BTCBNB",
-                        Asset(0,"BTC", "Bitcoin"),
-                        Asset(0,"BNB", "Binance Coin")),
+                        "BTCBNB2",
+                        Asset(0,"BTC2", "Bitcoin2"),
+                        Asset(0,"BNB2", "Binance Coin2")),
                     23.105
                 ),
                 PriceSimple(
                     Tool(
-                        "BTCBNB",
-                        Asset(0,"BTC", "Bitcoin"),
-                        Asset(0,"BNB", "Binance Coin")),
+                        "BTCBNB3",
+                        Asset(0,"BTC3", "Bitcoin3"),
+                        Asset(0,"BNB3", "Binance Coin3")),
                     23.105
                 ),
             )

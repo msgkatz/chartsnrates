@@ -89,8 +89,10 @@ public abstract class BaseFragment extends BaseLayoutDummyFragment implements Ba
     @Override
     public void onStart() {
         Logs.d("onStart %s", this.getClass().getSimpleName());
-        getPresenter().setView(this);
-        getPresenter().onStart();
+        if (getPresenter() != null) {
+            getPresenter().setView(this);
+            getPresenter().onStart();
+        }
 
         super.onStart();
     }
@@ -98,7 +100,8 @@ public abstract class BaseFragment extends BaseLayoutDummyFragment implements Ba
     @Override
     public void onStop() {
         Logs.d("onStop %s", this.getClass().getSimpleName());
-        getPresenter().onStop();
+        if (getPresenter() != null)
+            getPresenter().onStop();
 
         super.onStop();
     }

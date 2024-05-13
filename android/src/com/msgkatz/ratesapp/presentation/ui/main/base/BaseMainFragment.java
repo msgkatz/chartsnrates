@@ -18,14 +18,15 @@ public abstract class BaseMainFragment extends BaseFragment {
 
         MainRouter mainRouter = (MainRouter) getActivity();
         //noinspection unchecked
-        getPresenter().setRouter(mainRouter);
+        if (getPresenter() != null)
+            getPresenter().setRouter(mainRouter);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        getPresenter().setRouter(null);
+        if (getPresenter() != null)
+            getPresenter().setRouter(null);
     }
 
 }
