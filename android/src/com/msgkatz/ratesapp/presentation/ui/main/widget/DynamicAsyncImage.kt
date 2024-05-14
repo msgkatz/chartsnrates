@@ -75,13 +75,23 @@ fun DynamicAsyncImage(
 //            colorFilter = if (iconTint != null) ColorFilter.tint(iconTint) else null,
 //        )
 
-        GlideImage(
-            contentScale = ContentScale.Crop,
-            model = imageUrl,
-            failure = placeholder,
-            contentDescription = contentDescription,
-            colorFilter = if (iconTint != null) ColorFilter.tint(iconTint) else null,
-            modifier = Modifier.padding(1.dp).clickable(onClick = { }).fillMaxSize(),
-        )
+        if (isLocalInspection) {
+            Image(
+                contentScale = ContentScale.Crop,
+                painter = painterResource(R.drawable.cur_bnb),
+                contentDescription = contentDescription,
+                colorFilter = if (iconTint != null) ColorFilter.tint(iconTint) else null,
+            )
+        } else {
+            GlideImage(
+                contentScale = ContentScale.Crop,
+                model = imageUrl,
+                loading = placeholder,
+                failure = placeholder,
+                contentDescription = contentDescription,
+                colorFilter = if (iconTint != null) ColorFilter.tint(iconTint) else null,
+                //modifier = Modifier.padding(1.dp).clickable(onClick = { }).fillMaxSize(),
+            )
+        }
     }
 }

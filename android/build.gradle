@@ -39,6 +39,7 @@ android {
                 // you can speed up your build by disabling mapping file uploading.
                 mappingFileUploadEnabled false
             }
+            signingConfig signingConfigs.debug
         }
     }
 

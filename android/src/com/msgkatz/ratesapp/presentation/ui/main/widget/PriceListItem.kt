@@ -3,11 +3,13 @@ package com.msgkatz.ratesapp.presentation.ui.main.widget
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -15,13 +17,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.Alignment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
@@ -30,6 +37,12 @@ import com.msgkatz.ratesapp.data.entities.rest.Asset
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.domain.entities.Tool
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.Green30
+import com.msgkatz.ratesapp.presentation.theme.Green80
+import com.msgkatz.ratesapp.presentation.theme.Red40
+import com.msgkatz.ratesapp.utils.NumFormatUtil
+import java.util.Locale
+import kotlin.math.abs
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -42,6 +55,7 @@ fun PriceListItem(
     iconPlaceholder: Placeholder,
     description: String = "",
 ) {
+    val isLocalInspection = LocalInspectionMode.current
     ListItem(
         leadingContent = {
             PriceListItemIcon(
@@ -54,25 +68,59 @@ fun PriceListItem(
             Text(text = priceSimple.getPair())
         },
         supportingContent = {
-            Text(text = priceSimple.getBaseAssetNameLong())
+            Text(
+                text = priceSimple.getBaseAssetNameLong(),
+                color = MaterialTheme.colorScheme.outline //surfaceVariant
+            )
         },
         trailingContent = {
-            Column(modifier = Modifier
+            Column(
+                modifier = Modifier,
                 //.fillMaxSize()
-                ,
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.End,
             ) {
-                Text(text = priceSimple.priceFormatted)
-                Row {
-                    Icon(
-                        modifier = modifier
-                            .background(MaterialTheme.colorScheme.surface)
-                            .size(5.dp),
-                        painter = painterResource(id = R.drawable.ic_triangle_right),
-                        contentDescription = null,
+                val prevPrice = rememberPrevious(priceSimple.price)
+                val toUp = if (prevPrice == null || prevPrice <= priceSimple.price) true else false
+                if (prevPrice == null || isLocalInspection) {
+                    Text(
+                        text = priceSimple.priceFormatted,
+                        style = MaterialTheme.typography.labelLarge,
                     )
-                    Text(text = priceSimple.priceFormatted)
+                } else {
+                    Text(
+                        text = priceSimple.priceFormatted,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = if (toUp) { Green80 } else  { Red40 }
+                    )
+                }
+
+                if (prevPrice != null || isLocalInspection) {
+                    Row(
+                        modifier = Modifier.padding(top = 5.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            modifier = modifier
+                                //.background(MaterialTheme.colorScheme.surface)
+                                .rotate(if (toUp) 270f else 90f)
+                                .padding(horizontal = 3.dp)
+                                .size(6.dp),
+
+                            painter = painterResource(id = R.drawable.ic_triangle_right),
+                            contentDescription = null,
+                            tint = if (toUp) { Green80 } else  { Red40 }
+                            //tint = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
+
+                        )
+
+                        Text(
+                            text = getPriceDelta(prevPrice, priceSimple.price),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = if (toUp) { Green80 } else  { Red40 }
+                            //color = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
 
             }
@@ -85,6 +133,15 @@ fun PriceListItem(
             .clickable(enabled = true, onClick = onItemClick),
 
     )
+}
+
+@Composable
+private fun getPriceDelta(prevPrice: Double?, curPrice: Double) : String {
+    val isLocalInspection = LocalInspectionMode.current
+    if (isLocalInspection) return "0.20%"
+    if (prevPrice == null) return ""
+    val delta = 100 * Math.abs(curPrice - prevPrice) / prevPrice
+    return String.format(Locale.getDefault(), "%.2f%%", delta)
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -107,6 +164,41 @@ private fun PriceListItemIcon(imageUrl: String, iconPlaceholder: Placeholder, mo
             placeholder = iconPlaceholder
         )
     }
+}
+
+
+/**
+ * Returns a dummy MutableState that does not cause render when setting it
+ */
+@Composable
+fun <T> rememberRef(): MutableState<T?> {
+    // for some reason it always recreated the value with vararg keys,
+    // leaving out the keys as a parameter for remember for now
+    return remember() {
+        object: MutableState<T?> {
+            override var value: T? = null
+
+            override fun component1(): T? = value
+
+            override fun component2(): (T?) -> Unit = { value = it }
+        }
+    }
+}
+@Composable
+fun <T> rememberPrevious(
+    current: T,
+    shouldUpdate: (prev: T?, curr: T) -> Boolean = { a: T?, b: T -> a != b },
+): T? {
+    val ref = rememberRef<T>()
+
+    // launched after render, so the current render will have the old value anyway
+    SideEffect {
+        if (shouldUpdate(ref.value, current)) {
+            ref.value = current
+        }
+    }
+
+    return ref.value
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)

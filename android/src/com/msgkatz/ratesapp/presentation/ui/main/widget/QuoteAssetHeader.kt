@@ -38,37 +38,69 @@ fun QuoteAssetHeader(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 33.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
+        Spacer(Modifier
+            .height(15.dp)
+            .windowInsetsTopHeight(WindowInsets.safeDrawing)
+        )
         when (quoteAssetUIState) {
             is QuoteAssetUIState.Data -> {
-                Text(text = makeMainTitleText(quoteAssetUIState.quoteAsset))
-                Text(text = quoteAssetUIState.quoteAsset.nameLong)
+                Text(
+                    text = makeMainTitleText(quoteAssetUIState.quoteAsset),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+
+                )
+                Spacer(Modifier
+                    .height(5.dp)
+                    .windowInsetsTopHeight(WindowInsets.safeDrawing)
+                )
+                Text(
+                    text = quoteAssetUIState.quoteAsset.nameLong,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
 
             }
             is QuoteAssetUIState.Loading -> {
                 Text(text = "")
+                Spacer(Modifier
+                    .height(10.dp)
+                    .windowInsetsTopHeight(WindowInsets.safeDrawing)
+                )
                 Text(text = "")
             }
             is QuoteAssetUIState.Empty -> {
                 Text(text = "")
+                Spacer(Modifier
+                    .height(10.dp)
+                    .windowInsetsTopHeight(WindowInsets.safeDrawing)
+                )
                 Text(text = "")
             }
         }
 
-
         Spacer(Modifier
             .height(18.dp)
             .windowInsetsTopHeight(WindowInsets.safeDrawing)
         )
-        GradientBackground()
+        GradientBackground(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(Modifier
             .height(18.dp)
             .windowInsetsTopHeight(WindowInsets.safeDrawing)
         )
-        Text(text = stringResource(id = R.string.screen_one_your_stocks))
+        Text(
+            text = stringResource(id = R.string.screen_one_your_stocks),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(Modifier
+            .height(10.dp)
+            .windowInsetsTopHeight(WindowInsets.safeDrawing)
+        )
 
     }
 }
@@ -82,7 +114,7 @@ fun GradientBackground(
             .fillMaxWidth()
             .height(1.dp)
             .padding(
-                horizontal = 70.dp,
+                horizontal = 40.dp,
                 vertical = 0.dp
             )
             .background(
