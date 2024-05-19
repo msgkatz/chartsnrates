@@ -140,7 +140,8 @@ dependencies {
     implementation "com.github.bumptech.glide:compose:1.0.0-beta01"
 
 
-
+    //tracing
+    implementation "androidx.tracing:tracing:1.3.0-alpha02"
 
     //Old stuff
     //implementation "androidx.appcompat:appcompat:1.5.1" //$adxAppComp"

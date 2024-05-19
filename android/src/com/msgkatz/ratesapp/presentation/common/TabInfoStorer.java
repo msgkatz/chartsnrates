@@ -21,6 +21,8 @@ import java.util.Map;
 
 import androidx.core.content.ContextCompat;
 
+import kotlinx.coroutines.flow.Flow;
+
 public class TabInfoStorer {
 
     private Context appContext;
@@ -53,6 +55,7 @@ public class TabInfoStorer {
             String name = names.getString(index);
 
             TabItem item = new TabItem(drawable, sd, name);
+            item.icon = icons.getResourceId(index, R.drawable.cur_bnb);
 
             items.add(item);
 
@@ -75,6 +78,8 @@ public class TabInfoStorer {
         //return items;
         return new ArrayList<>(items);
     }
+
+
 
     public Drawable getDrawableByQuoteAssetName(String name) {
         if (tabPositions.containsKey(name))
