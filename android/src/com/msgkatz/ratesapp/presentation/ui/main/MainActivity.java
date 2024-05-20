@@ -12,20 +12,12 @@ import android.os.Handler;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
-import com.msgkatz.ratesapp.App;
+
 import com.msgkatz.ratesapp.R;
-import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+
 import com.msgkatz.ratesapp.databinding.ActivityMainBinding;
 import com.msgkatz.ratesapp.domain.entities.PriceSimple;
-import com.msgkatz.ratesapp.domain.entities.Tool;
-import com.msgkatz.ratesapp.domain.interactors.GetPriceHistory;
-import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssets;
-import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices;
-import com.msgkatz.ratesapp.domain.interactors.base.Optional;
-import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver;
-import com.msgkatz.ratesapp.domain.interactors.params.PriceHistoryParams;
-import com.msgkatz.ratesapp.presentation.common.Layout;
+
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
@@ -33,24 +25,17 @@ import com.msgkatz.ratesapp.presentation.entities.TabItem;
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainRouter;
 import com.msgkatz.ratesapp.utils.CommonUtil;
-import com.msgkatz.ratesapp.utils.Logs;
-import com.msgkatz.ratesapp.utils.Parameters;
 import com.msgkatz.ratesapp.utils.UtilsKt;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.BindView;
-import dagger.android.support.DaggerAppCompatActivity;
-import dagger.android.support.DaggerFragment;
+
 
 /**
  * Created by msgkatz on 15/08/2018.

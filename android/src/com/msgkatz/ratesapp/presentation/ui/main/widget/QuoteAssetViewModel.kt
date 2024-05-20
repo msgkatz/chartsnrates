@@ -7,12 +7,15 @@ import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.data.entities.rest.Asset
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.domain.interactors.GetAssets
+import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
 import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap
 import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.ui.main.QuoteAssetPresenter
+import com.msgkatz.ratesapp.presentation.ui.splash.SplashViewModel
 import com.msgkatz.ratesapp.utils.Logs
 import com.msgkatz.ratesapp.utils.Parameters
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +31,7 @@ class QuoteAssetViewModel @Inject constructor(
 ): ViewModel() {
 
     companion object {
-        private val TAG: String = QuoteAssetPresenter::class.java.simpleName
+        private val TAG: String = QuoteAssetViewModel::class.java.simpleName
     }
 
     // UI state exposed to the UI
@@ -129,6 +132,10 @@ class QuoteAssetViewModel @Inject constructor(
     override fun onCleared() {
         onStop()
         super.onCleared()
+    }
+
+    fun interface Factory {
+        operator fun invoke(quoteAssetName: String?, mGetQuoteAssetsMap: GetQuoteAssetsMap, mGetToolListPrices: GetToolListPrices, tabInfoStorer: TabInfoStorer): QuoteAssetViewModel
     }
 
 }

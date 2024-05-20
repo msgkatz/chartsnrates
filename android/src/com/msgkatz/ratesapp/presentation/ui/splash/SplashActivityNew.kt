@@ -4,16 +4,11 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import com.msgkatz.ratesapp.domain.interactors.GetAssets
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
-
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity
 import javax.inject.Inject

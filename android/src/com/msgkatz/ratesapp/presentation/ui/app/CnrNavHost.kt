@@ -3,6 +3,10 @@ package com.msgkatz.ratesapp.presentation.ui.app
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.presentation.ui.main.widget.quoteAssetNavScreen
+import com.msgkatz.ratesapp.presentation.ui.splash.splashNavScreen
+import com.msgkatz.ratesapp.presentation.ui.splash.splashNavigationRoute
 
 
 /**
@@ -17,7 +21,10 @@ fun CnrNavHost(
     appState: CnrAppState,
     //onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    startDestination: String = "", //forYouNavigationRoute,
+    startDestination: String = splashNavigationRoute,
+    interimVMKeeper: InterimVMKeeper,
+    onPriceItemClick: (PriceSimple) -> Unit,
+    onContinue: () -> Unit = {},
 ) {
     val navController = appState.navController
     NavHost(
@@ -25,6 +32,8 @@ fun CnrNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-
+        splashNavScreen(interimVMKeeper, onContinue)
+        quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
+        quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
     }
 }

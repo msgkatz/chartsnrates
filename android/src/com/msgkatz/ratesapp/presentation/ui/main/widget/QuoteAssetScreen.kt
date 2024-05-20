@@ -2,6 +2,8 @@ package com.msgkatz.ratesapp.presentation.ui.main.widget
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,6 +13,27 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+
+@Composable
+fun QuoteAssetRoute(
+    quoteAssetName: String?,
+    modifier: Modifier = Modifier,
+    interimVMKeeper : InterimVMKeeper,
+    onPriceItemClick: (PriceSimple) -> Unit,
+) {
+    val viewModel: QuoteAssetViewModel = interimVMKeeper.makeQuoteAsset2(quoteAssetName)
+    val quoteAssetUiState by viewModel.quoteAssetUiState.collectAsState()
+    val priceListUiState by viewModel.priceListUiState.collectAsState()
+
+    QuoteAssetScreen(
+        quoteAssetUIState = quoteAssetUiState,
+        priceListUIState = priceListUiState,
+        onPriceItemClick = onPriceItemClick,
+        modifier = modifier,
+    )
+
+}
 
 @Composable
 fun QuoteAssetScreen(

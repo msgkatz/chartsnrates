@@ -18,9 +18,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +31,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
+import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.theme.GradientColors
 import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
@@ -43,12 +47,17 @@ import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
 fun CnrApp(
     //windowSizeClass: WindowSizeClass,
     tabInfoStorer: TabInfoStorer,
+    onPriceItemClick: (PriceSimple) -> Unit,
     appState: CnrAppState = rememberCntAppState(
         tabInfoStorer = tabInfoStorer
     ),
+    interimVMKeeper: InterimVMKeeper,
 ) {
     CnrAppContent(
         appState = appState,
+        onPriceItemClick = onPriceItemClick,
+        interimVMKeeper = interimVMKeeper,
+
     )
 }
 
@@ -56,6 +65,8 @@ fun CnrApp(
 fun CnrAppContent(
     modifier: Modifier = Modifier,
     appState: CnrAppState,
+    onPriceItemClick: (PriceSimple) -> Unit,
+    interimVMKeeper: InterimVMKeeper
 ) {
     val shouldShowGradientBackground = true
 
@@ -68,6 +79,7 @@ fun CnrAppContent(
             },
         ) {
             val topLevelDestination by appState.tabList.collectAsStateWithLifecycle()
+            var showSplash by rememberSaveable { mutableStateOf(true) }
             Scaffold(
                 modifier = modifier,
 //                modifier = Modifier.semantics {
@@ -76,7 +88,7 @@ fun CnrAppContent(
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 bottomBar = {
-                    if (appState.shouldShowNavBar) {
+                    if (appState.shouldShowNavBar && !showSplash) {
                         CnrNavBar(
                             destinations = topLevelDestination,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -116,6 +128,10 @@ fun CnrAppContent(
 //                                    duration = SnackbarDuration.Short,
 //                                ) == SnackbarResult.ActionPerformed
 //                            }
+                            interimVMKeeper = interimVMKeeper,
+                            onPriceItemClick = onPriceItemClick,
+                            onContinue = { showSplash = false },
+
                         )
                     }
                 }
@@ -144,7 +160,7 @@ fun CnrNavBar(
         modifier = modifier,
     ) {
 
-        destinations.forEach {destination ->
+        destinations.forEach { destination ->
             CnrNavigationBarItem(
                 selected = selectedDestination.value == destination.route,
                 onClick = {

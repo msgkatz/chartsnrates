@@ -122,6 +122,9 @@ class SplashViewModel @Inject constructor(
         //finish()
     }
 
+    fun interface Factory {
+        operator fun invoke(mGetAssets: GetAssets, mGetPlatformInfo: GetPlatformInfo): SplashViewModel
+    }
 
 }
 

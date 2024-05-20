@@ -5,6 +5,8 @@ import com.msgkatz.ratesapp.presentation.ui.chart.ChartActivity;
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartActivityModule;
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityModule;
+import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityNewModule;
+import com.msgkatz.ratesapp.presentation.ui.main.widget.MainActivityNew;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivity;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivityNew;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivityOld;
@@ -27,6 +29,12 @@ public abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity bindMainActivity();
+
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = MainActivityNewModule.class)
+    abstract MainActivityNew bindMainActivityNew();
+
 
     @PerActivity
     @ContributesAndroidInjector(modules = ChartActivityModule.class)

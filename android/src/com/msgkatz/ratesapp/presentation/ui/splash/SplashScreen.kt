@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,11 +34,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
+import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.theme.GradientColors
 import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
 import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
 import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
+import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetViewModel
+
+
+@Composable
+fun SplashRoute(
+    modifier: Modifier = Modifier,
+    interimVMKeeper : InterimVMKeeper,
+    onContinue: () -> Unit = {},
+) {
+    val viewModel: SplashViewModel = interimVMKeeper.makeSplash()
+    val uiState by viewModel.uiState.collectAsState()
+
+    SplashScreen(
+        splashUIState = uiState,
+        onReconnect = { viewModel.tryReconnect() },
+        onContinue = onContinue,
+        modifier = modifier,
+    )
+
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

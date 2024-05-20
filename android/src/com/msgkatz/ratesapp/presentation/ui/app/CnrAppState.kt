@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.entities.TabItem
+import com.msgkatz.ratesapp.presentation.ui.main.widget.navigateToQuoteAsset
+import com.msgkatz.ratesapp.utils.Logs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -86,6 +88,7 @@ class CnrAppState(
      * @param topLevelDestination: The destination the app needs to navigate to.
      */
     fun navigateToTopLevelDestination(topLevelDestination: CnrTopLevelDestination) {
+        Logs.d(this, topLevelDestination.route)
         trace("Navigation: ${topLevelDestination.route}") {
             val topLevelNavOptions = navOptions {
                 // Pop up to the start destination of the graph to
@@ -100,6 +103,8 @@ class CnrAppState(
                 // Restore state when reselecting a previously selected item
                 restoreState = true
             }
+
+            navController.navigateToQuoteAsset(topLevelDestination.route, topLevelNavOptions)
 
 //            when (topLevelDestination) {
 //                FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
