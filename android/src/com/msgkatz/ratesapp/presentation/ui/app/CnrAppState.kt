@@ -14,6 +14,7 @@ import androidx.navigation.navOptions
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.entities.TabItem
 import com.msgkatz.ratesapp.presentation.ui.main.widget.navigateToQuoteAsset
+import com.msgkatz.ratesapp.presentation.ui.main.widget.navigateToQuoteAsset2
 import com.msgkatz.ratesapp.utils.Logs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -104,7 +105,8 @@ class CnrAppState(
                 restoreState = true
             }
 
-            navController.navigateToQuoteAsset(topLevelDestination.route, topLevelNavOptions)
+            //TODO implement boyscout rule
+            navController.navigateToQuoteAsset2(topLevelDestination.route, topLevelNavOptions)
 
 //            when (topLevelDestination) {
 //                FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)

@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
@@ -21,8 +23,10 @@ fun QuoteAssetRoute(
     modifier: Modifier = Modifier,
     interimVMKeeper : InterimVMKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
+    owner: ViewModelStoreOwner,
+
 ) {
-    val viewModel: QuoteAssetViewModel = interimVMKeeper.makeQuoteAsset2(quoteAssetName)
+    val viewModel: QuoteAssetViewModel = interimVMKeeper.makeQuoteAsset4(quoteAssetName, owner)
     val quoteAssetUiState by viewModel.quoteAssetUiState.collectAsState()
     val priceListUiState by viewModel.priceListUiState.collectAsState()
 

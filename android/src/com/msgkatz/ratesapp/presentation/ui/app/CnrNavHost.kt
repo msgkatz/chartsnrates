@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.ui.main.widget.quoteAssetNavScreen
+import com.msgkatz.ratesapp.presentation.ui.main.widget.quoteAssetNavScreen2
 import com.msgkatz.ratesapp.presentation.ui.splash.splashNavScreen
 import com.msgkatz.ratesapp.presentation.ui.splash.splashNavigationRoute
 
@@ -21,6 +22,7 @@ fun CnrNavHost(
     appState: CnrAppState,
     //onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
+    destinations: List<CnrTopLevelDestination>,
     startDestination: String = splashNavigationRoute,
     interimVMKeeper: InterimVMKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
@@ -33,7 +35,11 @@ fun CnrNavHost(
         modifier = modifier,
     ) {
         splashNavScreen(interimVMKeeper, onContinue)
-        quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
-        quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
+        //TODO clean
+        destinations.forEach { it ->
+            quoteAssetNavScreen2(it.route, interimVMKeeper, onPriceItemClick, navController)
+        }
+        //quoteAssetNavScreen(interimVMKeeper, onPriceItemClick, navController)
+        //quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
     }
 }

@@ -2,7 +2,9 @@ package com.msgkatz.ratesapp.presentation.ui.app
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.DEFAULT_ARGS_KEY
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -36,6 +38,13 @@ class InterimVMKeeper(
         return viewModel
     }
 
+    fun makeQuoteAsset33(quoteAssetName: String?, _owner: ViewModelStoreOwner): QuoteAssetViewModel {
+        val viewModelFactory = QuoteAssetViewModelFactory(quoteAssetName, mGetQuoteAssetsMap, mGetToolListPrices, tabInfoStorer)
+        val viewModel = ViewModelProvider(_owner, viewModelFactory)[QuoteAssetViewModel::class.java]
+        return viewModel
+    }
+
+
     fun makeQuoteAsset2(quoteAssetName: String?): QuoteAssetViewModel {
         val viewModelFactory = QuoteAssetViewModelFactory(quoteAssetName, mGetQuoteAssetsMap, mGetToolListPrices, tabInfoStorer)
         val viewModel = ViewModelProvider(owner.viewModelStore, viewModelFactory, MutableCreationExtras().apply {
@@ -44,6 +53,24 @@ class InterimVMKeeper(
         //[QuoteAssetViewModel::class.java]
         return viewModel
     }
+    fun makeQuoteAsset3(quoteAssetName: String?, _owner: ViewModelStoreOwner): QuoteAssetViewModel {
+        val viewModelFactory = QuoteAssetViewModelFactory(quoteAssetName, mGetQuoteAssetsMap, mGetToolListPrices, tabInfoStorer)
+        val viewModel = ViewModelProvider(_owner.viewModelStore, viewModelFactory, MutableCreationExtras().apply {
+            set(MY_ARGS_KEY, quoteAssetName!!)
+        })[quoteAssetName!!, QuoteAssetViewModel::class.java]
+        //[QuoteAssetViewModel::class.java]
+        return viewModel
+    }
+
+
+    //TODO needs naming fixes
+    fun makeQuoteAsset4(quoteAssetName: String?, _owner: ViewModelStoreOwner): QuoteAssetViewModel {
+        val viewModelFactory = QuoteAssetSavedStateViewModelFactory(quoteAssetName, mGetQuoteAssetsMap, mGetToolListPrices, tabInfoStorer)
+        val viewModel = ViewModelProvider(_owner, viewModelFactory)[QuoteAssetViewModel::class.java]
+        return viewModel
+    }
+
+
 }
 class SplashViewModelFactory(
     private val mGetAssets: GetAssets,
@@ -68,18 +95,18 @@ class QuoteAssetViewModelFactory(private val quoteAssetName: String?,
 ) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
-        throw UnsupportedOperationException(
-            "Factory.create(String) is unsupported.  This Factory requires " +
-                    "`CreationExtras` to be passed into `create` method."
-        )
+//        throw UnsupportedOperationException(
+//            "Factory.create(String) is unsupported.  This Factory requires " +
+//                    "`CreationExtras` to be passed into `create` method."
+//        )
 
-//        if (modelClass.isAssignableFrom(QuoteAssetViewModel::class.java)){
-//            return QuoteAssetViewModel(quoteAssetName,
-//                mGetQuoteAssetsMap,
-//                mGetToolListPrices,
-//                tabInfoStorer) as T
-//        }
-//        throw IllegalArgumentException("Unknown View Model Class")
+        if (modelClass.isAssignableFrom(QuoteAssetViewModel::class.java)){
+            return QuoteAssetViewModel(quoteAssetName,
+                mGetQuoteAssetsMap,
+                mGetToolListPrices,
+                tabInfoStorer) as T
+        }
+        throw IllegalArgumentException("Unknown View Model Class")
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
@@ -94,4 +121,31 @@ class QuoteAssetViewModelFactory(private val quoteAssetName: String?,
         }
         throw IllegalArgumentException("Unknown View Model Class")
     }
+}
+
+class QuoteAssetSavedStateViewModelFactory(private val quoteAssetName: String?,
+                                 private val mGetQuoteAssetsMap: GetQuoteAssetsMap,
+                                 private val mGetToolListPrices: GetToolListPrices,
+                                 private val tabInfoStorer: TabInfoStorer
+) : AbstractSavedStateViewModelFactory() {
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
+        if (modelClass.isAssignableFrom(QuoteAssetViewModel::class.java)){
+            handle.set("quoteAssetName", quoteAssetName)
+            return QuoteAssetViewModel(quoteAssetName,
+                mGetQuoteAssetsMap,
+                mGetToolListPrices,
+                tabInfoStorer,
+                handle) as T
+        }
+        throw IllegalArgumentException("Unknown View Model Class")
+    }
+
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        return super.create(modelClass, extras)
+    }
+
 }

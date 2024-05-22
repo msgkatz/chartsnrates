@@ -22,7 +22,8 @@ class QuoteAssetFragmentNew: BaseMainFragment() {
 
     //private val viewModel: QuoteAssetViewModel by viewModels()
 
-    @Inject
+    //TODO was disabled due to adding savehandler to VM constructor - breaks dagger setts (it starts to demand Binds/Provides extras)
+    //@Inject
     lateinit var viewModel: QuoteAssetViewModel
 
     private var binding: FragmentQuoteAssetAlterNewBinding? = null

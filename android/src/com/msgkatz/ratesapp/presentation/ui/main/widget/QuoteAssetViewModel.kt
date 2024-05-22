@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.main.widget
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -24,10 +25,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class QuoteAssetViewModel @Inject constructor(
-    private val quoteAssetName: String?,
+    //TODO decibe regarding extra quoteAssetName
+    private val _quoteAssetName: String?,
     private val mGetQuoteAssetsMap: GetQuoteAssetsMap,
     private val mGetToolListPrices: GetToolListPrices,
-    private val tabInfoStorer: TabInfoStorer
+    private val tabInfoStorer: TabInfoStorer,
+    private val handle: SavedStateHandle? = null
 ): ViewModel() {
 
     companion object {
@@ -44,6 +47,8 @@ class QuoteAssetViewModel @Inject constructor(
     private var observerToolListPrices: ResponseObserver<Optional<Map<String, Set<PriceSimple>>>, Map<String, Set<PriceSimple>>>? = null
     private var observerQuoteAssets: ResponseObserver<Optional<Map<String, Asset>>, Map<String, Asset>>? = null
     private var quoteAsset: Asset? = null
+
+    private val quoteAssetName: String? = handle?.get("quoteAssetName")
 
     init {
         onStart()
@@ -133,6 +138,7 @@ class QuoteAssetViewModel @Inject constructor(
         onStop()
         super.onCleared()
     }
+
 
     fun interface Factory {
         operator fun invoke(quoteAssetName: String?, mGetQuoteAssetsMap: GetQuoteAssetsMap, mGetToolListPrices: GetToolListPrices, tabInfoStorer: TabInfoStorer): QuoteAssetViewModel

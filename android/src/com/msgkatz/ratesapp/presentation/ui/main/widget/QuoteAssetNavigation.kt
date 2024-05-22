@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.main.widget
 
+import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -32,6 +33,7 @@ fun NavController.navigateToQuoteAsset(quoteAssetName: String, navOptions: NavOp
 fun NavGraphBuilder.quoteAssetNavScreen(
     interimVMKeeper : InterimVMKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
+    navController: NavController,
 ) {
     composable(
         route = quoteAssetNavigationRouteWithArgs,
@@ -43,10 +45,55 @@ fun NavGraphBuilder.quoteAssetNavScreen(
         ),
     ) {navBackStackEntry ->
         val quoteAssetName = navBackStackEntry.arguments?.getString(QUOTE_ASSET_NAME)
+        val entry = navBackStackEntry
+        val parentEntry = remember(navBackStackEntry) {
+            //navController.getBackStackEntry("parentNavigationRoute")
+            navController.getBackStackEntry(quoteAssetNavigationRouteWithArgs)
+
+        }
         QuoteAssetRoute(
             quoteAssetName = quoteAssetName,
             interimVMKeeper = interimVMKeeper,
             onPriceItemClick = onPriceItemClick,
+            owner = parentEntry,
+        )
+    }
+}
+
+//TODO naming fixes
+fun NavController.navigateToQuoteAsset2(quoteAssetName: String, navOptions: NavOptions? = null) {
+    //val route = ("$quoteAssetNavigationRoute/$quoteAssetName")
+    val route = quoteAssetName
+    this.navigate(route, navOptions)
+}
+
+fun NavGraphBuilder.quoteAssetNavScreen2(
+    route: String, //as quoteAssetName
+    interimVMKeeper : InterimVMKeeper,
+    onPriceItemClick: (PriceSimple) -> Unit,
+    navController: NavController,
+) {
+    composable(
+        //TODO clean
+        route = route, //quoteAssetNavigationRouteWithArgs,
+//        deepLinks = listOf(
+//            navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },
+//        ),
+//        arguments = listOf(
+//            navArgument(QUOTE_ASSET_NAME) { type = NavType.StringType },
+//        ),
+    ) {navBackStackEntry ->
+//        val quoteAssetName = navBackStackEntry.arguments?.getString(QUOTE_ASSET_NAME)
+//        val entry = navBackStackEntry
+        val parentEntry = remember(navBackStackEntry) {
+            //navController.getBackStackEntry(quoteAssetNavigationRouteWithArgs)
+            navController.getBackStackEntry(route)
+        }
+        QuoteAssetRoute(
+            quoteAssetName = route, //quoteAssetName,
+            interimVMKeeper = interimVMKeeper,
+            onPriceItemClick = onPriceItemClick,
+            owner = parentEntry,
         )
     }
 }

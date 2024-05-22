@@ -120,6 +120,7 @@ fun CnrAppContent(
                          **/
 
                         CnrNavHost(
+                            destinations = topLevelDestination,
                             appState = appState,
 //                            onShowSnackbar = { message, action ->
 //                                snackbarHostState.showSnackbar(
