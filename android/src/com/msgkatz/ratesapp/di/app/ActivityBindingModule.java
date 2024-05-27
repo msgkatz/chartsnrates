@@ -3,6 +3,8 @@ package com.msgkatz.ratesapp.di.app;
 import com.msgkatz.ratesapp.di.scope.PerActivity;
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartActivity;
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartActivityModule;
+import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartActivityNewModule;
+import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew;
 import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityModule;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityNewModule;
@@ -39,4 +41,8 @@ public abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = ChartActivityModule.class)
     abstract ChartActivity bindChartActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = ChartActivityNewModule.class)
+    abstract ChartActivityNew bindChartActivityNew();
 }
