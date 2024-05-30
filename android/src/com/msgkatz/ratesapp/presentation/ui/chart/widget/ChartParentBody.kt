@@ -64,6 +64,8 @@ fun ChartParentBody(
         } else {
             ChartGdxScreen(
                 modifier = modifier
+                    .defaultMinSize(minHeight = 50.dp)
+                    .height(200.dp)
                     //.fillMaxSize()
                 .fillMaxWidth()
 

@@ -187,7 +187,9 @@ fun ChartAppBar(
     CnrAppBar(
         title = {
             when (chartParentToolUIState) {
-                is ChartParentToolUIState.Loading , is ChartParentToolUIState.Empty -> {
+                is ChartParentToolUIState.Loading ,
+                is ChartParentToolUIState.Empty,
+                -> {
                     Column() {
                         Row() {
                             Text("")
@@ -197,30 +199,42 @@ fun ChartAppBar(
                     }
                 }
                 is ChartParentToolUIState.Data -> {
-                    Column(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 5.dp),
-                    ) {
-                        Row(horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.Bottom) {
+                    if (chartParentToolUIState.tool == null) {
+                        Column() {
+                            Row() {
+                                Text("")
+                                Text("")
+                            }
+                            Text("")
+                        }
+                    } else {
+                        Column(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 5.dp),
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.Bottom
+                            ) {
+                                Text(
+                                    text = chartParentToolUIState.tool.baseAsset.nameShort,
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+                                Text(
+                                    modifier = Modifier.padding(bottom = 2.dp),
+                                    text = "/${chartParentToolUIState.tool.quoteAsset.nameShort}",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                             Text(
-                                text = chartParentToolUIState.tool!!.baseAsset.nameShort,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                            Text(
-                                modifier = Modifier.padding(bottom = 2.dp),
-                                text = "/${chartParentToolUIState.tool.quoteAsset.nameShort}",
-                                style = MaterialTheme.typography.titleSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                modifier = Modifier.padding(top = 5.dp),
+                                text = chartParentToolUIState.tool.baseAsset.nameLong,
+                                //style = MaterialTheme.typography.bodySmall
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
-                        Text(
-                            modifier = Modifier.padding(top = 5.dp),
-                            text = chartParentToolUIState.tool!!.baseAsset.nameLong,
-                            //style = MaterialTheme.typography.bodySmall
-                            style = MaterialTheme.typography.bodyMedium
-                        )
                     }
                 }
 

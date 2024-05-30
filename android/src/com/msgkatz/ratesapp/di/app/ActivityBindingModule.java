@@ -38,9 +38,9 @@ public abstract class ActivityBindingModule {
     abstract MainActivityNew bindMainActivityNew();
 
 
-    @PerActivity
-    @ContributesAndroidInjector(modules = ChartActivityModule.class)
-    abstract ChartActivity bindChartActivity();
+//    @PerActivity
+//    @ContributesAndroidInjector(modules = ChartActivityModule.class)
+//    abstract ChartActivity bindChartActivity();
 
     @PerActivity
     @ContributesAndroidInjector(modules = ChartActivityNewModule.class)

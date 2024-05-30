@@ -4,18 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.badlogic.gdx.backends.android.AndroidGraphics
+import com.msgkatz.ratesapp.presentation.common.fragment.BaseGdxCompFragment
 import com.msgkatz.ratesapp.presentation.entities.ToolFormat
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartGdxFragment
 import com.msgkatz.ratesapp.presentation.ui.chart.base.BaseChartGdxFragment
 import com.msgkatz.ratesapp.presentation.ui.chart.gdx.common.ChartGdxGame
 import com.msgkatz.ratesapp.presentation.ui.chart.gdx.prerenderer.PreRenderer
 import com.msgkatz.ratesapp.utils.Logs
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ChartGdxFragmentNew : BaseChartGdxFragment() {
+class ChartGdxFragmentNew : BaseGdxCompFragment() { //BaseChartGdxFragment() {
+
+    @Inject
+    lateinit var parentviewmodel: ChartParentViewModel
 
     @Inject
     lateinit var viewmodel: ChartGdxViewModel
@@ -27,6 +40,7 @@ class ChartGdxFragmentNew : BaseChartGdxFragment() {
     private var mToolFormat: ToolFormat? = null
     private var mInterval: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,6 +50,41 @@ class ChartGdxFragmentNew : BaseChartGdxFragment() {
             mInterval = requireArguments().getString(ChartGdxFragment.KEY_TOOL_INTERVAL)
         }
 
+
+
+        viewmodel.updateParams(
+            toolName = (requireActivity() as ChartActivityNew).viewModel.mToolName!!,
+            toolFormat = (requireActivity() as ChartActivityNew).viewModel.getToolFormat(),
+            interval = (requireActivity() as ChartActivityNew).viewModel.mInterval
+
+        )
+
+//        viewmodel.updateParams(
+//            toolName = parentviewmodel.mToolName!!,
+//            toolFormat = parentviewmodel.getToolFormat(),
+//            interval = parentviewmodel.mInterval
+//
+//        )
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                (requireActivity() as ChartActivityNew).viewModel.chartParentForGdxUIState.collect { it ->
+                    when (it) {
+                        is ChartParentForGdxUIState.Loading, is ChartParentForGdxUIState.Empty -> {}
+                        is ChartParentForGdxUIState.Data -> {
+
+//                            viewmodel.updateParams(
+//                                toolName = it.toolName!!,
+//                                toolFormat = it.toolFormat,
+//                                interval = it.interval
+//
+//                            )
+                        }
+                    }
+
+                }
+            }
+        }
         retainInstance = true
     }
 
@@ -58,6 +107,16 @@ class ChartGdxFragmentNew : BaseChartGdxFragment() {
         Gdx.graphics.isContinuousRendering = true
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewmodel.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewmodel.onStop()
+    }
+
 //    fun updateToolInfo(toolName: String?, toolFormat: ToolFormat?, interval: String?) {
 //        this.mToolName = toolName
 //        this.mToolFormat = toolFormat
@@ -69,4 +128,16 @@ class ChartGdxFragmentNew : BaseChartGdxFragment() {
 
 
     override fun getPresenter() = null
+}
+
+
+
+fun CoroutineScope.launchUntilPaused(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit){
+    val job = launch(block = block)
+    lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+        override fun onPause(owner: LifecycleOwner) {
+            job.cancel()
+            lifecycleOwner.lifecycle.removeObserver(this)
+        }
+    })
 }

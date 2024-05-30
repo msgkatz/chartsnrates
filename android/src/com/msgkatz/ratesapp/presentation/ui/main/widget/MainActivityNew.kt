@@ -13,6 +13,7 @@ import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartActivity
+import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew
 import javax.inject.Inject
 
 class MainActivityNew : BaseCompActivity() {
@@ -49,7 +50,7 @@ class MainActivityNew : BaseCompActivity() {
     }
 
     private fun showChart(priceSimple: PriceSimple?) {
-        val intent: Intent = Intent(this, ChartActivity::class.java)
+        val intent: Intent = Intent(this, ChartActivityNew::class.java)
         priceSimple?.let {
             intent.putExtra(ChartActivity.KEY_TOOL_NAME, it.getTool().name)
             intent.putExtra(ChartActivity.KEY_TOOL_PRICE, it.getPrice())

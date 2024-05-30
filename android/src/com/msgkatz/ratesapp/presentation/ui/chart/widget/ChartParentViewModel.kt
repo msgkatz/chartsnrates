@@ -9,10 +9,12 @@ import com.msgkatz.ratesapp.domain.interactors.GetTools
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
 import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus
+import com.msgkatz.ratesapp.presentation.entities.ToolFormat
 import com.msgkatz.ratesapp.presentation.entities.events.BaseEvent
 import com.msgkatz.ratesapp.presentation.entities.events.NewIntervalEvent
 import com.msgkatz.ratesapp.presentation.entities.events.PriceEvent
 import com.msgkatz.ratesapp.utils.Logs
+import com.msgkatz.ratesapp.utils.Parameters
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -39,10 +41,18 @@ class ChartParentViewModel @Inject constructor(
     private val _chartParentPriceUIState = MutableStateFlow<ChartParentPriceUIState>(ChartParentPriceUIState.Loading)
     val chartParentPriceUIState: StateFlow<ChartParentPriceUIState> = _chartParentPriceUIState
 
-    private var mToolName: String? = null
+    private val _chartParentForGdxUIState = MutableStateFlow<ChartParentForGdxUIState>(ChartParentForGdxUIState.Loading)
+    val chartParentForGdxUIState: StateFlow<ChartParentForGdxUIState> = _chartParentForGdxUIState
+
+    //private
+    var mToolName: String? = null
     private var mTool: Tool? = null
     private var mIntervals: List<Interval>? = null
     private var lastPrice: Double? = null
+
+    //TODO combine with state
+    //private
+    var mInterval: Interval = Parameters.defaulScaletList[2]
 
     private var observerTools: ResponseObserver<Optional<Map<String, Tool>>?, Map<String, Tool>>? = null
     private var observerIntervals: ResponseObserver<Optional<List<Interval>>, List<Interval>>? = null
@@ -107,7 +117,9 @@ class ChartParentViewModel @Inject constructor(
             tool.let { mTool = it }
             intervals?.let { mIntervals = it }
 
-            _chartParentToolUiState.value = ChartParentToolUIState.Data(mTool, mIntervals)
+            //mTool.let {
+                _chartParentToolUiState.value = ChartParentToolUIState.Data(mTool, mIntervals)
+            //}
         }
     }
 
@@ -125,8 +137,17 @@ class ChartParentViewModel @Inject constructor(
     }
 
     fun setToolNamePrice(toolName: String?, toolPrice: Double?) {
-        this.mToolName = toolName
-        this.lastPrice = toolPrice
+
+        viewModelScope.launch {
+            //this.
+            mToolName = toolName
+            lastPrice = toolPrice
+            _chartParentForGdxUIState.value = ChartParentForGdxUIState.Data(
+                toolName = mToolName,
+                toolFormat = getToolFormat(),
+                interval = mInterval
+            )
+        }
         //onStart()
     }
 
@@ -137,8 +158,13 @@ class ChartParentViewModel @Inject constructor(
     }
 
     fun provideNewInterval(interval: Interval?) {
-        rxBus?.send(NewIntervalEvent(interval))
+        interval?.let {
+            mInterval = it
+            rxBus?.send(NewIntervalEvent(it))
+        }
     }
+
+    fun getToolFormat() = ToolFormat(8, (if (lastPrice == null) 0.0 else lastPrice!!))
 
     private fun initEvents() {
         rxBus?.let {
@@ -169,4 +195,10 @@ sealed interface ChartParentPriceUIState {
     data object Loading : ChartParentPriceUIState
     data object Empty : ChartParentPriceUIState
     data class Data(val prevPrice: Double?, val newPrice: Double) : ChartParentPriceUIState
+}
+
+sealed interface ChartParentForGdxUIState {
+    data object Loading : ChartParentForGdxUIState
+    data object Empty : ChartParentForGdxUIState
+    data class Data(val toolName: String?, val toolFormat: ToolFormat, val interval: Interval) : ChartParentForGdxUIState
 }

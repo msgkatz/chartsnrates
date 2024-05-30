@@ -5,16 +5,27 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.view.WindowManager
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
+import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.GradientColors
+import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
+import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
+import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.ChartActivity
+import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter
 import javax.inject.Inject
 
-class ChartActivityNew : BaseCompActivity(), AndroidFragmentApplication.Callbacks {
+class ChartActivityNew : BaseActivity(), ChartRouter, AndroidFragmentApplication.Callbacks {
+//class ChartActivityNew : BaseCompActivity(), AndroidFragmentApplication.Callbacks {
 
     @Inject
     lateinit var viewModel: ChartParentViewModel
@@ -36,12 +47,28 @@ class ChartActivityNew : BaseCompActivity(), AndroidFragmentApplication.Callback
                 androidTheme = false, //shouldUseAndroidTheme(uiState),
                 disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
             ) {
-                ChartParentScreen(
-                    chartParentToolUIState = chartParentToolUiState,
-                    chartParentPriceUIState = chartParentPriceUIState,
-                    onBackClick = { onBackPressed() },
-                    onIntervalClick = { it -> viewModel.provideNewInterval(it) }
-                )
+                val shouldShowGradientBackground = true
+                CnrBackground {
+                    CnrGradientBackground(
+                        gradientColors = if (shouldShowGradientBackground) {
+                            LocalGradientColors.current
+                        } else {
+                            GradientColors()
+                        },
+                    ) {
+                        Scaffold(
+                            modifier = Modifier,
+                        ) { it ->
+                            ChartParentScreen(
+                                modifier = Modifier.padding(it),
+                                chartParentToolUIState = chartParentToolUiState,
+                                chartParentPriceUIState = chartParentPriceUIState,
+                                onBackClick = { onBackPressed() },
+                                onIntervalClick = { it -> viewModel.provideNewInterval(it) }
+                            )
+                        }
+                    }
+                }
             }
 
         }
@@ -112,4 +139,11 @@ class ChartActivityNew : BaseCompActivity(), AndroidFragmentApplication.Callback
 
 
     override fun exit() {}
+    override fun showMain() {
+
+    }
+
+    override fun removeExtras() {
+
+    }
 }
