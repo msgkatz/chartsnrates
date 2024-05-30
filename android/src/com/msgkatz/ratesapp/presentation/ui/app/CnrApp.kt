@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.theme.GradientColors
@@ -92,7 +93,9 @@ fun CnrAppContent(
                         CnrNavBar(
                             destinations = topLevelDestination,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
-                            currentDestination = null, //appState.currentDestination,
+
+                            /** not in use **/
+                            currentDestination = appState.currentDestination,
                             appState = appState,
                             modifier = Modifier.testTag("NiaBottomBar"),
                         )
@@ -131,7 +134,11 @@ fun CnrAppContent(
 //                            }
                             interimVMKeeper = interimVMKeeper,
                             onPriceItemClick = onPriceItemClick,
-                            onContinue = { showSplash = false },
+                            onContinue = {
+                                if (topLevelDestination.isNotEmpty())
+                                    appState.navigateToTopLevelDestination(topLevelDestination[0])
+                                showSplash = false
+                            },
 
                         )
                     }
@@ -154,7 +161,7 @@ fun CnrNavBar(
     modifier: Modifier = Modifier,
 ) {
     val selectedDestination = remember {
-        mutableStateOf(if (destinations.size > 0) destinations[0] else "")
+        mutableStateOf(if (destinations.size > 0) destinations[0].route else "")
     }
 
     CnrNavigationBar(
@@ -181,12 +188,15 @@ fun CnrNavBar(
 
 }
 
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: CnrTopLevelDestination) =
+    this?.hierarchy?.any {
+        it.route?.contains(destination.route, true) ?: false
+    } ?: false
+
 
 
 data class CnrTopLevelDestination(
     val route: String,
-//    val selectedIcon: ImageVector,
-//    val unselectedIcon: ImageVector,
     val selectedIconId: Int,
     val unselectedIconId: Int,
     val iconTextId: Int

@@ -74,6 +74,7 @@ fun ChartParentHeader(
             }
             else -> {
                 CurrentRateComposable(
+                    modifier = Modifier.padding(start = 60.dp),
                     prevPrice = null,
                     //curPrice = chartParentPriceUIState.newPrice
                 )

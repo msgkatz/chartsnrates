@@ -50,7 +50,7 @@ fun ChartParentBody(
     val isLocalInspection = LocalInspectionMode.current
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,// Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {
         if (isLocalInspection) {

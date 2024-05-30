@@ -70,8 +70,6 @@ class ChartParentViewModel @Inject constructor(
                         updateState(
                             tool = stringToolMap[mToolName]
                         )
-//                        mTool = stringToolMap[mToolName]
-//                        Handler(Looper.myLooper()!!).post { if (getView() != null) getView().updateTitle(mTool) }
                     }
                 }
             }
@@ -84,8 +82,6 @@ class ChartParentViewModel @Inject constructor(
                         updateState(
                             intervals = intervalList
                         )
-//                        mIntervals = intervalList
-//                        if (getView() != null) getView().updateIntervals(mIntervals)
                     }
                 }
 
@@ -114,7 +110,7 @@ class ChartParentViewModel @Inject constructor(
     @Synchronized
     private fun updateState(tool: Tool? = null, intervals: List<Interval>? = null) {
         viewModelScope.launch {
-            tool.let { mTool = it }
+            tool?.let { mTool = it }
             intervals?.let { mIntervals = it }
 
             //mTool.let {
@@ -141,7 +137,8 @@ class ChartParentViewModel @Inject constructor(
         viewModelScope.launch {
             //this.
             mToolName = toolName
-            lastPrice = toolPrice
+            //lastPrice = toolPrice
+            toolPrice?.let { setPrice(it) }
             _chartParentForGdxUIState.value = ChartParentForGdxUIState.Data(
                 toolName = mToolName,
                 toolFormat = getToolFormat(),

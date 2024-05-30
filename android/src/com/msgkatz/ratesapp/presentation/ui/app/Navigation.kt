@@ -12,6 +12,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
@@ -23,6 +24,10 @@ import androidx.compose.ui.util.fastFirst
 import androidx.compose.ui.util.fastFirstOrNull
 import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.GradientColors
+import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
+import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
+import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
 import kotlin.math.roundToInt
 
 /**
@@ -64,7 +69,7 @@ fun RowScope.CnrNavigationBarItem(
             unselectedIconColor = CnrNavigationDefaults.navigationContentColor(),
             selectedTextColor = CnrNavigationDefaults.navigationSelectedItemColor(),
             unselectedTextColor = CnrNavigationDefaults.navigationContentColor(),
-            indicatorColor = CnrNavigationDefaults.navigationIndicatorColor(),
+            indicatorColor = Color.Transparent, //CnrNavigationDefaults.navigationIndicatorColor(),
         ),
     )
 }
@@ -82,12 +87,14 @@ fun CnrNavigationBar(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
-    NavigationBar(
-        modifier = modifier,
-        contentColor = CnrNavigationDefaults.navigationContentColor(),
-        tonalElevation = 0.dp,
-        content = content,
-    )
+
+        NavigationBar(
+            modifier = modifier,
+            containerColor = Color.Transparent,
+            contentColor = CnrNavigationDefaults.navigationSelectedItemColor(),
+            tonalElevation = 4.dp,
+            content = content,
+        )
 }
 
 

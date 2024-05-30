@@ -68,7 +68,7 @@ class MainActivityNew : BaseCompActivity() {
     name = "DefaultPreviewLight"
 )
 @Composable
-fun ReplyAppPreviewLight() {
+fun CnrAppPreviewLight() {
     CnrThemeAlter(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
