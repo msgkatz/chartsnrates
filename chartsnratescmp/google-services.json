@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1071077889257",
+    "firebase_url": "https://charts-and-rates.firebaseio.com",
+    "project_id": "charts-and-rates",
+    "storage_bucket": "charts-and-rates.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071077889257:android:d3fbff94cc48add7",
+        "android_client_info": {
+          "package_name": "com.msgkatz.ratesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071077889257-qrkao50g8n05o49isu113u1n50v1gsge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.msgkatz.ratesapp",
+            "certificate_hash": "4f309aa45bd8a120d7e904e1df84a415e0595007"
+          }
+        },
+        {
+          "client_id": "1071077889257-qec83mlg9a8p4l6vnae3k8oc7sthr3jb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZKreJE3mbtdLQWyj8lOaCYHNNWNhChqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071077889257-qec83mlg9a8p4l6vnae3k8oc7sthr3jb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

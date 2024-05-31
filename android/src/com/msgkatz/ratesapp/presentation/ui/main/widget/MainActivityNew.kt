@@ -3,6 +3,8 @@ package com.msgkatz.ratesapp.presentation.ui.main.widget
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.PowerManager
+import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,8 +32,14 @@ class MainActivityNew : BaseCompActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        interimVMKeeper = InterimVMKeeper(this, viewModel.mGetAssets, viewModel.mGetPlatformInfo,
-            viewModel.mGetQuoteAssetsMap, viewModel.mGetToolListPrices, tabInfoStorer)
+        mgr = getSystemService(POWER_SERVICE) as PowerManager
+        interimVMKeeper = InterimVMKeeper(this,
+            viewModel.mGetAssets,
+            viewModel.mGetPlatformInfo,
+            viewModel.mGetQuoteAssetsMap,
+            viewModel.mGetToolListPrices,
+            tabInfoStorer
+        )
         setContent {
             CnrThemeAlter(
                 darkTheme = true,
@@ -56,6 +64,31 @@ class MainActivityNew : BaseCompActivity() {
             intent.putExtra(ChartActivity.KEY_TOOL_PRICE, it.getPrice())
         }
         startActivity(intent)
+    }
+
+    /** ChartScreen related funcs **/
+    private var wakeLock: PowerManager.WakeLock? = null
+    private var mgr: PowerManager? = null
+    private fun processScreenLock(toSet: Boolean) {
+        if (toSet) {
+            /**
+             * Flags keeps screen On, but better to use wakelock (somewhere in bg)
+             */
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+            //if (mgr != null) {
+            if (wakeLock == null)
+                wakeLock = mgr?.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, ":ChartsnRatesWakeLock")
+            //}
+            wakeLock?.acquire(10 * 60 * 1000L /*10 minutes*/)
+
+        } else {
+            wakeLock?.release()
+            /**
+             * Flags keeps screen On, but better to use wakelock (somewhere in bg)
+             */
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
     }
 }
 
