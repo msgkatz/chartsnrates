@@ -185,8 +185,8 @@ public class MainActivity extends BaseActivity implements MainRouter, TabLayout.
 
     private void showQuoteAssetFragment(String quoteAssetName)
     {
-        //addBackStack(QuoteAssetFragment.newInstance(quoteAssetName), false);
-        addBackStack(QuoteAssetFragmentNew.Companion.newInstance(quoteAssetName), false);
+        addBackStack(QuoteAssetFragment.newInstance(quoteAssetName), false);
+        //addBackStack(QuoteAssetFragmentNew.Companion.newInstance(quoteAssetName), false);
     }
 
     private void addBackStack(BaseFragment fragment, boolean isAddToBackStack)
