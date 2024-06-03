@@ -1,2 +1,2 @@
 include 'desktop', 'android', 'ios', 'core' //, 'html'
-include ':chartsnratescmp'
+include ':androidcmp'
