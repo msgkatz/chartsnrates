@@ -81,7 +81,17 @@ fun PriceListItem(
                 horizontalAlignment = Alignment.End,
             ) {
                 val prevPrice = rememberPrevious(priceSimple.price)
-                val toUp = if (prevPrice == null || prevPrice <= priceSimple.price) true else false
+                val toUp = if (prevPrice == null || prevPrice < priceSimple.price) PriceDiff.Up
+                            else if (prevPrice > priceSimple.price) PriceDiff.Down
+                            else PriceDiff.Same
+                val prevToUp: PriceDiff? = rememberPrevious(toUp) { prev, cur ->
+                    cur != PriceDiff.Same && prev != cur
+                }
+
+                val finalToUp = if (toUp == PriceDiff.Up || (toUp == PriceDiff.Same && prevToUp == PriceDiff.Up)) true
+                                else if (toUp == PriceDiff.Down || (toUp == PriceDiff.Same && prevToUp == PriceDiff.Down)) false
+                                else false
+
                 if (prevPrice == null || isLocalInspection) {
                     Text(
                         text = priceSimple.priceFormatted,
@@ -91,7 +101,7 @@ fun PriceListItem(
                     Text(
                         text = priceSimple.priceFormatted,
                         style = MaterialTheme.typography.labelLarge,
-                        color = if (toUp) { Green80 } else  { Red40 }
+                        color = if (finalToUp) { Green80 } else { Red40 }
                     )
                 }
 
@@ -103,13 +113,13 @@ fun PriceListItem(
                         Icon(
                             modifier = modifier
                                 //.background(MaterialTheme.colorScheme.surface)
-                                .rotate(if (toUp) 270f else 90f)
+                                .rotate(if (finalToUp) 270f else 90f)
                                 .padding(horizontal = 3.dp)
                                 .size(6.dp),
 
                             painter = painterResource(id = R.drawable.ic_triangle_right),
                             contentDescription = null,
-                            tint = if (toUp) { Green80 } else  { Red40 }
+                            tint = if (finalToUp) { Green80 } else  { Red40 }
                             //tint = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
 
                         )
@@ -117,7 +127,7 @@ fun PriceListItem(
                         Text(
                             text = getPriceDelta(prevPrice, priceSimple.price),
                             style = MaterialTheme.typography.labelLarge,
-                            color = if (toUp) { Green80 } else  { Red40 }
+                            color = if (finalToUp) { Green80 } else  { Red40 }
                             //color = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
                         )
                     }
@@ -228,5 +238,11 @@ private fun PriceListItemPreview() {
             )
         }
     }
+}
+
+sealed class PriceDiff {
+    data object Up: PriceDiff()
+    data object Same: PriceDiff()
+    data object Down: PriceDiff()
 }
 
