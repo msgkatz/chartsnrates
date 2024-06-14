@@ -1,9 +1,7 @@
 package com.msgkatz.ratesapp.presentation.ui.splash
 
-import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msgkatz.ratesapp.data.entities.rest.Asset
@@ -13,8 +11,15 @@ import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
 import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
 import com.msgkatz.ratesapp.utils.Logs
+import com.msgkatz.ratesapp.utils.asResult
+import com.msgkatz.ratesapp.utils.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,16 +35,101 @@ class SplashViewModel @Inject constructor(
 
     // UI state exposed to the UI
     private val _uiState = MutableStateFlow(SplashUIState(loading = true))
-    val uiState: StateFlow<SplashUIState> = _uiState
+    val uiState2: StateFlow<SplashUIState> = _uiState
 
     init {
         loadAssets()
     }
 
-    private val mHandler = Handler(Looper.myLooper()!!)
+    private val mHandler = Handler(Looper.getMainLooper())
     private var counter = 0
 
+    private fun loadAssets0() {
+        viewModelScope.launch {
+            mGetAssets.getAsFlow(null)
+                .map { it ->
+                    when (it?.get()) {
+                        null -> {}
+                        else -> {
+
+                        }
+                    }
+                }
+                .collect()
+        }
+    }
     private fun loadAssets() {
+        viewModelScope.launch {
+//            mGetAssets.getAsFlow(null)
+////                .flatMapLatest {  it ->
+////                    when (it?.get() == null) {
+////                        true -> {
+////                            initErrorMessage()
+////                        }
+////                        false -> {
+////                            mGetPlatformInfo.getAsFlow(null)
+////
+////                    }
+////                }
+//                .asResult()
+//                .map {
+//                    when (it) {
+//                        is Result.Loading -> {}
+//                        is Result.Error -> { initErrorMessage() }
+//                        is Result.Success -> {
+//                            if (it.data?.get() == null) {
+//                                initErrorMessage()
+//                            } else {
+//                                if (1==2) loadPlatformInfo()
+//                                else
+//                                mGetPlatformInfo.getAsFlow(null)
+//                                    .asResult()
+//                                    .map { it ->
+//                                        when(it) {
+//                                            is Result.Loading -> {}
+//                                            is Result.Error -> { initErrorMessage() }
+//                                            is Result.Success -> {  initUI() }
+//                                        }
+//                                    }.flowOn(Dispatchers.Default).collect()
+//                            }
+//                        }
+//                    }
+//
+//                }.collect()
+//        }
+
+            combine(
+                mGetAssets.getAsFlow(null),
+                mGetPlatformInfo.getAsFlow(null),
+                ::Pair
+            ).asResult()
+                //.retry(3)
+                .map { it ->
+                    when (it) {
+                        is Result.Loading -> {
+                            //SplashUIState.Loading
+                        }
+
+                        is Result.Success -> {
+                            if (it.data.first?.get() != null && it.data.second?.get() != null) {
+                                initUI()
+                                //SplashUIState.Loaded
+                            } else {
+                                initErrorMessage()
+                                //SplashUIState.Error
+                            }
+                        }
+
+                        is Result.Error -> {
+                            initErrorMessage()
+                            //SplashUIState.Error
+                        }
+                    }
+                }.flowOn(Dispatchers.Default).collect()
+        }
+    }
+
+    private fun loadAssets2() {
         viewModelScope.launch {
             mGetAssets.execute(object :
                 ResponseObserver<Optional<Map<String?, Asset?>?>?, Map<String?, Asset?>?>() {
@@ -127,7 +217,8 @@ class SplashViewModel @Inject constructor(
 
 }
 
-data class SplashUIState(
+
+data class SplashUIState (
     val loading: Boolean = false,
     val errorLoading: Boolean = false,
     val loaded: Boolean = false,

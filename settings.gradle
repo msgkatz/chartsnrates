@@ -1,2 +1,3 @@
 include 'desktop', 'android', 'ios', 'core' //, 'html'
-include ':androidcmp'
+include ':androidcmpapp:androidcmp'
+//include ':androidcmp'

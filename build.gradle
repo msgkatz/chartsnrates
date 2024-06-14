@@ -74,7 +74,7 @@ project(":desktop") {
     }
 }
 
-project(":androidcmp") {
+project(":androidcmpapp:androidcmp") {
     apply plugin: "com.android.application"
 
     apply plugin: 'kotlin-android'
