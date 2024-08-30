@@ -7,6 +7,7 @@ import com.msgkatz.ratesapp.presentation.ui.main.MainActivity;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityModule;
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashActivity;
 
+
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -24,4 +25,5 @@ public abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = ChartActivityModule.class)
     abstract ChartActivity bindChartActivity();
+
 }

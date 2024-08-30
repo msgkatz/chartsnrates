@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="tab_icons">
+        <item>@drawable/cur_usdt</item>
+        <item>@drawable/cur_bnb</item>
+        <item>@drawable/cur_btc</item>
+        <item>@drawable/cur_eth</item>
+    </array>
+    <array name="tab_names">
+        <item>USDT</item>
+        <item>BNB</item>
+        <item>BTC</item>
+        <item>ETH</item>
+    </array>
+</resources>

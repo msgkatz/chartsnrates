@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base Splash theme. -->
+    <style name="AppThemeSplash" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="AppThemeSplash.BrandedLaunch" parent="AppThemeSplash">
+        <item name="android:windowBackground">@drawable/branded_logo</item>
+        <!--<item name="android:background">@drawable/branded_logo</item>-->
+        <!--<item name="colorPrimary">@color/theme_governor_bay</item>
+        <item name="colorPrimaryDark">@color/theme_governor_bay</item>-->
+
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/theme_torea_bay_dark</item>
+    </style>
+
+</resources>

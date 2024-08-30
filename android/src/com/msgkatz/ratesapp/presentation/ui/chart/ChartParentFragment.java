@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.msgkatz.ratesapp.R;
+import com.msgkatz.ratesapp.databinding.FragmentParentChartBinding;
 import com.msgkatz.ratesapp.domain.entities.Interval;
 import com.msgkatz.ratesapp.domain.entities.Tool;
 import com.msgkatz.ratesapp.presentation.common.Layout;
@@ -45,7 +46,7 @@ import butterknife.BindView;
  */
 
 @SuppressWarnings("WeakerAccess")
-@Layout(id = R.layout.fragment_parent_chart)
+//@Layout(id = R.layout.fragment_parent_chart)
 public class ChartParentFragment extends BaseChartFragment implements ChartParentView {
 
     public static final String TAG = ChartParentFragment.class.getSimpleName();
@@ -53,18 +54,19 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
     public static final String KEY_TOOL_NAME = "com.msgkatz.ratesapp.tool.name";
     public static final String KEY_TOOL_PRICE = "com.msgkatz.ratesapp.tool.price";
 
+    private FragmentParentChartBinding binding;
+
     @Inject
     BaseChartParentPresenter mChartParentPresenter;
 
-    @BindView(R.id.constraintLayout) View rootView;
-    @BindView(R.id.imageView) ImageView mBackButton;
-    @BindView(R.id.title_main) TextView mTitleMain;
-    @BindView(R.id.title_main2) TextView mTitleMain2;
-    @BindView(R.id.title_2nd) TextView mTitle2nd;
-    @BindView(R.id.rate) CurrentRateLayout mRate;
-    @BindView(R.id.rate2) CurrentRateLayout mRate2;
-    @BindView(R.id.rv_interval_list)
-    RecyclerView mRecyclerView;
+    //@BindView(R.id.constraintLayout) View rootView;
+//    @BindView(R.id.imageView) ImageView mBackButton;
+//    @BindView(R.id.title_main) TextView mTitleMain;
+//    @BindView(R.id.title_main2) TextView mTitleMain2;
+//    @BindView(R.id.title_2nd) TextView mTitle2nd;
+//    @BindView(R.id.rate) CurrentRateLayout mRate;
+//    @BindView(R.id.rate2) CurrentRateLayout mRate2;
+//    @BindView(R.id.rv_interval_list) RecyclerView mRecyclerView;
 
     private ChartIntervalsAdapter mAdapter;
     private Handler mHandler = new Handler();
@@ -97,9 +99,12 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        //View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        mBackButton.setOnClickListener(new View.OnClickListener() {
+        binding = FragmentParentChartBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ChartParentPresenter)getPresenter()).getRouter().showMain();
@@ -108,42 +113,15 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
 
         setupRecycler();
 
-        mTitleMain.setText(mToolName);
-        mRate.setRate(mToolPrice);
-        mRate2.setRate(mToolPrice);
-        mTitle2nd.setVisibility(View.INVISIBLE);
+        binding.titleMain.setText(mToolName);
+        binding.rate.setRate(mToolPrice);
+        binding.rate2.setRate(mToolPrice);
+        binding.title2nd.setVisibility(View.INVISIBLE);
         ((ChartParentPresenter)getPresenter()).provideToolName(mToolName);
 
         modifyBackButtonHitArea();
 
-//        final ViewTreeObserver observer = rootView.getViewTreeObserver();
-//        observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            public boolean onPreDraw() {
-//                rootView.getViewTreeObserver().removeOnPreDrawListener(this);
-//                //getActivity().startPostponedEnterTransition();
-//                return true;
-//            }
-//        });
 
-//        if (view.getViewTreeObserver() != null) {
-//            view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//                @Override
-//                public boolean onPreDraw() {
-//                    view.getViewTreeObserver().removeOnPreDrawListener(this);
-//                    initGdxFragment();
-//                    return true;
-//                }
-//            });
-//        }
-//        else
-//        {
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    initGdxFragment();
-//                }
-//            }, 500);
-//        }
 
 
         return view;
@@ -165,37 +143,43 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
     public void setConfigurationChange(boolean isLandscape) {
         Log.e(TAG, "setConfigurationChange isLandscape=" + isLandscape);
         int height = 0;
         if (isLandscape) {
-            mRate2.setVisibility(View.VISIBLE);
-            mRate.setVisibility(View.GONE);
+            binding.rate2.setVisibility(View.VISIBLE);
+            binding.rate.setVisibility(View.GONE);
             height = CommonUtil.dpToPx(50);
         } else {
-            mRate.setVisibility(View.VISIBLE);
-            mRate2.setVisibility(View.GONE);
+            binding.rate.setVisibility(View.VISIBLE);
+            binding.rate2.setVisibility(View.GONE);
             height = CommonUtil.dpToPx(100);
         }
 
-        ViewGroup.LayoutParams lp = mRecyclerView.getLayoutParams();
+        ViewGroup.LayoutParams lp = binding.rvIntervalList.getLayoutParams();
         lp.height = height;
-        mRecyclerView.setLayoutParams(lp);
+        binding.rvIntervalList.setLayoutParams(lp);
     }
 
     private void modifyBackButtonHitArea()
     {
         final int extraArea = CommonUtil.dpToPx(35);
-        final View parent = (View) mBackButton.getParent();  // button: the view you want to enlarge hit area
+        final View parent = (View) binding.imageView.getParent();  // button: the view you want to enlarge hit area
         parent.post( new Runnable() {
             public void run() {
                 final Rect rect = new Rect();
-                mBackButton.getHitRect(rect);
+                binding.imageView.getHitRect(rect);
                 rect.top -= extraArea;    // increase top hit area
                 rect.left -= extraArea;   // increase left hit area
                 rect.bottom += extraArea; // increase bottom hit area
                 rect.right += extraArea;  // increase right hit area
-                parent.setTouchDelegate( new TouchDelegate( rect , mBackButton));
+                parent.setTouchDelegate( new TouchDelegate( rect , binding.imageView));
             }
         });
     }
@@ -203,11 +187,11 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
     private void setupRecycler()
     {
         mAdapter = new ChartIntervalsAdapter(this.getContext(), mInterval);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setAdapter(mAdapter);
+        binding.rvIntervalList.setHasFixedSize(true);
+        binding.rvIntervalList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvIntervalList.setAdapter(mAdapter);
 
-        //ViewCompat.setNestedScrollingEnabled(mRecyclerView, false);
+        //ViewCompat.setNestedScrollingEnabled(binding.rvIntervalList, false);
 
         mAdapter.setOnItemClickListener(new ChartIntervalsAdapter.OnItemClickListener() {
 
@@ -225,23 +209,23 @@ public class ChartParentFragment extends BaseChartFragment implements ChartParen
 
         StartOffsetItemDecoration itemDecorationStart = new StartOffsetItemDecoration(CommonUtil.dpToPx(10));
         EndOffsetItemDecoration itemDecorationEnd = new EndOffsetItemDecoration(CommonUtil.dpToPx(10));
-        mRecyclerView.addItemDecoration(itemDecorationStart);
-        mRecyclerView.addItemDecoration(itemDecorationEnd);
+        binding.rvIntervalList.addItemDecoration(itemDecorationStart);
+        binding.rvIntervalList.addItemDecoration(itemDecorationEnd);
     }
 
     @Override
     public void updatePrice(double newPrice) {
-        mRate.setRate(newPrice);
-        mRate2.setRate(newPrice);
+        binding.rate.setRate(newPrice);
+        binding.rate2.setRate(newPrice);
     }
 
     @Override
     public void updateTitle(Tool tool) {
-        mTitleMain.setText(tool.getBaseAsset().getNameShort());
+        binding.titleMain.setText(tool.getBaseAsset().getNameShort());
         String quote = String.format(Locale.getDefault(), "/%1$s", tool.getQuoteAsset().getNameShort());
-        mTitleMain2.setText(quote);
-        mTitle2nd.setText(tool.getBaseAsset().getNameLong());
-        mTitle2nd.setVisibility(View.VISIBLE);
+        binding.titleMain2.setText(quote);
+        binding.title2nd.setText(tool.getBaseAsset().getNameLong());
+        binding.title2nd.setVisibility(View.VISIBLE);
     }
 
     @Override
