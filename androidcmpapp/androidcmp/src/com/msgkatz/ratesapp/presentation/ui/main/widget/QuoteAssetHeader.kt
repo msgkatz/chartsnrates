@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,13 +49,23 @@ fun QuoteAssetHeader(
 
     Column(
         modifier = modifier.padding(horizontal = 33.dp)
+            //.heightIn(max = headerHeight)
+
             .height(headerHeight)
-            .offset {
+            .graphicsLayer {
                 val scroll = scrollProvider()
                 val newOffset = headerOffsetHeightPx.value + scroll
                 headerOffsetHeightPx.value = newOffset.coerceIn(-headerHeightPx, 0f)
-                IntOffset(x = 0, y = headerOffsetHeightPx.value.roundToInt())
-            },
+                translationY = headerOffsetHeightPx.value
+            }
+
+//            .offset {
+//                val scroll = scrollProvider()
+//                val newOffset = headerOffsetHeightPx.value + scroll
+//                headerOffsetHeightPx.value = newOffset.coerceIn(-headerHeightPx, 0f)
+//                IntOffset(x = 0, y = headerOffsetHeightPx.value.roundToInt())
+//            }
+        ,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {

@@ -81,7 +81,8 @@ fun QuoteAssetScreen(
     ) {
         QuoteAssetHeader(
             quoteAssetUIState = quoteAssetUIState,
-            scrollProvider = { offsetDelta.value }
+            //scrollProvider = { offsetDelta.value },
+            scrollProvider = { 0f },
         )
         QuoteAssetBody(
             priceListUIState = priceListUIState,

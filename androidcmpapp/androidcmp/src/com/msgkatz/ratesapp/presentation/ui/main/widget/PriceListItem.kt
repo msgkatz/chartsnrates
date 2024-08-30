@@ -197,7 +197,9 @@ fun <T> rememberRef(): MutableState<T?> {
 
 /**
  * <p> Version of partial update via remembering of prev value for comparing with new one before recomposition.
+ * See <a href="https://stackoverflow.com/questions/67801939/get-previous-value-of-state-in-composable-jetpack-compose">this</a> for info.
  * See <a href="https://stackoverflow.com/questions/68046535/lazycolumn-and-mutable-list-how-to-update">this</a> for info.
+ *
  * <p/>
  */
 @Composable
