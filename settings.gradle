@@ -4,4 +4,7 @@ include ':androidcmpapp:androidcmp'
 include ':androidcmpapp:cnr-network-kmm'
 project(':androidcmpapp:cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
 
+//include ':cnr-network-kmm'
+//project(':cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
+
 //include ':androidcmp'

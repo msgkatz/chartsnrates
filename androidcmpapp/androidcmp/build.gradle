@@ -76,6 +76,10 @@ android {
 
 dependencies {
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    implementation project(':androidcmpapp:cnr-network-kmm')
+    //implementation(":androidcmpapp:cnr-network-kmm")
+    //implementation 'io.ktor:ktor-client-okhttp:2.3.6'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'junit:junit:4.12'
     def daggerVersion = '2.19' //'2.48.1'//'2.19' //'2.50' //'2.18' //'2.6'
@@ -94,6 +98,8 @@ dependencies {
     def adxMultidexVersion = '2.0.1'
 
     //implementation(":android")
+
+
 
     def androidxComposeBom = "2024.03.00" //"2023.10.01" //"2024.03.00"
     def composeBom = platform("androidx.compose:compose-bom:$androidxComposeBom")

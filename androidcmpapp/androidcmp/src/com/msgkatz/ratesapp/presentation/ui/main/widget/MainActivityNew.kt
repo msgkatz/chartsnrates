@@ -8,6 +8,11 @@ import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import com.msgkatz.ratesapp.data.network.rest.RestController
+import com.msgkatz.ratesapp.data.network.rest.getRestClient
+import com.msgkatz.ratesapp.data.network.rest.getRestClientPlatformed
 import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
@@ -15,6 +20,9 @@ import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivityNew : BaseCompActivity() {
@@ -53,6 +61,34 @@ class MainActivityNew : BaseCompActivity() {
 
             }
 
+        }
+
+        val coroutineScope = lifecycle.coroutineScope
+        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+        val symbol = "1000SATSUSDT"
+        val interval = "5m"
+
+        val startTime = null
+        val endTime = 1724166300000
+        val limit = 300
+        lifecycleScope.launch {
+            val res = RestController(coroutineScope, ioDispatcher)
+                .getPriceByCandle(
+                    symbol = symbol,
+                    interval = interval,
+                    startTime = startTime,
+                    endTime = endTime,
+                    limit = limit
+                )
+            if (res.isSuccess) {
+                res.getOrNull()?.forEach {
+                    println("list:")
+                    it.forEach { item -> println(item) }
+                }
+            } else {
+                res.exceptionOrNull()?.let { println("FOCKEN ERROR: ${it.message}") }
+            }
+            println("done kmm")
         }
     }
 
