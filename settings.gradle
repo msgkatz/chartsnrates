@@ -1,3 +1,7 @@
 include 'desktop', 'android', 'ios', 'core' //, 'html'
 include ':androidcmpapp:androidcmp'
+
+include ':androidcmpapp:cnr-network-kmm'
+project(':androidcmpapp:cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
+
 //include ':androidcmp'
