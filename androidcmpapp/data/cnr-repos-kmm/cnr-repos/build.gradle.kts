@@ -80,6 +80,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.androidx.collections)
         }
 
         commonTest.dependencies {

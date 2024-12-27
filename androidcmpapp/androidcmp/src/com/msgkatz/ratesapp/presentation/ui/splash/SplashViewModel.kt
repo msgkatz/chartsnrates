@@ -121,6 +121,7 @@ class SplashViewModel @Inject constructor(
                         }
 
                         is Result.Error -> {
+                            println("Error: ${it.exception?.message}")
                             initErrorMessage()
                             //SplashUIState.Error
                         }

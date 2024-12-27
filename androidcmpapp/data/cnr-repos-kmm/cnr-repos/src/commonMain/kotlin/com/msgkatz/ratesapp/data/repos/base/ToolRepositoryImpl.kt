@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -40,52 +41,64 @@ class ToolRepositoryImpl(
 
     val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
 
-    override fun getPlatformInfo() : Flow<PlatformInfo?> = flow {
+    override suspend fun getPlatformInfo(): PlatformInfo? = coroutineScope {
         if (isEmpty()) {
             if (update()) {
-                emit(data)
+                data
             } else {
-                emit(null)
+                null
             }
         } else {
-            emit(data)
+            data
         }
+    }
+    override fun getPlatformInfoAsFlow() : Flow<PlatformInfo?> = flow {
+        emit(getPlatformInfo())
     }.flowOn(ioDispatcher)
 
-    override fun getToolMap() : Flow<Map<String, Tool>?> = flow {
+    override suspend fun getToolMap() : Map<String, Tool>? = coroutineScope {
         if (isEmpty()) {
             if (update()) {
-                emit(toolMap)
+                toolMap
             } else {
-                emit(null)
+                null
             }
         } else {
-            emit(toolMap)
+            toolMap
         }
+    }
+    override fun getToolMapAsFlow() : Flow<Map<String, Tool>?> = flow {
+        emit(getToolMap())
     }.flowOn(ioDispatcher)
 
-    override fun getQuoteAssetMap() : Flow<Map<String, Asset>?> = flow {
+    override suspend fun getQuoteAssetMap() : Map<String, Asset>? = coroutineScope {
         if (isEmpty()) {
             if (update()) {
-                emit(quoteAssetMap)
+                quoteAssetMap
             } else {
-                emit(null)
+                null
             }
         } else {
-            emit(quoteAssetMap)
+            quoteAssetMap
         }
+    }
+    override fun getQuoteAssetMapAsFlow() : Flow<Map<String, Asset>?> = flow {
+        emit(getQuoteAssetMap())
     }.flowOn(ioDispatcher)
 
-    override fun getQuoteAssetSet() : Flow<Set<Asset>?> = flow {
+    override suspend fun getQuoteAssetSet() : Set<Asset>? = coroutineScope {
         if (isEmpty()) {
             if (update()) {
-                emit(quoteAssetSet)
+                quoteAssetSet
             } else {
-                emit(null)
+                null
             }
         } else {
-            emit(quoteAssetSet)
+            quoteAssetSet
         }
+    }
+    override fun getQuoteAssetSetAsFlow() : Flow<Set<Asset>?> = flow {
+        emit(getQuoteAssetSet())
     }.flowOn(ioDispatcher)
 
     private suspend fun update(): Boolean = scope.async {

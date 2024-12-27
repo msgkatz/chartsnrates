@@ -25,6 +25,6 @@ class AssetRepositoryImpl(
     }
     val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
 
-    override fun getAssets(): Flow<Map<String, Tool>?> = tools.getToolMap()
+    override fun getAssets(): Flow<Map<String, Tool>?> = tools.getToolMapAsFlow()
 
 }

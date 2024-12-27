@@ -63,6 +63,10 @@ class MainActivityNew : BaseCompActivity() {
 
         }
 
+        if (1 == 2) makeTEsts()
+    }
+
+    private fun makeTEsts() {
         val coroutineScope = lifecycle.coroutineScope
         val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
         val symbol = "1000SATSUSDT"

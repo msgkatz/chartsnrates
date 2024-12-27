@@ -316,6 +316,14 @@ data class Candle(
     val priceClose: Double = 0.0,
     val time: Long = 0
 ) : Comparable<Candle> {
+
+    constructor(prev : Candle, newTime: Long) : this(
+        priceHigh = prev.priceHigh,
+        priceLow = prev.priceLow,
+        priceOpen = prev.priceOpen,
+        priceClose = prev.priceClose,
+        time = newTime,
+    )
     override fun compareTo(other: Candle): Int {
         return time.compareTo(other.time)
     }
@@ -323,6 +331,16 @@ data class Candle(
     override fun toString(): String {
         return "Candle: o=${priceOpen}; h=${priceHigh}; l=${priceLow}; c=${priceClose}; t=${time}"
             //"Candle: o=%1\$s; h=%2\$s; l=%3\$s; c=%4\$s; t=%5\$s",
+    }
+
+    fun rebase(newLow: Double, newHigh: Double, newClose: Double): Candle {
+        return Candle(
+            priceHigh = if (newHigh > this.priceHigh) newHigh else this.priceHigh,
+            priceLow = if (newLow < this.priceLow) newLow else this.priceLow,
+            priceOpen = this.priceOpen,
+            priceClose = newClose, //this.priceClose,
+            time = this.time,
+        )
     }
 }
 

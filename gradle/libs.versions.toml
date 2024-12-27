@@ -10,6 +10,8 @@ compose-plugin = "1.6.11"
 kotlinx-coroutines = "1.8.0" #"1.9.0"
 kotlinx-serialization = "1.7.3"
 
+android-collections = "1.5.0-alpha06" #"1.4.5"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
@@ -30,6 +32,9 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+androidx-collections = { module = "androidx.collection:collection", version.ref = "android-collections" }
+
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

@@ -63,12 +63,12 @@ public class ApiBuilder implements Api.Rest {
             return chain.proceed(request);
         });
 
-        if (Parameters.DEBUG)
+        if (Parameters.DEBUG && 1 == 2)
         {
             httpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
         }
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && 1 == 2) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
             //logging.setLevel(HttpLoggingInterceptor.Level.BODY);

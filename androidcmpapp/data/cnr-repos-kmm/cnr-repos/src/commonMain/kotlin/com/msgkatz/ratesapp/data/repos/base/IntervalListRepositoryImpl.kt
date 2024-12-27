@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.sync.Mutex
@@ -28,27 +29,34 @@ class IntervalListRepositoryImpl(
     }
     val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
 
-    override fun getIntervals(): Flow<List<Interval>?> = flow {
-        if (isEmpty()) {
-            if (update()) {
-                emit(sortedIntervalList)
-            } else {
-                emit(null)
-            }
-        } else {
-            emit(sortedIntervalList)
-        }
+    override fun getIntervalsAsFlow(): Flow<List<Interval>?> = flow {
+        getIntervals()
     }
 
-    override fun getIntervalByName(interval: String) : Flow<Interval?> = flow {
+    override fun getIntervalByNameAsFlow(interval: String) : Flow<Interval?> = flow {
+        getIntervalByName(interval)
+    }
+
+    override suspend fun getIntervals(): List<Interval>? = coroutineScope {
         if (isEmpty()) {
             if (update()) {
-                emit(data?.getOrElse(interval) { null })
+                sortedIntervalList
             } else {
-                emit(null)
+                null
             }
         } else {
-            emit(data?.getOrElse(interval) { null })
+            sortedIntervalList
+        }
+    }
+    override suspend fun getIntervalByName(interval: String) : Interval? = coroutineScope {
+        if (isEmpty()) {
+            if (update()) {
+                data?.getOrElse(interval) { null }
+            } else {
+                null
+            }
+        } else {
+            data?.getOrElse(interval) { null }
         }
     }
 
@@ -59,8 +67,8 @@ class IntervalListRepositoryImpl(
                 val result = jssource.getLocalJsonIntervals()
                 if (result.isSuccess) {
                     result.getOrNull()?.map {
-                        it.toEntity()
-                    }
+                            it.toEntity()
+                        }
                         ?.sortedBy { it.id }
                         ?.map {
                             if (data == null) data = HashMap()

@@ -2,18 +2,20 @@ package com.msgkatz.ratesapp.data.repos.base
 
 import com.msgkatz.ratesapp.data.model.Asset
 import com.msgkatz.ratesapp.data.model.PlatformInfo
-import com.msgkatz.ratesapp.data.model.PlatformInfoDTDomain
 import com.msgkatz.ratesapp.data.model.Tool
-import com.msgkatz.ratesapp.data.network.rest.RestDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.sync.Mutex
 
 interface ToolRepository
 {
- fun getPlatformInfo(): Flow<PlatformInfo?>
- fun getToolMap() : Flow<Map<String, Tool>?>
- fun getQuoteAssetMap() : Flow<Map<String, Asset>?>
- fun getQuoteAssetSet() : Flow<Set<Asset>?>
+ suspend fun getPlatformInfo(): PlatformInfo?
+ suspend fun getToolMap() : Map<String, Tool>?
+ suspend fun getQuoteAssetMap() : Map<String, Asset>?
+ suspend fun getQuoteAssetSet() : Set<Asset>?
+
+ fun getPlatformInfoAsFlow(): Flow<PlatformInfo?>
+ fun getToolMapAsFlow() : Flow<Map<String, Tool>?>
+ fun getQuoteAssetMapAsFlow() : Flow<Map<String, Asset>?>
+ fun getQuoteAssetSetAsFlow() : Flow<Set<Asset>?>
 
 
 
