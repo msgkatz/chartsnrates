@@ -47,14 +47,20 @@ class CurToolRealtimePriceRepositoryImpl(
             }
 }
 
-fun StreamComboBaseWSModel.parseEvent(): StreamEventTypeWSModel =
-    StreamEventTypeWSModel.getTypeByName(Json.decodeFromJsonElement<StreamEventWSModel>(this.data).eventType)
+fun StreamComboBaseWSModel.parseEvent(): StreamEventTypeWSModel {
+    val withUnknownKeys = Json { ignoreUnknownKeys = true }
+    return StreamEventTypeWSModel.getTypeByName(withUnknownKeys.decodeFromJsonElement<StreamEventWSModel>(this.data).eventType)
+}
 
-fun StreamComboBaseWSModel.toKline(): StreamKlineEventWSModel =
-    Json.decodeFromJsonElement<StreamKlineEventWSModel>(this.data)
+fun StreamComboBaseWSModel.toKline(): StreamKlineEventWSModel {
+    val withUnknownKeys = Json { ignoreUnknownKeys = true }
+    return withUnknownKeys.decodeFromJsonElement<StreamKlineEventWSModel>(this.data)
+}
 
-fun StreamComboBaseWSModel.toMarketTickerMini(): StreamMarketTickerMiniWSModel =
-    Json.decodeFromJsonElement<StreamMarketTickerMiniWSModel>(this.data)
+fun StreamComboBaseWSModel.toMarketTickerMini(): StreamMarketTickerMiniWSModel {
+    val withUnknownKeys = Json { ignoreUnknownKeys = true }
+    return withUnknownKeys.decodeFromJsonElement<StreamMarketTickerMiniWSModel>(this.data)
+}
 
 fun StreamKlineEventWSModel.toCandle(): Candle = Candle(this.kline.open, this.kline.high, this.kline.low, this.kline.close, this.eventTime)
 fun StreamMarketTickerMiniWSModel.toCandle(): Candle = Candle(this.open, this.high, this.low, this.close, this.eventTime)

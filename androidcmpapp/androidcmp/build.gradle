@@ -78,6 +78,7 @@ dependencies {
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
     //implementation project(':androidcmpapp:cnr-network-kmm')
     implementation project(':androidcmpapp:data:cnr-network-kmm')
+    implementation project(':androidcmpapp:data:cnr-model-kmm')
     implementation project(':androidcmpapp:data:cnr-repos-kmm')
     //implementation(":androidcmpapp:cnr-network-kmm")
     //implementation 'io.ktor:ktor-client-okhttp:2.3.6'

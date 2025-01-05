@@ -62,7 +62,7 @@ class CurToolRealtimeBalancedPriceRepositoryImpl(
 
             launch {
                 wsockds.getKlineAndMiniTickerComboStream(symbol, interval)
-                    .map { wsmodel ->
+                    .collect { wsmodel ->
                         val name = "${symbol}_${interval}"
                         var candle: Candle? = null
                         try {

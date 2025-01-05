@@ -6,19 +6,16 @@ import com.msgkatz.ratesapp.data.network.rest.PriceByCandleApiModel
 import com.msgkatz.ratesapp.data.network.rest.RestDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlin.math.floor
 
 class HistoricalPriceRepositoryImpl(
     private val networkds: RestDataSource,
-    private val map: MutableMap<String, MutableSet<Candle>>,
+   //private val map: MutableMap<String, MutableSet<Candle>>,
+    private val intervalListRepository: IntervalListRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default,
-    private val intervalsRepository: IntervalListRepository,
 ) : HistoricalPriceRepository {
 
     private var curset: MutableSet<Candle>? = null //LinkedHashSet()
@@ -38,7 +35,7 @@ class HistoricalPriceRepositoryImpl(
                         endTime: Long,
                         limit: Int
     ): List<Candle>? = coroutineScope {
-        val _interval: Interval = intervalsRepository.getIntervalByName(interval) ?: return@coroutineScope null
+        val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: return@coroutineScope null
         val pbc = networkds.getPriceByCandle(symbol, interval, startTime, endTime, limit)
         if (pbc.isFailure || pbc.getOrNull() == null) {
             return@coroutineScope null

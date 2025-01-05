@@ -10,8 +10,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 
 class CurrentToolPriceRepositoryImpl(
-    private val map: MutableMap<String, MutableSet<Candle>>,
-    private val intervalsRepository: IntervalListRepository,
+    //private val map: MutableMap<String, MutableSet<Candle>>,
+    private val intervalListRepository: IntervalListRepository,
     private val historicalPriceRepository: HistoricalPriceRepository,
     private val curToolRealtimePriceRepository: CurToolRealtimePriceRepository,
     private val curToolRealtimeBalancedPriceRepository: CurToolRealtimeBalancedPriceRepository,
@@ -33,13 +33,13 @@ class CurrentToolPriceRepositoryImpl(
         interval: String,
         startTime: Long
     ): List<Candle>? = coroutineScope {
-        val _interval: Interval = intervalsRepository.getIntervalByName(interval) ?: throw Exception("No interval")
+        val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
         val repo = if (_interval.type == 0) curToolRealtimeBalancedPriceRepository else curToolRealtimeBalancedPriceRepositoryV2
         repo.getInterimPrices(symbol, interval, startTime, null)
     }
 
     override suspend fun getToolRealtimePrice(symbol: String, interval: String): Flow<Candle> {
-        val _interval: Interval = intervalsRepository.getIntervalByName(interval) ?: throw Exception("No interval")
+        val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
         val repo = if (_interval.type == 0) curToolRealtimeBalancedPriceRepository else curToolRealtimeBalancedPriceRepositoryV2
         return repo.subscribeToolPrice(symbol, interval)
     }

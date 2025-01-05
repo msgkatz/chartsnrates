@@ -27,7 +27,7 @@ import kotlinx.coroutines.sync.withLock
 class CurToolRealtimeBalancedV2PriceRepositoryImpl(
     private val wsockds: WebSocketDataSource,
     private val map: MutableMap<String, MutableSet<Candle>>,
-    private val intervalsRepository: IntervalListRepository,
+    private val intervalListRepository: IntervalListRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
                                                     //.limitedParallelism(1),
 ) : CurToolRealtimeBalancedPriceRepository {
@@ -53,14 +53,15 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
         candlesInternal.clear()
 
         scope.launch {
-            val _interval: Interval = intervalsRepository.getIntervalByName(interval) ?: throw Exception("No interval")
+            val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
             val name = "${symbol}_${interval}"
             map.get(name)?.let { it.clear() }
 
             launch {
                 var lastTime: Long = -1
                 while (isActive) {
-                    val candles = map.get("${symbol}_${interval}")
+                    val candles = map.get(name)
+                    //println("candles size = ${candles?.size}")
                     candles?.lastOrNull()?.let {
                         var candleToSend = it
                         if (_interval.type == 0) {
@@ -80,21 +81,24 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
 
             launch {
                 wsockds.getKlineAndMiniTickerComboStream(symbol, interval)
-                    .map { wsmodel ->
-                        val name = "${symbol}_${interval}"
+                    .collect { wsmodel ->
                         var candle: Candle? = null
                         try {
+                            //println("candle = ${candle?.toString()}, wsmodel=${wsmodel.data}")
                             val eventType = wsmodel.parseEvent()
                             if (eventType == StreamEventTypeWSModel.TYPE_KLINE) {
                                 candle = wsmodel.toKline().toCandle()
                             } else if (eventType == StreamEventTypeWSModel.TYPE_24_TICKER_MINI) {
                                 candle = wsmodel.toMarketTickerMini().toCandle()
                             }
+                            //println("candle = ${candle?.toString()}")
                         } catch (e: Exception) {
                             println(e.message ?: e.toString())
                         }
 
                         val curset = map.getOrPut(name) { LinkedHashSet() }
+
+                        //println("candle = ${candle?.toString()}, curset size = ${curset.size}")
                         //candle = candle ?: curset?.lastOrNull()
                         candle?.let {
                             if (_interval.type == 0) {
@@ -131,7 +135,7 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
         startTime: Long,
         endTime: Long?,
     ): List<Candle> = coroutineScope {
-        val _interval: Interval = intervalsRepository.getIntervalByName(interval) ?: throw Exception("No interval")
+        val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
         val ret = mutableListOf<Candle>()
         val set: MutableOrderedScatterSet<Candle> = mutableOrderedScatterSetOf<Candle>()
 

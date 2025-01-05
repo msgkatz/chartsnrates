@@ -19,6 +19,7 @@ import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +54,8 @@ class MainActivityNew : BaseCompActivity() {
                 androidTheme = false, //shouldUseAndroidTheme(uiState),
                 disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
             ) {
+                if (1 == 2) makeTEsts2()
+                else
                 CnrApp(
                     tabInfoStorer = tabInfoStorer,
                     onPriceItemClick = { it -> showChart(it) },
@@ -63,7 +66,36 @@ class MainActivityNew : BaseCompActivity() {
 
         }
 
-        if (1 == 2) makeTEsts()
+
+    }
+
+    private fun makeTEsts2() {
+        val coroutineScope = lifecycle.coroutineScope
+        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+        val symbol = "1000SATSUSDT"
+        val symbol2 = "btcusdt"
+        val interval = "5m"
+
+        val startTime = null
+        val endTime = 1724166300000
+        val limit = 300
+        lifecycleScope.launch {
+            val keeper = TmpDataKeeper(coroutineScope, ioDispatcher)
+            val ver = 2
+            if (ver == 1) {
+                keeper.currentToolPriceRepository.getToolRealtimePriceCombo(symbol2, interval)
+                    .collect {
+                        println("${it?.toString()} ")
+
+                    }
+            } else if (ver == 2) {
+                keeper.currentToolPriceRepository.getToolRealtimePrice(symbol2, interval)
+                    .collect {
+                        println("${it.toString()} ")
+
+                    }
+            }
+        }
     }
 
     private fun makeTEsts() {
