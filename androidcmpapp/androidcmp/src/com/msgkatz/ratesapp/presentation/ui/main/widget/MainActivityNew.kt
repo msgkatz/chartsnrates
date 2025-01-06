@@ -10,14 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
-import com.msgkatz.ratesapp.data.network.rest.getRestClient
-import com.msgkatz.ratesapp.data.network.rest.getRestClientPlatformed
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.ui.app.CnrApp
+import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew
@@ -41,12 +40,19 @@ class MainActivityNew : BaseCompActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mgr = getSystemService(POWER_SERVICE) as PowerManager
+
+        val coroutineScope = lifecycle.coroutineScope
+        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+        val keeper = TmpDataKeeper(coroutineScope = null, //coroutineScope,
+            ioDispatcher = ioDispatcher
+        )
         interimVMKeeper = InterimVMKeeper(this,
             viewModel.mGetAssets,
             viewModel.mGetPlatformInfo,
             viewModel.mGetQuoteAssetsMap,
             viewModel.mGetToolListPrices,
-            tabInfoStorer
+            tabInfoStorer,
+            tmpDataKeeper = keeper
         )
         setContent {
             CnrThemeAlter(
@@ -54,7 +60,7 @@ class MainActivityNew : BaseCompActivity() {
                 androidTheme = false, //shouldUseAndroidTheme(uiState),
                 disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
             ) {
-                if (1 == 2) makeTEsts2()
+                if (1 == 2) makeTEsts2(keeper = keeper)
                 else
                 CnrApp(
                     tabInfoStorer = tabInfoStorer,
@@ -69,7 +75,7 @@ class MainActivityNew : BaseCompActivity() {
 
     }
 
-    private fun makeTEsts2() {
+    private fun makeTEsts2(keeper: TmpDataKeeper) {
         val coroutineScope = lifecycle.coroutineScope
         val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
         val symbol = "1000SATSUSDT"
@@ -80,7 +86,7 @@ class MainActivityNew : BaseCompActivity() {
         val endTime = 1724166300000
         val limit = 300
         lifecycleScope.launch {
-            val keeper = TmpDataKeeper(coroutineScope, ioDispatcher)
+            //val keeper = TmpDataKeeper(coroutineScope, ioDispatcher)
             val ver = 2
             if (ver == 1) {
                 keeper.currentToolPriceRepository.getToolRealtimePriceCombo(symbol2, interval)
@@ -128,11 +134,20 @@ class MainActivityNew : BaseCompActivity() {
         }
     }
 
-    private fun showChart(priceSimple: PriceSimple?) {
+    private fun showChart(priceSimple: PriceSimpleJava?) {
         val intent: Intent = Intent(this, ChartActivityNew::class.java)
         priceSimple?.let {
             intent.putExtra(ChartActivityNew.KEY_TOOL_NAME, it.getTool().name)
             intent.putExtra(ChartActivityNew.KEY_TOOL_PRICE, it.getPrice())
+        }
+        startActivity(intent)
+    }
+
+    private fun showChart(priceSimple: PriceSimple?) {
+        val intent: Intent = Intent(this, ChartActivityNew::class.java)
+        priceSimple?.let {
+            intent.putExtra(ChartActivityNew.KEY_TOOL_NAME, it.tool.name)
+            intent.putExtra(ChartActivityNew.KEY_TOOL_PRICE, it.price)
         }
         startActivity(intent)
     }

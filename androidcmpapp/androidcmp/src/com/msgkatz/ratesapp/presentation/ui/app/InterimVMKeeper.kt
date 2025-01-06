@@ -1,9 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.app
 
-import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +16,10 @@ import com.msgkatz.ratesapp.domain.interactors.GetTools
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus
 import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartParentViewModel
-import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetViewModel
+import com.msgkatz.ratesapp.presentation.ui.quoteasset.QuoteAssetViewModel
+import com.msgkatz.ratesapp.presentation.ui.quoteasset2.QuoteAssetViewModel as qavm
 import com.msgkatz.ratesapp.presentation.ui.splash.SplashViewModel
+import com.msgkatz.ratesapp.presentation.ui.splash2.SplashViewModel as svm
 
 class InterimVMKeeper(
     private val owner: ViewModelStoreOwner,
@@ -32,10 +31,17 @@ class InterimVMKeeper(
     private val mGetTools: GetTools? = null,
     private val mGetIntervals: GetIntervals? = null,
     private val rxBus: IRxBus? = null,
+    private val tmpDataKeeper: TmpDataKeeper
 ) {
     fun makeSplash(): SplashViewModel {
         val viewModelFactory = SplashViewModelFactory(mGetAssets, mGetPlatformInfo)
         val viewModel = ViewModelProvider(owner, viewModelFactory)[SplashViewModel::class.java]
+        return viewModel
+    }
+
+    fun makeSplash5(): svm {
+        val viewModelFactory = SplashViewModelFactory2(mGetAssets, mGetPlatformInfo, tmpDataKeeper)
+        val viewModel = ViewModelProvider(owner, viewModelFactory)[svm::class.java]
         return viewModel
     }
 
@@ -78,6 +84,13 @@ class InterimVMKeeper(
     }
 
 
+    fun makeQuoteAsset5(quoteAssetName: String?, _owner: ViewModelStoreOwner): qavm {
+        val viewModelFactory = QuoteAssetSavedStateViewModelFactory2(quoteAssetName, mGetQuoteAssetsMap, mGetToolListPrices, tabInfoStorer, tmpDataKeeper)
+        val viewModel = ViewModelProvider(_owner, viewModelFactory)[qavm::class.java]
+        return viewModel
+    }
+
+
     fun makeChartParentViewModel(toolName: String, toolPrice: Double, _owner: ViewModelStoreOwner): ChartParentViewModel {
         val viewModelFactory = ChartParentViewModelFactory(toolName, toolPrice, mGetTools, mGetIntervals, rxBus)
         val viewModel = ViewModelProvider(_owner, viewModelFactory)[ChartParentViewModel::class.java]
@@ -95,6 +108,20 @@ class SplashViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(mGetAssets, mGetPlatformInfo ) as T
+        }
+        throw IllegalArgumentException("Unknown View Model Class")
+    }
+}
+
+class SplashViewModelFactory2(
+    private val mGetAssets: GetAssets,
+    private val mGetPlatformInfo: GetPlatformInfo,
+    private val tmpDataKeeper: TmpDataKeeper
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(svm::class.java)) {
+            return svm(mGetAssets, mGetPlatformInfo, tmpDataKeeper) as T
         }
         throw IllegalArgumentException("Unknown View Model Class")
     }
@@ -154,6 +181,35 @@ class QuoteAssetSavedStateViewModelFactory(private val quoteAssetName: String?,
                 mGetQuoteAssetsMap,
                 mGetToolListPrices,
                 tabInfoStorer,
+                handle) as T
+        }
+        throw IllegalArgumentException("Unknown View Model Class")
+    }
+
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        return super.create(modelClass, extras)
+    }
+
+}
+
+class QuoteAssetSavedStateViewModelFactory2(private val quoteAssetName: String?,
+                                            private val mGetQuoteAssetsMap: GetQuoteAssetsMap,
+                                            private val mGetToolListPrices: GetToolListPrices,
+                                            private val tabInfoStorer: TabInfoStorer,
+                                            private val tmpDataKeeper: TmpDataKeeper
+) : AbstractSavedStateViewModelFactory() {
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
+        if (modelClass.isAssignableFrom(qavm::class.java)){
+            handle.set("quoteAssetName", quoteAssetName)
+            return qavm(quoteAssetName,
+                mGetQuoteAssetsMap,
+                mGetToolListPrices,
+                tabInfoStorer,
+                tmpDataKeeper,
                 handle) as T
         }
         throw IllegalArgumentException("Unknown View Model Class")

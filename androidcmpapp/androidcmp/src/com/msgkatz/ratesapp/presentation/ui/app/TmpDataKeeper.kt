@@ -27,19 +27,32 @@ import com.msgkatz.ratesapp.data.repos.base.ToolRepositoryImpl
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepository
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepositoryImpl
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 class TmpDataKeeper(
-    private val coroutineScope: CoroutineScope,
+    private val coroutineScope: CoroutineScope? = null,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
 ) {
+    val ceh = CoroutineExceptionHandler { coroutineContext, throwable ->
+        println(throwable.message ?: throwable.toString())
+    }
+    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default + ceh)
     /** ******
      * data sources
      * ******/
     val localJsonDataSource: LocalJsonDataSource = LocalJsonDataSourceImpl()
-    val restDataSource: RestDataSource = RestController(coroutineScope, ioDispatcher)
-    val webSocketDataSource: WebSocketDataSource = WebSocketController(coroutineScope, ioDispatcher)
+    val restDataSource: RestDataSource = RestController(
+        coroutineScope = coroutineScope ?: scope,
+        coroutineDispatcher = ioDispatcher
+    )
+    val webSocketDataSource: WebSocketDataSource = WebSocketController(
+        coroutineScope = coroutineScope?: scope,
+        coroutineDispatcher = ioDispatcher,
+        debug = true
+    )
 
     /** ******
      * base repos
