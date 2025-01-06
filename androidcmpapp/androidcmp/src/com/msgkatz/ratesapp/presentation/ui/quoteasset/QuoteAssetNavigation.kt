@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
@@ -8,7 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
 //const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
@@ -32,7 +32,7 @@ fun NavController.navigateToQuoteAsset(quoteAssetName: String, navOptions: NavOp
 
 fun NavGraphBuilder.quoteAssetNavScreen(
     interimVMKeeper : InterimVMKeeper,
-    onPriceItemClick: (PriceSimple) -> Unit,
+    onPriceItemClick: (PriceSimpleJava) -> Unit,
     navController: NavController,
 ) {
     composable(
@@ -70,7 +70,7 @@ fun NavController.navigateToQuoteAsset2(quoteAssetName: String, navOptions: NavO
 fun NavGraphBuilder.quoteAssetNavScreen2(
     route: String, //as quoteAssetName
     interimVMKeeper : InterimVMKeeper,
-    onPriceItemClick: (PriceSimple) -> Unit,
+    onPriceItemClick: (PriceSimpleJava) -> Unit,
     navController: NavController,
 ) {
     composable(

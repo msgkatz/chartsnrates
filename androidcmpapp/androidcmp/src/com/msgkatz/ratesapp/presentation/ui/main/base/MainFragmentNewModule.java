@@ -1,17 +1,13 @@
 package com.msgkatz.ratesapp.presentation.ui.main.base;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.msgkatz.ratesapp.di.common.BaseFragmentModule;
 import com.msgkatz.ratesapp.di.scope.PerFragment;
-import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetViewModel;
+import com.msgkatz.ratesapp.presentation.ui.quoteasset.QuoteAssetViewModel;
 
 import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 @Module(includes = BaseFragmentModule.class)
 abstract class MainFragmentNewModule {

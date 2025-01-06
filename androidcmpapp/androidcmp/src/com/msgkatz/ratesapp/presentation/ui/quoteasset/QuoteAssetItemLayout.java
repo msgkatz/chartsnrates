@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget;
+package com.msgkatz.ratesapp.presentation.ui.quoteasset;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,8 +1,6 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,15 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
@@ -30,10 +26,10 @@ fun QuoteAssetRoute(
     quoteAssetName: String?,
     modifier: Modifier = Modifier,
     interimVMKeeper : InterimVMKeeper,
-    onPriceItemClick: (PriceSimple) -> Unit,
+    onPriceItemClick: (PriceSimpleJava) -> Unit,
     owner: ViewModelStoreOwner,
 
-) {
+    ) {
     val viewModel: QuoteAssetViewModel = interimVMKeeper.makeQuoteAsset4(quoteAssetName, owner)
     val quoteAssetUiState by viewModel.quoteAssetUiState.collectAsState()
     val priceListUiState by viewModel.priceListUiState.collectAsState()
@@ -51,7 +47,7 @@ fun QuoteAssetRoute(
 fun QuoteAssetScreen(
     quoteAssetUIState: QuoteAssetUIState,
     priceListUIState: PriceListUIState,
-    onPriceItemClick: (PriceSimple) -> Unit,
+    onPriceItemClick: (PriceSimpleJava) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -97,7 +93,7 @@ fun QuoteAssetScreen(
 @Composable
 fun QuoteAssetScreenWithDataPreview(
     @PreviewParameter(PriceListPreviewParameterProvider::class)
-    priceSimpleList: List<PriceSimple>,
+    priceSimpleList: List<PriceSimpleJava>,
 ){
     CnrThemeAlter(
         darkTheme = true,

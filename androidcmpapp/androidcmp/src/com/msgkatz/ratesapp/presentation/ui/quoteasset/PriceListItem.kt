@@ -1,15 +1,12 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -33,21 +30,19 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.data.entities.rest.Asset
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.theme.Green30
 import com.msgkatz.ratesapp.presentation.theme.Green80
 import com.msgkatz.ratesapp.presentation.theme.Red40
-import com.msgkatz.ratesapp.utils.NumFormatUtil
+import com.msgkatz.ratesapp.presentation.ui.main.widget.DynamicAsyncImage
 import java.util.Locale
-import kotlin.math.abs
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PriceListItem(
-    priceSimple: PriceSimple,
+    priceSimple: PriceSimpleJava,
     imageUrl: String,
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -232,7 +227,22 @@ private fun PriceListItemPreview() {
 
         Surface {
             PriceListItem(
-                priceSimple = PriceSimple(Tool("BTCBNB", Asset(0,"BTC", "Bitcoin"), Asset(0,"BNB", "Binance Coin")), 23.105),
+                priceSimple = PriceSimpleJava(
+                    ToolJava(
+                        "BTCBNB",
+                        AssetDT(
+                            0,
+                            "BTC",
+                            "Bitcoin"
+                        ),
+                        AssetDT(
+                            0,
+                            "BNB",
+                            "Binance Coin"
+                        )
+                    ),
+                    23.105
+                ),
                 imageUrl = "",
                 onItemClick = { },
                 iconPlaceholder = placeholder(R.drawable.cur_bnb),

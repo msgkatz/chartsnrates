@@ -1,7 +1,5 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,13 +16,13 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun QuoteAssetBody(
     priceListUIState: PriceListUIState,
-    onPriceItemClick: (PriceSimple) -> Unit,
+    onPriceItemClick: (PriceSimpleJava) -> Unit,
     nestedScrollConnection: NestedScrollConnection,
     withBottomSpacer: Boolean = true,
     modifier: Modifier = Modifier

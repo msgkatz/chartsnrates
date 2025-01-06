@@ -4,8 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msgkatz.ratesapp.data.entities.rest.Asset
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava
 import com.msgkatz.ratesapp.domain.interactors.GetAssets
 import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
@@ -133,8 +133,8 @@ class SplashViewModel @Inject constructor(
     private fun loadAssets2() {
         viewModelScope.launch {
             mGetAssets.execute(object :
-                ResponseObserver<Optional<Map<String?, Asset?>?>?, Map<String?, Asset?>?>() {
-                override fun doNext(stringAssetMap: Map<String?, Asset?>?) {
+                ResponseObserver<Optional<Map<String?, AssetDT?>?>?, Map<String?, AssetDT?>?>() {
+                override fun doNext(stringAssetMap: Map<String?, AssetDT?>?) {
                     if (stringAssetMap != null) mHandler.post {
                         counter = 0
                         loadPlatformInfo()
@@ -163,8 +163,8 @@ class SplashViewModel @Inject constructor(
     private fun loadPlatformInfo() {
         viewModelScope.launch {
             mGetPlatformInfo.execute(object :
-                ResponseObserver<Optional<PlatformInfo?>?, PlatformInfo?>() {
-                override fun doNext(platformInfo: PlatformInfo?) {
+                ResponseObserver<Optional<PlatformInfoJava?>?, PlatformInfoJava?>() {
+                override fun doNext(platformInfo: PlatformInfoJava?) {
                     if (platformInfo != null) mHandler.post { initUI() }
                 }
 

@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
@@ -26,13 +24,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.data.entities.rest.Asset
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import java.util.Locale
-import kotlin.math.roundToInt
 
 
 private val headerHeight = 128.dp
@@ -172,14 +168,20 @@ fun QuoteAssetHeaderPreview() {
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
     ) {
         QuoteAssetHeader(
-            quoteAssetUIState = QuoteAssetUIState.Data(Asset(0,"BTC", "Bitcoin")),
+            quoteAssetUIState = QuoteAssetUIState.Data(
+                AssetDT(
+                    0,
+                    "BTC",
+                    "Bitcoin"
+                )
+            ),
             scrollProvider = { 0f },
         )
     }
 }
 
 @Composable
-private fun makeMainTitleText(quoteAset: Asset): String {
+private fun makeMainTitleText(quoteAset: AssetDT): String {
     return String.format(
         Locale.getDefault(), "%1\$s %2\$s",
         quoteAset.getNameShort(), stringResource(R.string.screen_one_markets)

@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.main.widget
+package com.msgkatz.ratesapp.presentation.ui.quoteasset
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -6,10 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
-import com.msgkatz.ratesapp.data.entities.rest.Asset
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
-import com.msgkatz.ratesapp.domain.interactors.GetAssets
-import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap
 import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
@@ -43,9 +41,9 @@ class QuoteAssetViewModel @Inject constructor(
     private val _priceListUiState = MutableStateFlow<PriceListUIState>(PriceListUIState.Loading)
     val priceListUiState: StateFlow<PriceListUIState> = _priceListUiState
 
-    private var observerToolListPrices: ResponseObserver<Optional<Map<String, Set<PriceSimple>>>, Map<String, Set<PriceSimple>>>? = null
-    private var observerQuoteAssets: ResponseObserver<Optional<Map<String, Asset>>, Map<String, Asset>>? = null
-    private var quoteAsset: Asset? = null
+    private var observerToolListPrices: ResponseObserver<Optional<Map<String, Set<PriceSimpleJava>>>, Map<String, Set<PriceSimpleJava>>>? = null
+    private var observerQuoteAssets: ResponseObserver<Optional<Map<String, AssetDT>>, Map<String, AssetDT>>? = null
+    private var quoteAsset: AssetDT? = null
 
     private val quoteAssetName: String? = handle?.get("quoteAssetName")
 
@@ -54,8 +52,8 @@ class QuoteAssetViewModel @Inject constructor(
     }
 
     fun onStart() {
-        observerQuoteAssets = object : ResponseObserver<Optional<Map<String, Asset>>, Map<String, Asset>>() {
-            override fun doNext(stringAssetMap: Map<String, Asset>?) {
+        observerQuoteAssets = object : ResponseObserver<Optional<Map<String, AssetDT>>, Map<String, AssetDT>>() {
+            override fun doNext(stringAssetMap: Map<String, AssetDT>?) {
                 quoteAsset = stringAssetMap?.get(quoteAssetName)
 
                 updateQuoteAsset(quoteAsset)
@@ -84,7 +82,7 @@ class QuoteAssetViewModel @Inject constructor(
         }
     }
 
-    private fun updateQuoteAsset(quoteAset: Asset?) {
+    private fun updateQuoteAsset(quoteAset: AssetDT?) {
         viewModelScope.launch {
             if (quoteAset != null)
                 _quoteAssetUiState.value = QuoteAssetUIState.Data(quoteAset)
@@ -94,7 +92,7 @@ class QuoteAssetViewModel @Inject constructor(
     }
 
     @OptIn(ExperimentalGlideComposeApi::class)
-    private fun updatePriceList(list: List<PriceSimple>?) {
+    private fun updatePriceList(list: List<PriceSimpleJava>?) {
         viewModelScope.launch {
             if (list != null)
                 _priceListUiState.value = PriceListUIState.PriceList(
@@ -107,10 +105,10 @@ class QuoteAssetViewModel @Inject constructor(
     }
 
     private fun initToolListPrices() {
-        observerToolListPrices = object : ResponseObserver<Optional<Map<String, Set<PriceSimple>>>, Map<String, Set<PriceSimple>>>() {
-            override fun doNext(stringSetMap: Map<String, Set<PriceSimple>>) {
+        observerToolListPrices = object : ResponseObserver<Optional<Map<String, Set<PriceSimpleJava>>>, Map<String, Set<PriceSimpleJava>>>() {
+            override fun doNext(stringSetMap: Map<String, Set<PriceSimpleJava>>) {
                 val prices = stringSetMap[quoteAsset!!.nameShort]!!
-                val priceSimpleList: List<PriceSimple> = ArrayList(prices)
+                val priceSimpleList: List<PriceSimpleJava> = ArrayList(prices)
 
                 updatePriceList(priceSimpleList)
 
@@ -148,11 +146,12 @@ class QuoteAssetViewModel @Inject constructor(
 sealed interface QuoteAssetUIState {
     data object Loading : QuoteAssetUIState
     data object Empty : QuoteAssetUIState
-    data class Data(val quoteAsset: Asset) : QuoteAssetUIState
+    data class Data(val quoteAsset: AssetDT) : QuoteAssetUIState
 }
 
 sealed interface PriceListUIState {
     data object Loading : PriceListUIState
     data object Empty : PriceListUIState
-    data class PriceList @OptIn(ExperimentalGlideComposeApi::class) constructor(val priceList: List<PriceSimple>, var placeHolder: Placeholder) : PriceListUIState
+    data class PriceList @OptIn(ExperimentalGlideComposeApi::class) constructor(val priceList: List<PriceSimpleJava>, var placeHolder: Placeholder) :
+        PriceListUIState
 }

@@ -1,11 +1,8 @@
 package com.msgkatz.ratesapp.presentation.ui.splash
 
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
 
