@@ -33,11 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.theme.Green80
 import com.msgkatz.ratesapp.presentation.theme.Red40
-import com.msgkatz.ratesapp.presentation.ui.main.widget.GradientBackground
+import com.msgkatz.ratesapp.presentation.ui.quoteasset.GradientBackground
 import com.msgkatz.ratesapp.utils.NumFormatUtil
 import java.util.Locale
 
@@ -311,7 +311,7 @@ private fun ChartAppBarPreview() {
 @Composable
 private fun ChartParentHeaderPreview(
     @PreviewParameter(ChartParentToolPreviewParameterProvider::class)
-    toolList: List<Tool>,
+    toolList: List<ToolJava>,
 ) {
     CnrThemeAlter(
         darkTheme = true,

@@ -3,7 +3,7 @@ package com.msgkatz.ratesapp.presentation.ui.chart.gdx.prerenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.presentation.entities.CandleData;
 import com.msgkatz.ratesapp.presentation.entities.ChartType;
 import com.msgkatz.ratesapp.presentation.entities.NewVerticalData;
@@ -38,7 +38,7 @@ public class PreRenderer implements Controller {
     private StringBuilder stringBuilder = new StringBuilder();
 
 
-    private Interval currentInterval;
+    private IntervalJava currentInterval;
     private int chartTimeFrame;
     private int chartTimeFrameInSecs = 60;
 
@@ -119,7 +119,7 @@ public class PreRenderer implements Controller {
     }
 
     @Override
-    public void renderCandlesInterim(ArrayList<Candle> arrayList, Interval interval, String intervalTmp)
+    public void renderCandlesInterim(ArrayList<Candle> arrayList, IntervalJava interval, String intervalTmp)
     {
         Logs.e(TAG, "renderCandlesInterim posting candleList to gdx, array size="
                 + (arrayList==null

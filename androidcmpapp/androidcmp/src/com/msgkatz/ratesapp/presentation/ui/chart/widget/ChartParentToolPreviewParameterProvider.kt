@@ -1,22 +1,39 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.widget
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.msgkatz.ratesapp.data.entities.rest.Asset
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 
-class ChartParentToolPreviewParameterProvider: PreviewParameterProvider<List<Tool>> {
-    override val values : Sequence<List<Tool>>
+class ChartParentToolPreviewParameterProvider: PreviewParameterProvider<List<ToolJava>> {
+    override val values : Sequence<List<ToolJava>>
         get() = sequenceOf(
             listOf(
-                Tool(
+                ToolJava(
                     "BTCBNB",
-                    Asset(0,"BTC", "Bitcoin"),
-                    Asset(0,"BNB", "Binance Coin")
+                    AssetDT(
+                        0,
+                        "BTC",
+                        "Bitcoin"
+                    ),
+                    AssetDT(
+                        0,
+                        "BNB",
+                        "Binance Coin"
+                    )
                 ),
-                Tool(
+                ToolJava(
                     "BTCBNB2",
-                    Asset(0,"BTC2", "Bitcoin2"),
-                    Asset(0,"BNB2", "Binance Coin2"))
+                    AssetDT(
+                        0,
+                        "BTC2",
+                        "Bitcoin2"
+                    ),
+                    AssetDT(
+                        0,
+                        "BNB2",
+                        "Binance Coin2"
+                    )
+                )
             )
         )
 }

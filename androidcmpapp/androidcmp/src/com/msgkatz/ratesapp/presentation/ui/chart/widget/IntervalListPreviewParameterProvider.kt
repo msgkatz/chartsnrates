@@ -1,11 +1,11 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.widget
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.msgkatz.ratesapp.domain.entities.Interval
+import com.msgkatz.ratesapp.domain.entities.IntervalJava
 import com.msgkatz.ratesapp.utils.Parameters
 
-class IntervalListPreviewParameterProvider: PreviewParameterProvider<List<Interval>> {
-    override val values : Sequence<List<Interval>>
+class IntervalListPreviewParameterProvider: PreviewParameterProvider<List<IntervalJava>> {
+    override val values : Sequence<List<IntervalJava>>
         get() = sequenceOf(
             Parameters.defaulScaletList
         )

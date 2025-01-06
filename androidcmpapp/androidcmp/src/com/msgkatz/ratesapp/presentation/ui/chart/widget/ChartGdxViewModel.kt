@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.msgkatz.ratesapp.data.entities.Candle
 import com.msgkatz.ratesapp.di.app.AppModule
-import com.msgkatz.ratesapp.domain.entities.Interval
+import com.msgkatz.ratesapp.domain.entities.IntervalJava
 import com.msgkatz.ratesapp.domain.interactors.GetCurrentPrice
 import com.msgkatz.ratesapp.domain.interactors.GetCurrentPricesInterim
 import com.msgkatz.ratesapp.domain.interactors.GetIntervalByName
@@ -66,7 +66,7 @@ class ChartGdxViewModel @Inject constructor(
     private var observerPriceHistory: ResponseObserver<Optional<List<Candle>>, List<Candle>>? = null
     private var observerCurrentPrice: ResponseObserver<Optional<Candle>, Candle>? = null
     private var observerCurrentPricesInterim: ResponseObserver<Optional<List<Candle>>, List<Candle>>? = null
-    private var observerInterval: ResponseObserver<Optional<Interval>, Interval>? = null //<*, *>? = null
+    private var observerInterval: ResponseObserver<Optional<IntervalJava>, IntervalJava>? = null //<*, *>? = null
     private val disposables = CompositeDisposable()
 
     private var prevCandle: Candle? = null
@@ -85,7 +85,7 @@ class ChartGdxViewModel @Inject constructor(
 
     init {}
 
-    fun updateParams(toolName: String, toolFormat: ToolFormat, interval: Interval) {
+    fun updateParams(toolName: String, toolFormat: ToolFormat, interval: IntervalJava) {
         if (!paramsAreSet) {
             mToolName = toolName
             mToolNameLowerCase = toolName.lowercase(Locale.getDefault())
@@ -118,7 +118,7 @@ class ChartGdxViewModel @Inject constructor(
     }
 
     /** from presenter **/
-    fun updateInterval(interval: Interval) {
+    fun updateInterval(interval: IntervalJava) {
         this.mInterval = interval.symbol
         isHistoryProcessed = false
         this.onStop()
@@ -160,8 +160,8 @@ class ChartGdxViewModel @Inject constructor(
     private fun initIntervalAndCurrentPrice(toolName: String, interval: String, startTime: Long?) {
         val intervalParams = IntervalParams(interval)
 
-        observerInterval = object : ResponseObserver<Optional<Interval>, Interval>() {
-            override fun doNext(_interval: Interval) {
+        observerInterval = object : ResponseObserver<Optional<IntervalJava>, IntervalJava>() {
+            override fun doNext(_interval: IntervalJava) {
                 mHandler.post { initCurrentPrice(toolName, _interval, startTime) }
             }
         }
@@ -171,7 +171,7 @@ class ChartGdxViewModel @Inject constructor(
 
     private fun initPriceHistoryFirst(
         toolName: String,
-        interval: Interval,
+        interval: IntervalJava,
         startTime: Long?,
         endTime: Long
     ) {
@@ -236,7 +236,7 @@ class ChartGdxViewModel @Inject constructor(
         mGetPriceHistory.execute(observerPriceHistory, priceHistoryParams)
     }
 
-    private fun initCurrentPrice(toolName: String, interval: Interval, startTime: Long?) {
+    private fun initCurrentPrice(toolName: String, interval: IntervalJava, startTime: Long?) {
         //PriceParams priceParams = new PriceParams(toolName, interval.getSymbolApi(), startTime); --> not working for "1s"
 
 
@@ -325,7 +325,7 @@ class ChartGdxViewModel @Inject constructor(
 //        mGetCurrentPricesInterim.execute(observerCurrentPricesInterim, pricesInterimParams)
 //    }
 
-    private fun initCurrentPricesInterim(toolName: String, interval: Interval, startTime: Long) {
+    private fun initCurrentPricesInterim(toolName: String, interval: IntervalJava, startTime: Long) {
         /**
          * if (currentCandleCount < 2) {
          *

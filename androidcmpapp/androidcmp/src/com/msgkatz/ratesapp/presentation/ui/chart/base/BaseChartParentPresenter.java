@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.base;
 
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 
 
 /**
@@ -9,5 +9,5 @@ import com.msgkatz.ratesapp.domain.entities.Interval;
  */
 public abstract class BaseChartParentPresenter { //extends BaseChartPresenter<ChartParentView> {
 
-    public abstract void provideNewInterval(Interval interval);
+    public abstract void provideNewInterval(IntervalJava interval);
 }

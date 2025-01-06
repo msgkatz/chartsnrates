@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.widget
 
-import android.content.res.Resources
-import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,22 +7,16 @@ import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,9 +27,9 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.msgkatz.ratesapp.data.entities.rest.Asset
-import com.msgkatz.ratesapp.domain.entities.Interval
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.utils.Parameters
 
@@ -45,7 +37,7 @@ import com.msgkatz.ratesapp.utils.Parameters
 fun ChartParentBody(
     modifier: Modifier = Modifier,
     chartParentToolUIState: ChartParentToolUIState,
-    onIntervalClick: (Interval) -> Unit
+    onIntervalClick: (IntervalJava) -> Unit
 ) {
     val isLocalInspection = LocalInspectionMode.current
     Column(
@@ -94,8 +86,8 @@ fun ChartParentBody(
 fun IntervalListComposable(
     modifier: Modifier = Modifier,
     //chartParentToolUIState: ChartParentToolUIState,
-    intervals: List<Interval>?,
-    onIntervalClick: (Interval) -> Unit
+    intervals: List<IntervalJava>?,
+    onIntervalClick: (IntervalJava) -> Unit
 ) {
     val selectedItem : MutableState<String> = rememberSaveable { mutableStateOf(Parameters.defaulScaletList[2].symbol) }
     LazyRow(
@@ -121,7 +113,7 @@ fun IntervalListComposable(
 @Composable
 fun IntervalListItem(
     modifier: Modifier = Modifier,
-    interval: Interval,
+    interval: IntervalJava,
     selectedItem : MutableState<String>,
     onIntervalItemClick: () -> Unit
 ) {
@@ -151,7 +143,7 @@ fun IntervalListItemPreview() {
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
     ) {
-        val interval = Interval.fromString(Parameters.defaulScaletList[2].symbol)
+        val interval = IntervalJava.fromString(Parameters.defaulScaletList[2].symbol)
         val selectedInterval = remember { mutableStateOf(Parameters.defaulScaletList[3].symbol) }
         Surface {
             IntervalListItem(
@@ -167,7 +159,7 @@ fun IntervalListItemPreview() {
 @Composable
 fun IntervalListPreview(
     @PreviewParameter(IntervalListPreviewParameterProvider::class)
-    intervals: List<Interval>
+    intervals: List<IntervalJava>
 ) {
     CnrThemeAlter(
         darkTheme = true,
@@ -187,12 +179,12 @@ fun IntervalListPreview(
 @Composable
 fun ChartParentBodyPreview(
     @PreviewParameter(IntervalListPreviewParameterProvider::class)
-    intervals: List<Interval>
+    intervals: List<IntervalJava>
 ) {
-    val tool = Tool(
+    val tool = ToolJava(
         "BTCBNB",
-        Asset(0,"BTC", "Bitcoin"),
-        Asset(0,"BNB", "Binance Coin")
+        AssetDT(0, "BTC", "Bitcoin"),
+        AssetDT(0, "BNB", "Binance Coin")
     )
     CnrThemeAlter(
         darkTheme = true,

@@ -12,13 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.ViewModelStoreOwner
-import com.msgkatz.ratesapp.domain.entities.Interval
-import com.msgkatz.ratesapp.domain.entities.PriceSimple
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
-import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetScreen
-import com.msgkatz.ratesapp.presentation.ui.main.widget.QuoteAssetViewModel
 
 @Composable
 fun ChartParentRoute(
@@ -27,7 +24,7 @@ fun ChartParentRoute(
     modifier: Modifier = Modifier,
     interimVMKeeper : InterimVMKeeper,
     onBackClick: () -> Unit,
-    onIntervalClick: (Interval) -> Unit,
+    onIntervalClick: (IntervalJava) -> Unit,
     owner: ViewModelStoreOwner,
 
     ) {
@@ -51,7 +48,7 @@ fun ChartParentScreen(
     chartParentToolUIState: ChartParentToolUIState,
     chartParentPriceUIState: ChartParentPriceUIState,
     onBackClick: () -> Unit,
-    onIntervalClick: (Interval) -> Unit
+    onIntervalClick: (IntervalJava) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -74,7 +71,7 @@ fun ChartParentScreen(
 @Composable
 private fun ChartParentScreenPreview(
     @PreviewParameter(ChartParentToolPreviewParameterProvider::class)
-    toolList: List<Tool>,
+    toolList: List<ToolJava>,
 ) {
     CnrThemeAlter(
         darkTheme = true,

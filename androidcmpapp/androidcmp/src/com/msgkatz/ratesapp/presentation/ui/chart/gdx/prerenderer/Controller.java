@@ -1,7 +1,7 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.gdx.prerenderer;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.presentation.ui.chart.gdx.ChartDataCallback;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public interface Controller {
     void renderCandle1(Candle candle);
     void renderCandle2(Candle candle);
 
-    void renderCandlesInterim(ArrayList<Candle> arrayList, Interval interval, String intervalTmp);
+    void renderCandlesInterim(ArrayList<Candle> arrayList, IntervalJava interval, String intervalTmp);
     void renderCandlesHistorical(ArrayList<Candle> arrayList, String str);
 
     void renderLoader(boolean z, String str);

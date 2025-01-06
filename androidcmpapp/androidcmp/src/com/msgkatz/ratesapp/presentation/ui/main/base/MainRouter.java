@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.main.base;
 
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
 import com.msgkatz.ratesapp.presentation.common.mvp.router.EmptyRouter;
 
 /**
@@ -8,5 +8,5 @@ import com.msgkatz.ratesapp.presentation.common.mvp.router.EmptyRouter;
  */
 public interface MainRouter extends EmptyRouter {
 
-    void showChart(PriceSimple priceSimple);
+    void showChart(PriceSimpleJava priceSimpleJava);
 }

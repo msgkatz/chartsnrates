@@ -2,8 +2,8 @@ package com.msgkatz.ratesapp.presentation.ui.chart.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msgkatz.ratesapp.domain.entities.Interval
-import com.msgkatz.ratesapp.domain.entities.Tool
+import com.msgkatz.ratesapp.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.domain.entities.ToolJava
 import com.msgkatz.ratesapp.domain.interactors.GetIntervals
 import com.msgkatz.ratesapp.domain.interactors.GetTools
 import com.msgkatz.ratesapp.domain.interactors.base.Optional
@@ -46,16 +46,16 @@ class ChartParentViewModel @Inject constructor(
 
     //private
     var mToolName: String? = null
-    private var mTool: Tool? = null
-    private var mIntervals: List<Interval>? = null
+    private var mTool: ToolJava? = null
+    private var mIntervals: List<IntervalJava>? = null
     private var lastPrice: Double? = null
 
     //TODO combine with state
     //private
-    var mInterval: Interval = Parameters.defaulScaletList[2]
+    var mInterval: IntervalJava = Parameters.defaulScaletList[2]
 
-    private var observerTools: ResponseObserver<Optional<Map<String, Tool>>?, Map<String, Tool>>? = null
-    private var observerIntervals: ResponseObserver<Optional<List<Interval>>, List<Interval>>? = null
+    private var observerTools: ResponseObserver<Optional<Map<String, ToolJava>>?, Map<String, ToolJava>>? = null
+    private var observerIntervals: ResponseObserver<Optional<List<IntervalJava>>, List<IntervalJava>>? = null
     private val disposables = CompositeDisposable()
 
     init {
@@ -64,8 +64,8 @@ class ChartParentViewModel @Inject constructor(
 
     fun onStart() {
         observerTools =
-            object : ResponseObserver<Optional<Map<String, Tool>>?, Map<String, Tool>>() {
-                override fun doNext(stringToolMap: Map<String, Tool>?) {
+            object : ResponseObserver<Optional<Map<String, ToolJava>>?, Map<String, ToolJava>>() {
+                override fun doNext(stringToolMap: Map<String, ToolJava>?) {
                     if (stringToolMap != null) {
                         updateState(
                             tool = stringToolMap[mToolName]
@@ -75,8 +75,8 @@ class ChartParentViewModel @Inject constructor(
             }
 
         observerIntervals =
-            object : ResponseObserver<Optional<List<Interval>>, List<Interval>>() {
-                override fun doNext(intervalList: List<Interval>?) {
+            object : ResponseObserver<Optional<List<IntervalJava>>, List<IntervalJava>>() {
+                override fun doNext(intervalList: List<IntervalJava>?) {
                     Logs.d(TAG, "getting intervals: $intervalList")
                     if (intervalList != null) {
                         updateState(
@@ -108,7 +108,7 @@ class ChartParentViewModel @Inject constructor(
     }
 
     @Synchronized
-    private fun updateState(tool: Tool? = null, intervals: List<Interval>? = null) {
+    private fun updateState(tool: ToolJava? = null, intervals: List<IntervalJava>? = null) {
         viewModelScope.launch {
             tool?.let { mTool = it }
             intervals?.let { mIntervals = it }
@@ -154,7 +154,7 @@ class ChartParentViewModel @Inject constructor(
         //make conf change state
     }
 
-    fun provideNewInterval(interval: Interval?) {
+    fun provideNewInterval(interval: IntervalJava?) {
         interval?.let {
             mInterval = it
             rxBus?.send(NewIntervalEvent(it))
@@ -185,7 +185,7 @@ class ChartParentViewModel @Inject constructor(
 sealed interface ChartParentToolUIState {
     data object Loading : ChartParentToolUIState
     data object Empty : ChartParentToolUIState
-    data class Data(val tool: Tool?, val intervals: List<Interval>?) : ChartParentToolUIState
+    data class Data(val tool: ToolJava?, val intervals: List<IntervalJava>?) : ChartParentToolUIState
 }
 
 sealed interface ChartParentPriceUIState {
@@ -197,5 +197,5 @@ sealed interface ChartParentPriceUIState {
 sealed interface ChartParentForGdxUIState {
     data object Loading : ChartParentForGdxUIState
     data object Empty : ChartParentForGdxUIState
-    data class Data(val toolName: String?, val toolFormat: ToolFormat, val interval: Interval) : ChartParentForGdxUIState
+    data class Data(val toolName: String?, val toolFormat: ToolFormat, val interval: IntervalJava) : ChartParentForGdxUIState
 }
