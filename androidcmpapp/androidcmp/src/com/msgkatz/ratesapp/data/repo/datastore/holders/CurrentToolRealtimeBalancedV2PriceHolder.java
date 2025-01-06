@@ -13,7 +13,7 @@ import com.msgkatz.ratesapp.data.entities.wsocks.StreamKlineEvent;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamMarketTickerMini;
 import com.msgkatz.ratesapp.data.net.wsocks.BinanceWSocksApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import com.msgkatz.ratesapp.utils.Logs;
 import com.msgkatz.ratesapp.utils.TimeUtil;
@@ -62,7 +62,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
     {
         //TODO: start remote candle data accumulation
         candlesInternal.clear();
-        Interval _interval = innerModel.getIntervalMap().get(interval);
+        IntervalJava _interval = innerModel.getIntervalMap().get(interval);
 
         cleanContainer(symbol, _interval); // iss-3 implementation
         initSchedule(symbol, _interval);
@@ -72,7 +72,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
         return relayBase;
     }
 
-    private void cleanContainer(final String symbol, final Interval interval) {
+    private void cleanContainer(final String symbol, final IntervalJava interval) {
         candles = holdMap.get(symbol + "_" + interval.getSymbol());
         if (candles != null && !candles.isEmpty())
         {
@@ -81,7 +81,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
     }
 
     long lastTime = -1;
-    private void initSchedule(final String symbol, final Interval interval)
+    private void initSchedule(final String symbol, final IntervalJava interval)
     {
         disposables.clear();
         Runnable act = new Runnable() {
@@ -117,7 +117,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
 
     }
 
-    private void initStream(final String symbol, final Interval interval)
+    private void initStream(final String symbol, final IntervalJava interval)
     {
         Disposable disposable =
                 //subscribeToolPriceInternal(symbol, interval)
@@ -174,7 +174,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
         return candlesInternal;
     }
 
-    private Observable<Optional<Candle>> subscribeToolPriceComboInternal(String symbol, final Interval interval)
+    private Observable<Optional<Candle>> subscribeToolPriceComboInternal(String symbol, final IntervalJava interval)
     {
         return wsApi.getKlineAndMiniTickerComboStream(symbol, interval.getSymbolApi())
                 .map(new Function<String, Optional<Candle>>() {
@@ -334,7 +334,7 @@ public class CurrentToolRealtimeBalancedV2PriceHolder {
 
     public Observable<Optional<List<Candle>>> getInterimPrices(String symbol, String interval, Long startTime, Long endTime)
     {
-        Interval _interval = innerModel.getIntervalMap().get(interval);
+        IntervalJava _interval = innerModel.getIntervalMap().get(interval);
         ConcurrentSkipListSet<Candle> set = new ConcurrentSkipListSet<>();
         ConcurrentSkipListSet<Candle> toolPoints = holdMap.get(symbol + "_" + _interval.getSymbol());
         if (toolPoints != null) {

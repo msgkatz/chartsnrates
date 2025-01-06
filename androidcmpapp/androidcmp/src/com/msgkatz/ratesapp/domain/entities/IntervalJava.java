@@ -24,7 +24,7 @@ package com.msgkatz.ratesapp.domain.entities;
  * Created by msgkatz on 15/08/2018.
  */
 
-public class Interval {
+public class IntervalJava {
 
     private int id;
     private int type;
@@ -44,12 +44,12 @@ public class Interval {
 
     private boolean selected = false;
 
-    public Interval(int id, int type,
-                    String symbol, String symbolApi,
-                    long perItemDefaultMs, long perBlockDefaultMs,
-                    long perItemMinMs, long perBlockMinMs,
-                    long perItemMaxMs, long perBlockMaxMs,
-                    int inUse)
+    public IntervalJava(int id, int type,
+                        String symbol, String symbolApi,
+                        long perItemDefaultMs, long perBlockDefaultMs,
+                        long perItemMinMs, long perBlockMinMs,
+                        long perItemMaxMs, long perBlockMaxMs,
+                        int inUse)
     {
         this.id = id;
         this.type = type;
@@ -65,7 +65,7 @@ public class Interval {
 
     }
 
-    public Interval(String value) {
+    public IntervalJava(String value) {
         this.symbol = value;
     }
 
@@ -94,12 +94,12 @@ public class Interval {
         return selected;
     }
 
-    public static Interval fromString(String s)
+    public static IntervalJava fromString(String s)
     {
         if (s == null)
             return null;
 
-        return new Interval(s);
+        return new IntervalJava(s);
     }
 
     public int getId() {

@@ -1,11 +1,11 @@
 package com.msgkatz.ratesapp.domain;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
-import com.msgkatz.ratesapp.domain.entities.Interval;
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
-import com.msgkatz.ratesapp.domain.entities.Tool;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
+import com.msgkatz.ratesapp.domain.entities.ToolJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.List;
@@ -24,14 +24,14 @@ public interface IDataRepo {
     /**
      * Assets, Tools, PlatformInfo
      */
-    Observable<Optional<Map<String, Asset>>> getAssets();
+    Observable<Optional<Map<String, AssetDT>>> getAssets();
 
-    Observable<Optional<Set<Asset>>> getQuoteAssets();
-    Observable<Optional<Map<String, Asset>>> getQuoteAssetsAsMap();
+    Observable<Optional<Set<AssetDT>>> getQuoteAssets();
+    Observable<Optional<Map<String, AssetDT>>> getQuoteAssetsAsMap();
 
-    Observable<Optional<PlatformInfo>> getPlatformInfo();
+    Observable<Optional<PlatformInfoJava>> getPlatformInfo();
 
-    Observable<Optional<Map<String, Tool>>> getToolMap();
+    Observable<Optional<Map<String, ToolJava>>> getToolMap();
 
     /**
      * Current tool info
@@ -48,16 +48,16 @@ public interface IDataRepo {
     /**
      * ToolList prices
      */
-    Observable<Optional<Map<String, Set<PriceSimple>>>> getToolListPrice();
+    Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolListPrice();
 
-    Observable<Optional<Map<String, Set<PriceSimple>>>> getToolListRealtimePrice();
+    Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolListRealtimePrice();
 
-    Observable<Optional<Map<String, Set<PriceSimple>>>> getCombinedToolListPrice();
+    Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getCombinedToolListPrice();
 
 
     /**
      * Intervals for the chart
      */
-    Observable<Optional<List<Interval>>> getIntervalList();
-    Observable<Optional<Interval>> getIntervalByName(String interval);
+    Observable<Optional<List<IntervalJava>>> getIntervalList();
+    Observable<Optional<IntervalJava>> getIntervalByName(String interval);
 }

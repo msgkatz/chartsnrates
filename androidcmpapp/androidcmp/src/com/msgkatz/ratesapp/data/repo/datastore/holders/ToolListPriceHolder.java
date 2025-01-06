@@ -2,11 +2,11 @@ package com.msgkatz.ratesapp.data.repo.datastore.holders;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 import com.msgkatz.ratesapp.data.entities.rest.PriceSimpleDT;
 import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.Collection;
@@ -34,7 +34,7 @@ public class ToolListPriceHolder {
     private final BinanceRestApi restApi;
     private final InnerModel innerModel;
     private final List<PriceSimpleDT> lastToolPriceList;
-    private Map<String, Set<PriceSimple>> multimap;
+    private Map<String, Set<PriceSimpleJava>> multimap;
 
     public ToolListPriceHolder(BinanceRestApi restApi, List<PriceSimpleDT> lastToolPriceList, InnerModel innerModel)
     {
@@ -68,7 +68,7 @@ public class ToolListPriceHolder {
                 });
     }
 
-    public Flowable<Optional<Map<String, Set<PriceSimple>>>> getToolPrices()
+    public Flowable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolPrices()
     {
         if (isLastUpdatedRecently())
         {
@@ -76,9 +76,9 @@ public class ToolListPriceHolder {
         }
         else
             return restApi.getPriceSimple()
-                    .map(new Function<Response<List<PriceSimpleDT>>, Optional<Map<String, Set<PriceSimple>>>>() {
+                    .map(new Function<Response<List<PriceSimpleDT>>, Optional<Map<String, Set<PriceSimpleJava>>>>() {
                         @Override
-                        public Optional<Map<String, Set<PriceSimple>>> apply(Response<List<PriceSimpleDT>> response) throws Exception {
+                        public Optional<Map<String, Set<PriceSimpleJava>>> apply(Response<List<PriceSimpleDT>> response) throws Exception {
 
                             if (response.isSuccessful())
                             {
@@ -97,20 +97,20 @@ public class ToolListPriceHolder {
 
     private void fulfillPrices(List<PriceSimpleDT> source)
     {
-        com.google.common.base.Function<PriceSimpleDT,PriceSimple> func
-                = new com.google.common.base.Function<PriceSimpleDT,PriceSimple>(){
+        com.google.common.base.Function<PriceSimpleDT, PriceSimpleJava> func
+                = new com.google.common.base.Function<PriceSimpleDT, PriceSimpleJava>(){
             @Override
-            public PriceSimple apply(PriceSimpleDT input) {
-                PriceSimple result = new PriceSimple(innerModel.getToolMap().get(input.getSymbol()), input.getPrice());
+            public PriceSimpleJava apply(PriceSimpleDT input) {
+                PriceSimpleJava result = new PriceSimpleJava(innerModel.getToolMap().get(input.getSymbol()), input.getPrice());
                 return result;
             }
         };
 
-        Collection<PriceSimple> collection = Collections2.transform(source, func);
+        Collection<PriceSimpleJava> collection = Collections2.transform(source, func);
 
         //Map<String, Set<PriceSimple>> _multimap = new ConcurrentHashMap<>(); //HashMap<>();
 
-        Map<String, Set<PriceSimple>> _multimap = innerModel.getPriceSimpleMultiMap();
+        Map<String, Set<PriceSimpleJava>> _multimap = innerModel.getPriceSimpleMultiMap();
 
         if (_multimap == null) {
             _multimap = new ConcurrentHashMap<>(); //HashMap<>();
@@ -118,30 +118,30 @@ public class ToolListPriceHolder {
         }
 
 
-        Iterator<Asset> iterator = innerModel.getQuoteAssetSet().iterator();
+        Iterator<AssetDT> iterator = innerModel.getQuoteAssetSet().iterator();
         while (iterator.hasNext())
         {
-            Asset item = iterator.next();
+            AssetDT item = iterator.next();
 
-            Predicate<PriceSimple> predicate = new Predicate<PriceSimple>() {
+            Predicate<PriceSimpleJava> predicate = new Predicate<PriceSimpleJava>() {
                 @Override
-                public boolean apply(PriceSimple input) {
+                public boolean apply(PriceSimpleJava input) {
                     return input.getTool().getQuoteAsset().getNameShort()
                             .equals(item.getNameShort());
                 }
             };
 
-            Collection<PriceSimple> result = Collections2.filter(collection, predicate);
+            Collection<PriceSimpleJava> result = Collections2.filter(collection, predicate);
             //Set<PriceSimple> set = Sets.newHashSet(result);
 
-            TreeSet<PriceSimple> treeSet = new TreeSet<>(new Comparator<PriceSimple>() {
+            TreeSet<PriceSimpleJava> treeSet = new TreeSet<>(new Comparator<PriceSimpleJava>() {
                 @Override
-                public int compare(PriceSimple o1, PriceSimple o2) {
+                public int compare(PriceSimpleJava o1, PriceSimpleJava o2) {
                     return o1.compareTo(o2);
                 }
             });
             treeSet.addAll(result);
-            ConcurrentSkipListSet<PriceSimple> set = new ConcurrentSkipListSet<PriceSimple>(treeSet);
+            ConcurrentSkipListSet<PriceSimpleJava> set = new ConcurrentSkipListSet<PriceSimpleJava>(treeSet);
             //Set<PriceSimple> set = Sets.newConcurrentHashSet(treeSet);
 
             _multimap.put(item.getNameShort(), set);

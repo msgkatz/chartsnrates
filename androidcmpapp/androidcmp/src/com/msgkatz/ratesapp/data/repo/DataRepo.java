@@ -1,16 +1,16 @@
 package com.msgkatz.ratesapp.data.repo;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 import com.msgkatz.ratesapp.data.repo.datastore.AssetToolDataStore;
 import com.msgkatz.ratesapp.data.repo.datastore.CurrentToolPriceDataStore;
 import com.msgkatz.ratesapp.data.repo.datastore.IntervalListDataStore;
 import com.msgkatz.ratesapp.data.repo.datastore.ToolListPriceDataStore;
 import com.msgkatz.ratesapp.domain.IDataRepo;
-import com.msgkatz.ratesapp.domain.entities.Interval;
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
-import com.msgkatz.ratesapp.domain.entities.Tool;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
+import com.msgkatz.ratesapp.domain.entities.ToolJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.List;
@@ -52,27 +52,27 @@ public class DataRepo implements IDataRepo {
      *
      */
     @Override
-    public Observable<Optional<Map<String, Asset>>> getAssets() {
+    public Observable<Optional<Map<String, AssetDT>>> getAssets() {
         return this.assetToolDataStore.getAssetsData();
     }
 
     @Override
-    public Observable<Optional<Set<Asset>>> getQuoteAssets() {
+    public Observable<Optional<Set<AssetDT>>> getQuoteAssets() {
         return this.assetToolDataStore.getQuoteAssets();
     }
 
     @Override
-    public Observable<Optional<Map<String, Asset>>> getQuoteAssetsAsMap() {
+    public Observable<Optional<Map<String, AssetDT>>> getQuoteAssetsAsMap() {
         return this.assetToolDataStore.getQuoteAssetsAsMap();
     }
 
     @Override
-    public Observable<Optional<PlatformInfo>> getPlatformInfo() {
+    public Observable<Optional<PlatformInfoJava>> getPlatformInfo() {
         return this.assetToolDataStore.getPlatformInfo();
     }
 
     @Override
-    public Observable<Optional<Map<String, Tool>>> getToolMap() {
+    public Observable<Optional<Map<String, ToolJava>>> getToolMap() {
         return this.assetToolDataStore.getToolMap();
     }
 
@@ -105,19 +105,19 @@ public class DataRepo implements IDataRepo {
      *
      */
     @Override
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getToolListPrice()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolListPrice()
     {
         return toolListPriceDataStore.getToolPrices();
     }
 
     @Override
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getToolListRealtimePrice()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolListRealtimePrice()
     {
         return toolListPriceDataStore.getToolRealtimePrices();
     }
 
     @Override
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getCombinedToolListPrice()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getCombinedToolListPrice()
     {
         return toolListPriceDataStore.getCombinedToolListPrice();
     }
@@ -126,12 +126,12 @@ public class DataRepo implements IDataRepo {
      * Intervals for the chart
      */
     @Override
-    public Observable<Optional<List<Interval>>> getIntervalList() {
+    public Observable<Optional<List<IntervalJava>>> getIntervalList() {
         return intervalListDataStore.getIntervalData();
     }
 
     @Override
-    public Observable<Optional<Interval>> getIntervalByName(String interval) {
+    public Observable<Optional<IntervalJava>> getIntervalByName(String interval) {
         return intervalListDataStore.getIntervalByName(interval);
     }
 }

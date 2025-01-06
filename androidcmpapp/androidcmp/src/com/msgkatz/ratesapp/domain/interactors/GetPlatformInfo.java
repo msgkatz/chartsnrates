@@ -1,7 +1,7 @@
 package com.msgkatz.ratesapp.domain.interactors;
 
 import com.msgkatz.ratesapp.domain.IDataRepo;
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava;
 import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  * Created by msgkatz on 19/08/2018.
  */
 
-public class GetPlatformInfo extends BaseInteractor<Optional<PlatformInfo>, Void> {
+public class GetPlatformInfo extends BaseInteractor<Optional<PlatformInfoJava>, Void> {
 
     private IDataRepo dataRepo;
 
@@ -23,7 +23,7 @@ public class GetPlatformInfo extends BaseInteractor<Optional<PlatformInfo>, Void
     }
 
     @Override
-    protected Observable<Optional<PlatformInfo>> buildObservable(Void parameter) {
+    protected Observable<Optional<PlatformInfoJava>> buildObservable(Void parameter) {
         return dataRepo.getPlatformInfo();
     }
 }

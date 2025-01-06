@@ -10,18 +10,18 @@ import java.util.Locale;
  * Created by msgkatz on 30/08/2018.
  */
 
-public class PriceSimple implements Comparable<PriceSimple> {
+public class PriceSimpleJava implements Comparable<PriceSimpleJava> {
 
-    public Tool tool;
+    public ToolJava tool;
     public double price;
 
-    public PriceSimple(Tool tool, double price)
+    public PriceSimpleJava(ToolJava tool, double price)
     {
         this.tool = tool;
         this.price = price;
     }
 
-    public Tool getTool() {
+    public ToolJava getTool() {
         return tool;
     }
 
@@ -40,7 +40,7 @@ public class PriceSimple implements Comparable<PriceSimple> {
     }
 
     @Override
-    public int compareTo(@NonNull PriceSimple o) {
+    public int compareTo(@NonNull PriceSimpleJava o) {
         return this.tool.getBaseAsset().getNameShort()
                 .compareTo(o.getTool().getBaseAsset().getNameShort());
     }
@@ -54,9 +54,9 @@ public class PriceSimple implements Comparable<PriceSimple> {
     public boolean equals(Object obj) {
         if (obj == null) return false;
 
-        if (!(obj instanceof PriceSimple)) return false;
+        if (!(obj instanceof PriceSimpleJava)) return false;
 
-        PriceSimple o = (PriceSimple) obj;
+        PriceSimpleJava o = (PriceSimpleJava) obj;
 
         return this.tool.getName()
                 .equals(o.getTool().getName());

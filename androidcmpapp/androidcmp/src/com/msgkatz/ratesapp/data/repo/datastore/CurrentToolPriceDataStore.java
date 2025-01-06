@@ -8,7 +8,7 @@ import com.msgkatz.ratesapp.data.repo.datastore.holders.CurrentToolRealtimeBalan
 import com.msgkatz.ratesapp.data.repo.datastore.holders.CurrentToolRealtimeBalancedV2PriceHolder;
 import com.msgkatz.ratesapp.data.repo.datastore.holders.CurrentToolRealtimePriceHolder;
 import com.msgkatz.ratesapp.data.repo.datastore.holders.HistoricalPriceHolder;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public class CurrentToolPriceDataStore {
 
     public Observable<Optional<List<Candle>>> getPricesInterimByTool(String symbol, String interval, Long startTime)
     {
-        Interval _interval = this.innerModel.getIntervalMap().get(interval);
+        IntervalJava _interval = this.innerModel.getIntervalMap().get(interval);
         if (_interval.getType() == 0)
             return currentToolRealtimeBalancedPriceHolder_type0.getInterimPrices(symbol, interval, startTime, null);
         else
@@ -76,7 +76,7 @@ public class CurrentToolPriceDataStore {
 
     public Observable<Optional<Candle>> getToolRealtimePrice(String symbol, String interval)
     {
-        Interval _interval = this.innerModel.getIntervalMap().get(interval);
+        IntervalJava _interval = this.innerModel.getIntervalMap().get(interval);
         if (_interval.getType() == 0)
             return currentToolRealtimeBalancedPriceHolder_type0.subscribeToolPrice(symbol, interval);
         else

@@ -4,7 +4,7 @@ import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.data.entities.mappers.CandleDataMapper;
 import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class HistoricalPriceHolder {
 
     public Flowable<Optional<List<Candle>>> getData(String symbol, String interval, Long startTime, Long endTime, Integer limit) {
 
-        final Interval _interval = innerModel.getIntervalMap().get(interval);
+        final IntervalJava _interval = innerModel.getIntervalMap().get(interval);
 
         return restApi.getPriceByCandle(symbol, _interval.getSymbolApi(), startTime, endTime, limit)
                 .map(new Function<Response<List<List<String>>>, Optional<List<Candle>>>() {

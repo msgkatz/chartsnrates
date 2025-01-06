@@ -15,7 +15,7 @@ import javax.annotation.Generated;
  */
 
 @Generated("org.jsonschema2pojo")
-public class Asset implements Comparable<Asset> {
+public class AssetDT implements Comparable<AssetDT> {
 
     @SerializedName("id")
     @Expose
@@ -35,7 +35,7 @@ public class Asset implements Comparable<Asset> {
 
     private String logoFullUrl;
 
-    public Asset(int id, String nameShort, String nameLong)
+    public AssetDT(int id, String nameShort, String nameLong)
     {
         this.id = id;
         this.nameShort = nameShort;
@@ -76,7 +76,7 @@ public class Asset implements Comparable<Asset> {
     }
 
     @Override
-    public int compareTo(@NonNull Asset o) {
+    public int compareTo(@NonNull AssetDT o) {
         return this.getNameShort().compareTo(o.getNameShort());
     }
 
@@ -89,9 +89,9 @@ public class Asset implements Comparable<Asset> {
     public boolean equals(Object obj) {
         if (obj == null) return false;
 
-        if (!(obj instanceof Asset)) return false;
+        if (!(obj instanceof AssetDT)) return false;
 
-        Asset o = (Asset) obj;
+        AssetDT o = (AssetDT) obj;
 
         return this.getNameShort()
                 .equals(o.getNameShort());

@@ -1,11 +1,11 @@
 package com.msgkatz.ratesapp.data.repo;
 
 import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
-import com.msgkatz.ratesapp.domain.entities.Interval;
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
-import com.msgkatz.ratesapp.domain.entities.Tool;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
+import com.msgkatz.ratesapp.domain.entities.ToolJava;
 
 import java.util.Map;
 import java.util.Set;
@@ -22,15 +22,15 @@ import javax.inject.Singleton;
 @Singleton
 public class InnerModel {
 
-    private Map<String, Interval> intervalMap  = new ConcurrentHashMap<>();
+    private Map<String, IntervalJava> intervalMap  = new ConcurrentHashMap<>();
 
-    private PlatformInfo platformInfo;
-    private Map<String, Asset> assetMap;
-    private Map<String, Tool> toolMap;
-    private Set<Asset> quoteAssetSet;
-    private Map<String, Asset> quoteAssetMap;
+    private PlatformInfoJava platformInfo;
+    private Map<String, AssetDT> assetMap;
+    private Map<String, ToolJava> toolMap;
+    private Set<AssetDT> quoteAssetSet;
+    private Map<String, AssetDT> quoteAssetMap;
 
-    private Map<String, Set<PriceSimple>> priceSimpleMultiMap;
+    private Map<String, Set<PriceSimpleJava>> priceSimpleMultiMap;
     private long lastToolListPriceUpdate = -1;
 
     private Map<String, ConcurrentSkipListSet<Candle>> holdMap; /** Map of values <String as tool_scale, Set of Candles> **/
@@ -40,55 +40,55 @@ public class InnerModel {
     public InnerModel()
     {}
 
-    public Map<String, Interval> getIntervalMap() {
+    public Map<String, IntervalJava> getIntervalMap() {
         return intervalMap;
     }
 
-    public PlatformInfo getPlatformInfo() {
+    public PlatformInfoJava getPlatformInfo() {
         return platformInfo;
     }
 
-    public void setPlatformInfo(PlatformInfo platformInfo) {
+    public void setPlatformInfo(PlatformInfoJava platformInfo) {
         this.platformInfo = platformInfo;
     }
 
-    public Map<String, Asset> getAssetMap() {
+    public Map<String, AssetDT> getAssetMap() {
         return assetMap;
     }
 
-    public void setAssetMap(Map<String, Asset> assetMap) {
+    public void setAssetMap(Map<String, AssetDT> assetMap) {
         this.assetMap = assetMap;
     }
 
-    public Map<String, Tool> getToolMap() {
+    public Map<String, ToolJava> getToolMap() {
         return toolMap;
     }
 
-    public void setToolMap(Map<String, Tool> toolMap) {
+    public void setToolMap(Map<String, ToolJava> toolMap) {
         this.toolMap = toolMap;
     }
 
-    public Set<Asset> getQuoteAssetSet() {
+    public Set<AssetDT> getQuoteAssetSet() {
         return quoteAssetSet;
     }
 
-    public void setQuoteAssetSet(Set<Asset> quoteAssetSet) {
+    public void setQuoteAssetSet(Set<AssetDT> quoteAssetSet) {
         this.quoteAssetSet = quoteAssetSet;
     }
 
-    public Map<String, Asset> getQuoteAssetMap() {
+    public Map<String, AssetDT> getQuoteAssetMap() {
         return quoteAssetMap;
     }
 
-    public void setQuoteAssetMap(Map<String, Asset> quoteAssetMap) {
+    public void setQuoteAssetMap(Map<String, AssetDT> quoteAssetMap) {
         this.quoteAssetMap = quoteAssetMap;
     }
 
-    public Map<String, Set<PriceSimple>> getPriceSimpleMultiMap() {
+    public Map<String, Set<PriceSimpleJava>> getPriceSimpleMultiMap() {
         return priceSimpleMultiMap;
     }
 
-    public void setPriceSimpleMultiMap(Map<String, Set<PriceSimple>> priceSimpleMultiMap) {
+    public void setPriceSimpleMultiMap(Map<String, Set<PriceSimpleJava>> priceSimpleMultiMap) {
         this.priceSimpleMultiMap = priceSimpleMultiMap;
     }
 

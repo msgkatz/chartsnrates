@@ -1,17 +1,17 @@
 package com.msgkatz.ratesapp.presentation.entities.events;
 
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 
 public class NewIntervalEvent extends BaseEvent {
 
-    private Interval interval;
+    private IntervalJava interval;
 
-    public NewIntervalEvent(Interval interval)
+    public NewIntervalEvent(IntervalJava interval)
     {
         this.interval = interval;
     }
 
-    public Interval getInterval() {
+    public IntervalJava getInterval() {
         return interval;
     }
 }

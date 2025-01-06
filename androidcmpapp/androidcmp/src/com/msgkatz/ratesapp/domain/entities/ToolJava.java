@@ -2,20 +2,20 @@ package com.msgkatz.ratesapp.domain.entities;
 
 import androidx.annotation.NonNull;
 
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 
 /**
  * Created by msgkatz on 30/08/2018.
  */
 
-public class Tool implements Comparable<Tool> {
+public class ToolJava implements Comparable<ToolJava> {
 
     private String name;
-    private Asset baseAsset;
-    private Asset quoteAsset;
+    private AssetDT baseAsset;
+    private AssetDT quoteAsset;
     private boolean isActive;
 
-    public Tool(String name, Asset baseAsset, Asset quoteAsset)
+    public ToolJava(String name, AssetDT baseAsset, AssetDT quoteAsset)
     {
         this.name = name;
         this.baseAsset = baseAsset;
@@ -23,7 +23,7 @@ public class Tool implements Comparable<Tool> {
         this.isActive = true;
     }
 
-    public Tool(String name, Asset baseAsset, Asset quoteAsset, boolean isActive)
+    public ToolJava(String name, AssetDT baseAsset, AssetDT quoteAsset, boolean isActive)
     {
         this.name = name;
         this.baseAsset = baseAsset;
@@ -39,19 +39,19 @@ public class Tool implements Comparable<Tool> {
         this.name = name;
     }
 
-    public Asset getBaseAsset() {
+    public AssetDT getBaseAsset() {
         return baseAsset;
     }
 
-    public void setBaseAsset(Asset baseAsset) {
+    public void setBaseAsset(AssetDT baseAsset) {
         this.baseAsset = baseAsset;
     }
 
-    public Asset getQuoteAsset() {
+    public AssetDT getQuoteAsset() {
         return quoteAsset;
     }
 
-    public void setQuoteAsset(Asset quoteAsset) {
+    public void setQuoteAsset(AssetDT quoteAsset) {
         this.quoteAsset = quoteAsset;
     }
 
@@ -60,7 +60,7 @@ public class Tool implements Comparable<Tool> {
     }
 
     @Override
-    public int compareTo(@NonNull Tool o) {
+    public int compareTo(@NonNull ToolJava o) {
         return this.baseAsset.getNameShort().compareTo(o.getBaseAsset().getNameShort());
     }
 
@@ -73,9 +73,9 @@ public class Tool implements Comparable<Tool> {
     public boolean equals(Object obj) {
         if (obj == null) return false;
 
-        if (!(obj instanceof Tool)) return false;
+        if (!(obj instanceof ToolJava)) return false;
 
-        Tool o = (Tool) obj;
+        ToolJava o = (ToolJava) obj;
 
         return this.getName()
                 .equals(o.getName());

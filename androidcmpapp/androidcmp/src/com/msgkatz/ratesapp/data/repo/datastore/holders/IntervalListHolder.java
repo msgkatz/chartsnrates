@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.msgkatz.ratesapp.data.entities.IntervalDT;
 import com.msgkatz.ratesapp.data.entities.mappers.IntervalDTDataMapper;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 import com.msgkatz.ratesapp.utils.Logs;
 
@@ -32,7 +32,7 @@ public class IntervalListHolder {
     private final Context appContext;
     private final InnerModel innerModel;
     //rivate List<Interval> intervalList = new ArrayList<>();
-    private final Map<String, Interval> intervalMap;
+    private final Map<String, IntervalJava> intervalMap;
 
     public IntervalListHolder(Context appContext, InnerModel innerModel)
     {
@@ -41,24 +41,24 @@ public class IntervalListHolder {
         this.intervalMap = innerModel.getIntervalMap();
     }
 
-    public Flowable<Optional<List<Interval>>> getData()
+    public Flowable<Optional<List<IntervalJava>>> getData()
     {
         if (intervalMap.size() == 0)
         {
 
-            return Flowable.create(new FlowableOnSubscribe<Optional<List<Interval>>>() {
+            return Flowable.create(new FlowableOnSubscribe<Optional<List<IntervalJava>>>() {
                 @Override
-                public void subscribe(FlowableEmitter<Optional<List<Interval>>> emitter) throws Exception {
+                public void subscribe(FlowableEmitter<Optional<List<IntervalJava>>> emitter) throws Exception {
 
-                    List<Interval> intervals = IntervalDTDataMapper.transform(loadIntervalsFromAppAssets());
+                    List<IntervalJava> intervals = IntervalDTDataMapper.transform(loadIntervalsFromAppAssets());
 
                     if (intervals != null && intervals.size() > 0)
                     {
 
-                        for (Interval interval : intervals)
+                        for (IntervalJava interval : intervals)
                             intervalMap.put(interval.getValue(), interval);
 
-                        emitter.onNext(new Optional<List<Interval>>(loadIntervalsSorted()));
+                        emitter.onNext(new Optional<List<IntervalJava>>(loadIntervalsSorted()));
                     }
                     emitter.onComplete();
                 }
@@ -67,27 +67,27 @@ public class IntervalListHolder {
         }
         else
         {
-            return Flowable.just(new Optional<List<Interval>>(loadIntervalsSorted()));
+            return Flowable.just(new Optional<List<IntervalJava>>(loadIntervalsSorted()));
         }
 
     }
 
-    public Flowable<Optional<Interval>> getDataByName(String interval)
+    public Flowable<Optional<IntervalJava>> getDataByName(String interval)
     {
         if (intervalMap.size() == 0)
         {
 
-            return Flowable.create(new FlowableOnSubscribe<Optional<Interval>>() {
+            return Flowable.create(new FlowableOnSubscribe<Optional<IntervalJava>>() {
                 @Override
-                public void subscribe(FlowableEmitter<Optional<Interval>> emitter) throws Exception {
-                    List<Interval> intervals = IntervalDTDataMapper.transform(loadIntervalsFromAppAssets());
+                public void subscribe(FlowableEmitter<Optional<IntervalJava>> emitter) throws Exception {
+                    List<IntervalJava> intervals = IntervalDTDataMapper.transform(loadIntervalsFromAppAssets());
                     if (intervals != null && intervals.size() > 0)
                     {
 
-                        for (Interval interval : intervals)
+                        for (IntervalJava interval : intervals)
                             intervalMap.put(interval.getValue(), interval);
 
-                        emitter.onNext(new Optional<Interval>(intervalMap.get(interval)));
+                        emitter.onNext(new Optional<IntervalJava>(intervalMap.get(interval)));
                     }
                     emitter.onComplete();
                 }
@@ -96,17 +96,17 @@ public class IntervalListHolder {
         }
         else
         {
-            return Flowable.just(new Optional<Interval>(intervalMap.get(interval)));
+            return Flowable.just(new Optional<IntervalJava>(intervalMap.get(interval)));
         }
 
     }
 
-    private List<Interval> loadIntervalsSorted() {
-        List<Interval> intervals = new ArrayList<>(intervalMap.values());
+    private List<IntervalJava> loadIntervalsSorted() {
+        List<IntervalJava> intervals = new ArrayList<>(intervalMap.values());
 
-        Collections.sort(intervals, new Comparator<Interval>() {
+        Collections.sort(intervals, new Comparator<IntervalJava>() {
             @Override
-            public int compare(Interval o1, Interval o2) {
+            public int compare(IntervalJava o1, IntervalJava o2) {
                 return Integer.valueOf(o1.getId()).compareTo(Integer.valueOf(o2.getId()));
             }
         });

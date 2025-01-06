@@ -2,13 +2,13 @@ package com.msgkatz.ratesapp.data.repo.datastore.holders;
 
 import com.msgkatz.ratesapp.data.entities.UpdateResult;
 import com.msgkatz.ratesapp.data.entities.mappers.ToolDataMapper;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 import com.msgkatz.ratesapp.data.entities.rest.PlatformInfoDT;
 import com.msgkatz.ratesapp.data.entities.rest.ToolDT;
 import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.PlatformInfo;
-import com.msgkatz.ratesapp.domain.entities.Tool;
+import com.msgkatz.ratesapp.domain.entities.PlatformInfoJava;
+import com.msgkatz.ratesapp.domain.entities.ToolJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.HashMap;
@@ -33,11 +33,11 @@ public class ToolHolder {
     private final InnerModel innerModel;
 
     private PlatformInfoDT data;
-    private PlatformInfo platformInfo;
+    private PlatformInfoJava platformInfo;
     /*********/
-    private Map<String, Tool> toolMap;
-    private Set<Asset> quoteAssetSet;
-    private Map<String, Asset> quoteAssetMap;
+    private Map<String, ToolJava> toolMap;
+    private Set<AssetDT> quoteAssetSet;
+    private Map<String, AssetDT> quoteAssetMap;
 
     private boolean isEmpty = true;
 
@@ -72,99 +72,99 @@ public class ToolHolder {
 
     }
 
-    public Flowable<Optional<PlatformInfo>> getPlatformInfo() {
+    public Flowable<Optional<PlatformInfoJava>> getPlatformInfo() {
         if (getIsEmpty())
         //if (platformInfo == null)
         {
             return update()
-                    .map(new Function<Optional<UpdateResult>, Optional<PlatformInfo>>() {
+                    .map(new Function<Optional<UpdateResult>, Optional<PlatformInfoJava>>() {
                         @Override
-                        public Optional<PlatformInfo> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
+                        public Optional<PlatformInfoJava> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
                             if (!updateResultOptional.isEmpty() && updateResultOptional.get().isOk())
                             {
-                                return new Optional<PlatformInfo>(platformInfo);
+                                return new Optional<PlatformInfoJava>(platformInfo);
                             }
                             else
                             {
-                                return new Optional<PlatformInfo>(null);
+                                return new Optional<PlatformInfoJava>(null);
                             }
                         }
                     });
         }
         else {
-            return Flowable.just(new Optional<PlatformInfo>(platformInfo));
+            return Flowable.just(new Optional<PlatformInfoJava>(platformInfo));
         }
     }
 
-    public Flowable<Optional<Map<String, Tool>>> getToolMap() {
+    public Flowable<Optional<Map<String, ToolJava>>> getToolMap() {
         if (getIsEmpty())
         //if (toolMap == null)
         {
             return update()
-                    .map(new Function<Optional<UpdateResult>, Optional<Map<String, Tool>>>() {
+                    .map(new Function<Optional<UpdateResult>, Optional<Map<String, ToolJava>>>() {
                         @Override
-                        public Optional<Map<String, Tool>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
+                        public Optional<Map<String, ToolJava>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
                             if (!updateResultOptional.isEmpty() && updateResultOptional.get().isOk())
                             {
-                                return new Optional<Map<String, Tool>>(toolMap);
+                                return new Optional<Map<String, ToolJava>>(toolMap);
                             }
                             else
                             {
-                                return new Optional<Map<String, Tool>>(null);
+                                return new Optional<Map<String, ToolJava>>(null);
                             }
                         }
                     });
         }
         else {
-            return Flowable.just(new Optional<Map<String, Tool>>(toolMap));
+            return Flowable.just(new Optional<Map<String, ToolJava>>(toolMap));
         }
     }
 
-    public Flowable<Optional<Set<Asset>>> getQuoteAssetSet() {
+    public Flowable<Optional<Set<AssetDT>>> getQuoteAssetSet() {
         if (getIsEmpty())
         //if (quoteAssetSet == null)
         {
             return update()
-                    .map(new Function<Optional<UpdateResult>, Optional<Set<Asset>>>() {
+                    .map(new Function<Optional<UpdateResult>, Optional<Set<AssetDT>>>() {
                         @Override
-                        public Optional<Set<Asset>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
+                        public Optional<Set<AssetDT>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
                             if (!updateResultOptional.isEmpty() && updateResultOptional.get().isOk())
                             {
-                                return new Optional<Set<Asset>>(quoteAssetSet);
+                                return new Optional<Set<AssetDT>>(quoteAssetSet);
                             }
                             else
                             {
-                                return new Optional<Set<Asset>>(null);
+                                return new Optional<Set<AssetDT>>(null);
                             }
                         }
                     });
         }
         else {
-            return Flowable.just(new Optional<Set<Asset>>(quoteAssetSet));
+            return Flowable.just(new Optional<Set<AssetDT>>(quoteAssetSet));
         }
     }
 
-    public Flowable<Optional<Map<String, Asset>>> getQuoteAssetMap() {
+    public Flowable<Optional<Map<String, AssetDT>>> getQuoteAssetMap() {
         if (getIsEmpty())
         //if (quoteAssetMap == null)
         {
             return update()
-                    .map(new Function<Optional<UpdateResult>, Optional<Map<String, Asset>>>() {
+                    .map(new Function<Optional<UpdateResult>, Optional<Map<String, AssetDT>>>() {
                         @Override
-                        public Optional<Map<String, Asset>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
+                        public Optional<Map<String, AssetDT>> apply(Optional<UpdateResult> updateResultOptional) throws Exception {
                             if (!updateResultOptional.isEmpty() && updateResultOptional.get().isOk())
                             {
-                                return new Optional<Map<String, Asset>>(quoteAssetMap);
+                                return new Optional<Map<String, AssetDT>>(quoteAssetMap);
                             }
                             else
                             {
-                                return new Optional<Map<String, Asset>>(null);
+                                return new Optional<Map<String, AssetDT>>(null);
                             }
                         }
                     });
         }
         else {
-            return Flowable.just(new Optional<Map<String, Asset>>(quoteAssetMap));
+            return Flowable.just(new Optional<Map<String, AssetDT>>(quoteAssetMap));
         }
     }
 
@@ -195,7 +195,7 @@ public class ToolHolder {
 
     private boolean fulfillDataSets(PlatformInfoDT data) {
         synchronized (updateLock) {
-            platformInfo = new PlatformInfo(data.getTimeZone(), data.getServerTime());
+            platformInfo = new PlatformInfoJava(data.getTimeZone(), data.getServerTime());
             List<ToolDT> toolList = data.getToolList();
 
             if (toolList != null) {
@@ -204,7 +204,7 @@ public class ToolHolder {
                 quoteAssetMap = new HashMap<>();
                 for (ToolDT item : toolList) {
 
-                    Tool tool = ToolDataMapper.transform(item, innerModel.getAssetMap());
+                    ToolJava tool = ToolDataMapper.transform(item, innerModel.getAssetMap());
                     toolMap.put(item.getSymbol(), tool);
                     quoteAssetSet.add(tool.getQuoteAsset());
                     quoteAssetMap.put(tool.getQuoteAsset().getNameShort(), tool.getQuoteAsset());

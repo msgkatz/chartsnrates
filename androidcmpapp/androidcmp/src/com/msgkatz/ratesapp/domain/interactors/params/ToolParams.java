@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.domain.interactors.params;
 
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 
 /**
  * Created by msgkatz on 29/08/2018.
@@ -9,14 +9,14 @@ import com.msgkatz.ratesapp.data.entities.rest.Asset;
 public class ToolParams extends CommonParams {
 
     private String assetSymbol;
-    private Asset asset;
+    private AssetDT asset;
 
     public ToolParams(String assetSymbol)
     {
         this.assetSymbol = assetSymbol;
     }
 
-    public ToolParams(Asset asset)
+    public ToolParams(AssetDT asset)
     {
         this.asset = asset;
     }

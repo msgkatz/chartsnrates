@@ -4,12 +4,12 @@ package com.msgkatz.ratesapp.domain.entities;
  * Created by msgkatz on 29/08/2018.
  */
 
-public class PlatformInfo {
+public class PlatformInfoJava {
 
     private String timeZone;
     private long serverTime;
 
-    public PlatformInfo(String timeZone, long serverTime)
+    public PlatformInfoJava(String timeZone, long serverTime)
     {
         this.timeZone = timeZone;
         this.serverTime = serverTime;

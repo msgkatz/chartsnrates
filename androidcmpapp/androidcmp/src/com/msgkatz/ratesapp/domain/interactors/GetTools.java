@@ -1,7 +1,7 @@
 package com.msgkatz.ratesapp.domain.interactors;
 
 import com.msgkatz.ratesapp.domain.IDataRepo;
-import com.msgkatz.ratesapp.domain.entities.Tool;
+import com.msgkatz.ratesapp.domain.entities.ToolJava;
 import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  * Created by msgkatz on 24/09/2018.
  */
 
-public class GetTools extends BaseInteractor<Optional<Map<String, Tool>>, Void> {
+public class GetTools extends BaseInteractor<Optional<Map<String, ToolJava>>, Void> {
 
     private IDataRepo dataRepo;
 
@@ -24,7 +24,7 @@ public class GetTools extends BaseInteractor<Optional<Map<String, Tool>>, Void> 
     }
 
     @Override
-    protected Observable<Optional<Map<String, Tool>>> buildObservable(Void parameter) {
+    protected Observable<Optional<Map<String, ToolJava>>> buildObservable(Void parameter) {
         return dataRepo.getToolMap();
     }
 }

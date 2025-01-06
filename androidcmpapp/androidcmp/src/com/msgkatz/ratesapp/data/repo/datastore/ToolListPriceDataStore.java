@@ -6,7 +6,7 @@ import com.msgkatz.ratesapp.data.net.wsocks.BinanceWSocksApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
 import com.msgkatz.ratesapp.data.repo.datastore.holders.ToolListPriceHolder;
 import com.msgkatz.ratesapp.data.repo.datastore.holders.ToolListRealtimePriceHolder;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.ArrayList;
@@ -41,17 +41,17 @@ public class ToolListPriceDataStore {
         this.toolListRealtimePriceHolder = new ToolListRealtimePriceHolder(wsApi, lastToolPriceList, innerModel);
     }
 
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getToolPrices()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolPrices()
     {
         return toolListPriceHolder.getToolPrices().toObservable();
     }
 
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getToolRealtimePrices()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getToolRealtimePrices()
     {
         return toolListRealtimePriceHolder.subscribeToolPrices();
     }
 
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> getCombinedToolListPrice()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> getCombinedToolListPrice()
     {
         return getToolPrices().concatWith(getToolRealtimePrices());
     }

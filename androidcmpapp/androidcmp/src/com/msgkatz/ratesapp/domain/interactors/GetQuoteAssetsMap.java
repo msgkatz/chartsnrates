@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.domain.interactors;
 
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 import com.msgkatz.ratesapp.domain.IDataRepo;
 import com.msgkatz.ratesapp.domain.interactors.base.BaseInteractor;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  * Created by msgkatz on 10/09/2018.
  */
 
-public class GetQuoteAssetsMap extends BaseInteractor<Optional<Map<String, Asset>>, Void> {
+public class GetQuoteAssetsMap extends BaseInteractor<Optional<Map<String, AssetDT>>, Void> {
 
     private IDataRepo dataRepo;
 
@@ -24,7 +24,7 @@ public class GetQuoteAssetsMap extends BaseInteractor<Optional<Map<String, Asset
     }
 
     @Override
-    protected Observable<Optional<Map<String, Asset>>> buildObservable(Void parameter) {
+    protected Observable<Optional<Map<String, AssetDT>>> buildObservable(Void parameter) {
         return dataRepo.getQuoteAssetsAsMap();
     }
 }

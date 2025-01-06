@@ -1,6 +1,6 @@
 package com.msgkatz.ratesapp.data.net.rest;
 
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ import retrofit2.http.GET;
 public interface BinanceHtmlApi {
 
     @GET("assetWithdraw/getAllAsset.html")
-    Flowable<Response<List<Asset>>> getAssets();
+    Flowable<Response<List<AssetDT>>> getAssets();
 }

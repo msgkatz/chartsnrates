@@ -5,7 +5,7 @@ import android.content.Context;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
 import com.msgkatz.ratesapp.data.repo.datastore.holders.IntervalListHolder;
 import com.msgkatz.ratesapp.di.app.AppModule;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.util.List;
@@ -27,12 +27,12 @@ public class IntervalListDataStore {
         this.intervalListHolder = new IntervalListHolder(appContext, innerModel);
     }
 
-    public Observable<Optional<List<Interval>>> getIntervalData()
+    public Observable<Optional<List<IntervalJava>>> getIntervalData()
     {
         return this.intervalListHolder.getData().toObservable();
     }
 
-    public Observable<Optional<Interval>> getIntervalByName(String interval)
+    public Observable<Optional<IntervalJava>> getIntervalByName(String interval)
     {
         return this.intervalListHolder.getDataByName(interval).toObservable();
     }

@@ -6,12 +6,12 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.msgkatz.ratesapp.data.entities.mappers.PriceSimpleDTDataMapper;
-import com.msgkatz.ratesapp.data.entities.rest.Asset;
+import com.msgkatz.ratesapp.data.entities.rest.AssetDT;
 import com.msgkatz.ratesapp.data.entities.rest.PriceSimpleDT;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamMarketTickerMini;
 import com.msgkatz.ratesapp.data.net.wsocks.BinanceWSocksApi;
 import com.msgkatz.ratesapp.data.repo.InnerModel;
-import com.msgkatz.ratesapp.domain.entities.PriceSimple;
+import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava;
 import com.msgkatz.ratesapp.domain.interactors.base.Optional;
 
 import java.lang.reflect.Type;
@@ -75,12 +75,12 @@ public class ToolListRealtimePriceHolder {
                 }).toObservable();
     }
 
-    public Observable<Optional<Map<String, Set<PriceSimple>>>> subscribeToolPrices()
+    public Observable<Optional<Map<String, Set<PriceSimpleJava>>>> subscribeToolPrices()
     {
         return wsApi.getMiniTickerStreamAll()
-                .map(new Function<String, Optional<Map<String, Set<PriceSimple>>>>() {
+                .map(new Function<String, Optional<Map<String, Set<PriceSimpleJava>>>>() {
                     @Override
-                    public Optional<Map<String, Set<PriceSimple>>> apply(String s) throws Exception {
+                    public Optional<Map<String, Set<PriceSimpleJava>>> apply(String s) throws Exception {
 
                         if (s != null)
                         {
@@ -103,43 +103,43 @@ public class ToolListRealtimePriceHolder {
 
     private void fulfillPrices(List<PriceSimpleDT> source)
     {
-        com.google.common.base.Function<PriceSimpleDT,PriceSimple> func
-                = new com.google.common.base.Function<PriceSimpleDT,PriceSimple>(){
+        com.google.common.base.Function<PriceSimpleDT, PriceSimpleJava> func
+                = new com.google.common.base.Function<PriceSimpleDT, PriceSimpleJava>(){
             @Override
-            public PriceSimple apply(PriceSimpleDT input) {
-                PriceSimple result = new PriceSimple(innerModel.getToolMap().get(input.getSymbol()), input.getPrice());
+            public PriceSimpleJava apply(PriceSimpleDT input) {
+                PriceSimpleJava result = new PriceSimpleJava(innerModel.getToolMap().get(input.getSymbol()), input.getPrice());
                 return result;
             }
         };
 
-        Collection<PriceSimple> collection = Collections2.transform(source, func);
+        Collection<PriceSimpleJava> collection = Collections2.transform(source, func);
 
-        Map<String, Set<PriceSimple>> _multimap = innerModel.getPriceSimpleMultiMap();
+        Map<String, Set<PriceSimpleJava>> _multimap = innerModel.getPriceSimpleMultiMap();
 
         if (_multimap == null) {
             _multimap = new ConcurrentHashMap<>(); //HashMap<>();
             innerModel.setPriceSimpleMultiMap(_multimap);
         }
 
-        Iterator<Asset> iterator = innerModel.getQuoteAssetSet().iterator();
+        Iterator<AssetDT> iterator = innerModel.getQuoteAssetSet().iterator();
         while (iterator.hasNext())
         {
-            Asset item = iterator.next();
+            AssetDT item = iterator.next();
 
-            Predicate<PriceSimple> predicate = new Predicate<PriceSimple>() {
+            Predicate<PriceSimpleJava> predicate = new Predicate<PriceSimpleJava>() {
                 @Override
-                public boolean apply(PriceSimple input) {
+                public boolean apply(PriceSimpleJava input) {
                     return input.getTool().getQuoteAsset().getNameShort()
                             .equals(item.getNameShort());
                 }
             };
 
-            Collection<PriceSimple> result = Collections2.filter(collection, predicate);
+            Collection<PriceSimpleJava> result = Collections2.filter(collection, predicate);
             //Set<PriceSimple> set = Sets.newHashSet(result);
-            Set<PriceSimple> set = Sets.newConcurrentHashSet(result);
+            Set<PriceSimpleJava> set = Sets.newConcurrentHashSet(result);
 
 
-            Set<PriceSimple> targetSet = _multimap.get(item.getNameShort());
+            Set<PriceSimpleJava> targetSet = _multimap.get(item.getNameShort());
             if (targetSet == null)
                 continue;
 
@@ -147,9 +147,9 @@ public class ToolListRealtimePriceHolder {
 //            targetSet.addAll(set);
 
 
-            TreeSet<PriceSimple> treeSet = new TreeSet<>(new Comparator<PriceSimple>() {
+            TreeSet<PriceSimpleJava> treeSet = new TreeSet<>(new Comparator<PriceSimpleJava>() {
                 @Override
-                public int compare(PriceSimple o1, PriceSimple o2) {
+                public int compare(PriceSimpleJava o1, PriceSimpleJava o2) {
                     return o1.compareTo(o2);
                 }
             });
