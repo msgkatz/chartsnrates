@@ -13,12 +13,14 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.job
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -33,7 +35,8 @@ class ToolRepositoryImpl(
     private var quoteAssetSet: MutableSet<Asset> = HashSet()
     private var quoteAssetMap: MutableMap<String, Asset> = HashMap()
 
-    private var isEmpty : Boolean = data == null
+    private val isEmpty : Boolean
+        get() = data == null
 
     val exh : CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         println("ToolRepositoryImpl err: ${throwable.message ?: throwable.toString()}")
@@ -105,6 +108,7 @@ class ToolRepositoryImpl(
         mutex.withLock {
             var retVal = false
             try {
+                //displayChildren(0, this.coroutineContext.job)
                 val pi = networkds.getPlatformInfo()
                 if (pi.isFailure) throw Exception("getPlatformInfo failure")
                 val curdata = pi.getOrNull()?.toDomain()
@@ -124,6 +128,17 @@ class ToolRepositoryImpl(
         }
     }.await()
 
+    private fun displayChildren(depth: Int = 0, job: Job) {
+        job.children.forEach {
+            for (i in 0..depth) {
+                print("\t")
+            }
+            println("child: $it")
+            //if (it is Job) {
+            displayChildren(depth + 1, it)
+            //}
+        }
+    }
 
 
     private suspend fun isEmpty() : Boolean =

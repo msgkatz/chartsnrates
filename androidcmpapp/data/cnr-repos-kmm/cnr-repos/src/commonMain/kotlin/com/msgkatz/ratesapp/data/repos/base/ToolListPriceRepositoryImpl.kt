@@ -22,13 +22,14 @@ class ToolListPriceRepositoryImpl(
 
     override suspend fun getToolPrices(): Map<String, Set<PriceSimple>> = coroutineScope {
         if (isLastUpdatedRecently()) {
-            return@coroutineScope multimap
+            return@coroutineScope getMultiMap() //multimap
         } else {
             val prices = networkds.getPriceSimple()
             if (prices.isFailure || prices.getOrNull() == null) {
                 return@coroutineScope emptyMap()
             } else {
                 val newmap: MutableMap<String, Set<PriceSimple>> = mutableMapOf()
+                val _multimap = getMultiMap()
                 prices.getOrNull()?.let { list ->
                     list.map {
                         val tool = toolRepository.getToolMap()?.get(it.instrumentSymbol)
@@ -38,15 +39,20 @@ class ToolListPriceRepositoryImpl(
                     }.map {
                         toolRepository.getQuoteAssetMap()?.get(it.key)?.let { asset ->
                             val set: MutableSet<PriceSimple> = mutableSetOf<PriceSimple>()
-                            set.addAll(it.value.sortedBy { s -> s.price })
-                            newmap.put(asset.nameShort, set)
+                            _multimap.get(asset.nameShort)?.let {
+                                set.addAll(it)
+                            }
+                            set.removeAll(it.value)
+                            set.addAll(it.value)
+
+                            newmap.put(asset.nameShort, set.sorted().toSet())
                         }
                     }
                 }
 //                timeMark = timeSource.markNow()
 //                multimap = newmap
                 updateMultiMap(newmap)
-                return@coroutineScope multimap
+                return@coroutineScope getMultiMap() //multimap
             }
         }
     }
@@ -55,6 +61,12 @@ class ToolListPriceRepositoryImpl(
         mutex.withLock {
             timeMark = timeSource.markNow()
             multimap = newmap
+        }
+    }
+
+    override suspend fun getMultiMap(): Map<String, Set<PriceSimple>> {
+        mutex.withLock {
+            return multimap
         }
     }
 

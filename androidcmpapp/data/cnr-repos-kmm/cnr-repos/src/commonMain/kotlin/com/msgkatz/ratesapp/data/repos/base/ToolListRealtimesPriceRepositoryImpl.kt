@@ -24,7 +24,7 @@ class ToolListRealtimesPriceRepositoryImpl(
         return wsockds.getMiniTickerStreamAll()
             .map { list ->
                 val newmap: MutableMap<String, Set<PriceSimple>> = mutableMapOf()
-
+                val multimap = toolListPriceRepository.getMultiMap()
                 list.map {
                     val tool = toolRepository.getToolMap()?.get(it.symbol)
                     PriceSimple(tool!!, it.close)
@@ -34,8 +34,13 @@ class ToolListRealtimesPriceRepositoryImpl(
 
                     toolRepository.getQuoteAssetMap()?.get(it.key)?.let { asset ->
                         val set: MutableSet<PriceSimple> = mutableSetOf<PriceSimple>()
-                        set.addAll(it.value.sortedBy { s -> s.price })
-                        newmap.put(asset.nameShort, set)
+                        multimap.get(asset.nameShort)?.let {
+                            set.addAll(it)
+                        }
+                        set.removeAll(it.value)
+                        set.addAll(it.value)
+
+                        newmap.put(asset.nameShort, set.sorted().toSet())
                     }
 
                 }
