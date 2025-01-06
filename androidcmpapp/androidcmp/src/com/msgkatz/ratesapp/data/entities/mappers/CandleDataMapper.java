@@ -4,7 +4,7 @@ import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.data.entities.rest.PriceByCandle;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamKline;
 import com.msgkatz.ratesapp.data.entities.wsocks.StreamMarketTickerMini;
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 import com.msgkatz.ratesapp.utils.Logs;
 import com.msgkatz.ratesapp.utils.TimeIntervalUtil;
 import com.msgkatz.ratesapp.utils.TimeUtil;
@@ -105,7 +105,7 @@ public class CandleDataMapper {
     }
 
     //ver2
-    public static List<Candle> transformVectorWithInterval(List<String> source, Interval interval, Long startTime, Long endTime) {
+    public static List<Candle> transformVectorWithInterval(List<String> source, IntervalJava interval, Long startTime, Long endTime) {
         if (source == null)
             return null;
         if (source.size() < 7)
@@ -287,7 +287,7 @@ public class CandleDataMapper {
     }
 
     //ver2
-    public static List<Candle> transformWithBordersAndInterval(List<List<String>> sourceList, Long startTime, Long endTime, Interval interval)
+    public static List<Candle> transformWithBordersAndInterval(List<List<String>> sourceList, Long startTime, Long endTime, IntervalJava interval)
     {
         if (sourceList == null)
             return null;
