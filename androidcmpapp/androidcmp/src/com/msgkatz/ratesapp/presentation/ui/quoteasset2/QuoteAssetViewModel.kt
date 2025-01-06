@@ -17,10 +17,8 @@ import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
 
-import com.msgkatz.ratesapp.utils.Logs
 import com.msgkatz.ratesapp.utils.Parameters
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -126,10 +124,10 @@ class QuoteAssetViewModel @Inject constructor(
         viewModelScope.coroutineContext.cancelChildren()
     }
 
-    private fun updateQuoteAsset(quoteAset: Asset?) {
+    private fun updateQuoteAsset(quoteAsset: Asset?) {
         viewModelScope.launch {
-            if (quoteAset != null)
-                _quoteAssetUiState.value = QuoteAssetUIState.Data(quoteAset)
+            if (quoteAsset != null)
+                _quoteAssetUiState.value = QuoteAssetUIState.Data(quoteAsset)
             else
                 _quoteAssetUiState.value = QuoteAssetUIState.Empty
         }
