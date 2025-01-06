@@ -19,7 +19,8 @@ class RestController constructor(
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
     //private val client: HttpClient = getRestClient()
 ) : RestDataSource {
-    private val client: HttpClient = getRestClient()
+    private val client: HttpClient
+        get() = getRestClient()
 
     override suspend fun getPlatformInfo(): Result<PlatformInfoDTApiModel> =
         runCatching {

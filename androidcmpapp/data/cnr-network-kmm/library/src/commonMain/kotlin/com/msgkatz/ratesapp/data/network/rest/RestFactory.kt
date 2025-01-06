@@ -23,8 +23,8 @@ fun getRestClient(): HttpClient = HttpClient {
         requestTimeoutMillis = 60_000
     }
     install(Logging) {
-        logger = Logger.DEFAULT
-        level = LogLevel.ALL
+        //logger = Logger.DEFAULT
+        //level = LogLevel.ALL
         logger = object : Logger {
             override fun log(message: String) {
                 println("KtorClient: ${message}")

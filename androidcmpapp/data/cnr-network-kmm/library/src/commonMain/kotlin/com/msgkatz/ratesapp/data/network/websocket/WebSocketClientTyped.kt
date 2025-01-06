@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 class WebSocketClientTyped<T> constructor(
     private val coroutineScope: CoroutineScope,
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
+    private val debug: Boolean = false,
 ) {
 
     private val _messageFlow: MutableSharedFlow<T> = MutableSharedFlow<T>(replay = 0, extraBufferCapacity = 10, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -84,11 +85,12 @@ class WebSocketClientTyped<T> constructor(
     }
 
     private fun addStatus(state: String, arg: String) {
-        if (!DEBUG) return
+        if (!debug) return
         println("$state:$arg")
     }
 
     companion object {
+        @Deprecated("changed to constructor param")
         private val DEBUG = true
     }
 }

@@ -12,12 +12,13 @@ import kotlinx.serialization.json.Json
 class WebSocketController constructor(
     private val coroutineScope: CoroutineScope,
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
+    private val debug: Boolean = false,
 ) : WebSocketDataSource {
 
     private val client: WebSocketClient
 
     init {
-        client = WebSocketClient(coroutineScope, coroutineDispatcher)
+        client = WebSocketClient(coroutineScope, coroutineDispatcher, debug)
     }
 
 /**
@@ -28,7 +29,7 @@ class WebSocketController constructor(
  **/
     override fun getKlineStream(symbol: String, interval: String): SharedFlow<StreamKlineEventWSModel> {
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_RAW${symbol}@kline_${interval}"
-        val clientTyped = WebSocketClientTyped<StreamKlineEventWSModel>(coroutineScope, coroutineDispatcher)
+        val clientTyped = WebSocketClientTyped<StreamKlineEventWSModel>(coroutineScope, coroutineDispatcher, debug)
         return clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }
@@ -53,7 +54,7 @@ class WebSocketController constructor(
      **/
     override fun getMiniTickerStreamAll(): SharedFlow<List<StreamMarketTickerMiniWSModel>> {
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_RAW!miniTicker@arr"
-        val clientTyped = WebSocketClientTyped<List<StreamMarketTickerMiniWSModel>>(coroutineScope, coroutineDispatcher)
+        val clientTyped = WebSocketClientTyped<List<StreamMarketTickerMiniWSModel>>(coroutineScope, coroutineDispatcher, debug)
         return clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }
@@ -86,7 +87,7 @@ class WebSocketController constructor(
         interval: String
     ): SharedFlow<StreamComboBaseWSModel> {
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_COMBINED${symbol}@kline_${interval}/${symbol}@miniTicker"
-        val clientTyped = WebSocketClientTyped<StreamComboBaseWSModel>(coroutineScope, coroutineDispatcher)
+        val clientTyped = WebSocketClientTyped<StreamComboBaseWSModel>(coroutineScope, coroutineDispatcher, debug)
         return clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }

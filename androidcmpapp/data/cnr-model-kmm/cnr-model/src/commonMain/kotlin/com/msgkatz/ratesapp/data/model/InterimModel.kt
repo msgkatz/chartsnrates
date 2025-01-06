@@ -297,6 +297,8 @@ data class PriceSimple(
         return tool.baseAsset.nameShort.compareTo(other.tool.baseAsset.nameShort)
     }
 
+    fun pair() = "${tool.baseAsset.nameShort}/${tool.quoteAsset.nameShort}"
+
     override fun equals(other: Any?): Boolean {
         if (other == null) return false
         if (other !is PriceSimple) return false
