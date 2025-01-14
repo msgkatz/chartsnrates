@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import com.msgkatz.ratesapp.R;
 import com.msgkatz.ratesapp.presentation.entities.TabItem;
-import com.msgkatz.ratesapp.presentation.ui.quoteasset2.QuoteAssetDrawableDataKeeper;
+import com.msgkatz.ratesapp.feature.quoteasset.QuoteAssetDrawableDataKeeper;
 import com.msgkatz.ratesapp.utils.CommonUtil;
 
 import java.util.ArrayList;

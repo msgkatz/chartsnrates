@@ -29,8 +29,8 @@ import com.msgkatz.ratesapp.data.repos.base.ToolRepository
 import com.msgkatz.ratesapp.data.repos.base.ToolRepositoryImpl
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepository
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepositoryImpl
-import com.msgkatz.ratesapp.presentation.ui.quoteasset2.QuoteAssetDataKeeper
-import com.msgkatz.ratesapp.presentation.ui.splash2.SplashDataKeeper
+import com.msgkatz.ratesapp.feature.quoteasset.QuoteAssetDataKeeper
+import com.msgkatz.ratesapp.feature.splash.SplashDataKeeper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

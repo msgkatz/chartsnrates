@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.entities.TabItem
-import com.msgkatz.ratesapp.presentation.ui.quoteasset2.navigateToQuoteAsset2
+import com.msgkatz.ratesapp.feature.quoteasset.navigateToQuoteAsset2
 import com.msgkatz.ratesapp.utils.Logs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

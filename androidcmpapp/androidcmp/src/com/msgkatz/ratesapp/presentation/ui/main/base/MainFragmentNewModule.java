@@ -1,8 +1,7 @@
 package com.msgkatz.ratesapp.presentation.ui.main.base;
 
 import com.msgkatz.ratesapp.di.common.BaseFragmentModule;
-import com.msgkatz.ratesapp.di.scope.PerFragment;
-import com.msgkatz.ratesapp.presentation.ui.quoteasset.QuoteAssetViewModel;
+
 
 import javax.inject.Named;
 
@@ -27,8 +26,8 @@ abstract class MainFragmentNewModule {
 //    @PerFragment
 //    abstract Fragment fragment(QuoteAssetFragmentNew mainFragment);
 
-    @PerFragment
-    @Named(BaseFragmentModule.FRAGMENT)
-    @Binds
-    abstract QuoteAssetViewModel quoteAssetViewModel(QuoteAssetViewModel viewModel);
+//    @PerFragment
+//    @Named(BaseFragmentModule.FRAGMENT)
+//    @Binds
+//    abstract QuoteAssetViewModel quoteAssetViewModel(QuoteAssetViewModel viewModel);
 }

@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
-import com.msgkatz.ratesapp.presentation.ui.quoteasset2.quoteAssetNavScreen2
-import com.msgkatz.ratesapp.presentation.ui.splash2.splashNavScreen
-import com.msgkatz.ratesapp.presentation.ui.splash2.splashNavigationRoute
+import com.msgkatz.ratesapp.feature.quoteasset.quoteAssetNavScreen2
+import com.msgkatz.ratesapp.feature.splash.splashNavScreen
+import com.msgkatz.ratesapp.feature.splash.splashNavigationRoute
 
 
 /**

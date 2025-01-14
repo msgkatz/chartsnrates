@@ -81,6 +81,8 @@ dependencies {
     implementation project(':androidcmpapp:data:cnr-model-kmm')
     implementation project(':androidcmpapp:data:cnr-repos-kmm')
     implementation project(':androidcmpapp:core:uikit')
+    implementation project(':androidcmpapp:feature:splash')
+    implementation project(':androidcmpapp:feature:quoteasset')
     //implementation(":androidcmpapp:cnr-network-kmm")
     //implementation 'io.ktor:ktor-client-okhttp:2.3.6'
 
