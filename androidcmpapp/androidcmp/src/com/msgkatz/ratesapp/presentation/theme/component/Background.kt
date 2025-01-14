@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlterOld
 import com.msgkatz.ratesapp.presentation.theme.GradientColors
 import com.msgkatz.ratesapp.presentation.theme.LocalBackgroundTheme
 import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
@@ -134,7 +134,7 @@ annotation class ThemePreviews
 @ThemePreviews
 @Composable
 fun BackgroundDefault() {
-    CnrThemeAlter(disableDynamicTheming = true) {
+    CnrThemeAlterOld(disableDynamicTheming = true) {
         CnrBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -142,7 +142,7 @@ fun BackgroundDefault() {
 @ThemePreviews
 @Composable
 fun BackgroundDynamic() {
-    CnrThemeAlter(disableDynamicTheming = false) {
+    CnrThemeAlterOld(disableDynamicTheming = false) {
         CnrBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -150,7 +150,7 @@ fun BackgroundDynamic() {
 @ThemePreviews
 @Composable
 fun BackgroundAndroid() {
-    CnrThemeAlter(androidTheme = true) {
+    CnrThemeAlterOld(androidTheme = true) {
         CnrBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -158,7 +158,7 @@ fun BackgroundAndroid() {
 @ThemePreviews
 @Composable
 fun GradientBackgroundDefault() {
-    CnrThemeAlter(disableDynamicTheming = true) {
+    CnrThemeAlterOld(disableDynamicTheming = true) {
         CnrGradientBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -166,7 +166,7 @@ fun GradientBackgroundDefault() {
 @ThemePreviews
 @Composable
 fun GradientBackgroundDynamic() {
-    CnrThemeAlter(disableDynamicTheming = false) {
+    CnrThemeAlterOld(disableDynamicTheming = false) {
         CnrGradientBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -174,7 +174,7 @@ fun GradientBackgroundDynamic() {
 @ThemePreviews
 @Composable
 fun GradientBackgroundAndroid() {
-    CnrThemeAlter(androidTheme = true) {
+    CnrThemeAlterOld(androidTheme = true) {
         CnrGradientBackground(Modifier.size(100.dp), content = {})
     }
 }

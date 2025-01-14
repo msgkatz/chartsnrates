@@ -33,7 +33,7 @@ import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.data.entities.rest.AssetDT
 import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.domain.entities.ToolJava
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlterOld
 import com.msgkatz.ratesapp.presentation.theme.Green80
 import com.msgkatz.ratesapp.presentation.theme.Red40
 import com.msgkatz.ratesapp.presentation.ui.main.widget.DynamicAsyncImage
@@ -219,7 +219,7 @@ fun <T> rememberPrevious(
 @Composable
 private fun PriceListItemPreview() {
 
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),

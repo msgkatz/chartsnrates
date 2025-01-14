@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlterOld
 import com.msgkatz.ratesapp.presentation.theme.GradientColors
 import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
 import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
@@ -115,7 +115,7 @@ fun SplashScreen(
 @Preview
 @Composable
 fun SplashScreenPreview(){
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),

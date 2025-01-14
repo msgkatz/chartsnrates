@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.data.entities.rest.AssetDT
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlterOld
 import java.util.Locale
 
 
@@ -162,7 +162,7 @@ fun GradientBackground(
 @Preview
 @Composable
 fun QuoteAssetHeaderPreview() {
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),

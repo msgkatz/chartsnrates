@@ -18,7 +18,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
 import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlterOld
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
 @Composable
@@ -95,7 +95,7 @@ fun QuoteAssetScreenWithDataPreview(
     @PreviewParameter(PriceListPreviewParameterProvider::class)
     priceSimpleList: List<PriceSimpleJava>,
 ){
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
@@ -111,7 +111,7 @@ fun QuoteAssetScreenWithDataPreview(
 @Preview
 @Composable
 fun QuoteAssetScreenLoadingPreview(){
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
@@ -127,7 +127,7 @@ fun QuoteAssetScreenLoadingPreview(){
 @Preview
 @Composable
 fun QuoteAssetScreenEmptyPreview(){
-    CnrThemeAlter(
+    CnrThemeAlterOld(
         darkTheme = true,
         androidTheme = false, //shouldUseAndroidTheme(uiState),
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
