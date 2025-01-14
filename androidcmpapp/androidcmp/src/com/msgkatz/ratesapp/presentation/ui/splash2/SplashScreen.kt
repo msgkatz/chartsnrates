@@ -25,22 +25,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.theme.GradientColors
-import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
-import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
-import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
-import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.core.uikit.theme.GradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.LocalGradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrBackground
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrGradientBackground
 
 
 @Composable
 fun SplashRoute(
     modifier: Modifier = Modifier,
-    interimVMKeeper : InterimVMKeeper,
+    interimVMKeeper : SplashKeeper,
     onContinue: () -> Unit = {},
 ) {
     val viewModel: SplashViewModel = interimVMKeeper.makeSplash5()
-    val uiState by viewModel.uiState2.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     SplashScreen(
         splashUIState = uiState,
