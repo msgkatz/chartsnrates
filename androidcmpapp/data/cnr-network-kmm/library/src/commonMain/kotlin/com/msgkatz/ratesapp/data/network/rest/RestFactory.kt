@@ -51,5 +51,5 @@ fun getRestClient(): HttpClient = HttpClient {
 //    }
 }
 
-@OptIn(ExperimentalSerializationApi::class)
-expect fun getRestClientPlatformed(): HttpClient
+//@OptIn(ExperimentalSerializationApi::class)
+//expect fun getRestClientPlatformed(): HttpClient
