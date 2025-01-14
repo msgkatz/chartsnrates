@@ -16,6 +16,7 @@ class WebSocketController constructor(
 ) : WebSocketDataSource {
 
     private val client: WebSocketClient
+    private var clientTyped: WebSocketClientTyped<*>? = null
 
     init {
         client = WebSocketClient(coroutineScope, coroutineDispatcher, debug)
@@ -28,9 +29,11 @@ class WebSocketController constructor(
     }
  **/
     override fun getKlineStream(symbol: String, interval: String): SharedFlow<StreamKlineEventWSModel> {
+        clientTyped?.cancel()
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_RAW${symbol}@kline_${interval}"
-        val clientTyped = WebSocketClientTyped<StreamKlineEventWSModel>(coroutineScope, coroutineDispatcher, debug)
-        return clientTyped.connectTyped(path) { it ->
+        val _clientTyped = WebSocketClientTyped<StreamKlineEventWSModel>(coroutineScope, coroutineDispatcher, debug)
+        clientTyped = _clientTyped
+        return _clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }
                 withUnknownKeys.decodeFromString<StreamKlineEventWSModel>(it)
@@ -53,9 +56,11 @@ class WebSocketController constructor(
     }
      **/
     override fun getMiniTickerStreamAll(): SharedFlow<List<StreamMarketTickerMiniWSModel>> {
+        clientTyped?.cancel()
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_RAW!miniTicker@arr"
-        val clientTyped = WebSocketClientTyped<List<StreamMarketTickerMiniWSModel>>(coroutineScope, coroutineDispatcher, debug)
-        return clientTyped.connectTyped(path) { it ->
+        val _clientTyped = WebSocketClientTyped<List<StreamMarketTickerMiniWSModel>>(coroutineScope, coroutineDispatcher, debug)
+        clientTyped = _clientTyped
+        return _clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }
                 withUnknownKeys.decodeFromString<List<StreamMarketTickerMiniWSModel>>(it)
@@ -86,9 +91,11 @@ class WebSocketController constructor(
         symbol: String,
         interval: String
     ): SharedFlow<StreamComboBaseWSModel> {
+        clientTyped?.cancel()
         val path = "$BASE_URL_WSOCK$BASE_URL_WSOCK_COMBINED${symbol}@kline_${interval}/${symbol}@miniTicker"
-        val clientTyped = WebSocketClientTyped<StreamComboBaseWSModel>(coroutineScope, coroutineDispatcher, debug)
-        return clientTyped.connectTyped(path) { it ->
+        val _clientTyped = WebSocketClientTyped<StreamComboBaseWSModel>(coroutineScope, coroutineDispatcher, debug)
+        clientTyped = _clientTyped
+        return _clientTyped.connectTyped(path) { it ->
             try {
                 val withUnknownKeys = Json { ignoreUnknownKeys = true }
                 withUnknownKeys.decodeFromString<StreamComboBaseWSModel>(it)
