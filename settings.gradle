@@ -18,3 +18,5 @@ project(':androidcmpapp:data:cnr-model-kmm').projectDir = new File('androidcmpap
 //project(':cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
 
 //include ':androidcmp'
+include ':androidcmpapp:core:uikit'
+

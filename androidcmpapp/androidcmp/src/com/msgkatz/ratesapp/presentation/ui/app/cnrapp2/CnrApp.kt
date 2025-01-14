@@ -30,12 +30,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.msgkatz.ratesapp.data.model.PriceSimple
-import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
-import com.msgkatz.ratesapp.presentation.theme.GradientColors
-import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
-import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
-import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
+import com.msgkatz.ratesapp.core.uikit.theme.GradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.LocalGradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrBackground
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrGradientBackground
 import com.msgkatz.ratesapp.presentation.ui.app.CnrNavigationBar
 import com.msgkatz.ratesapp.presentation.ui.app.CnrNavigationBarItem
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper

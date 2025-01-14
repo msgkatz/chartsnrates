@@ -1,6 +1,9 @@
 package com.msgkatz.ratesapp.presentation.ui.app
 
+import com.msgkatz.ratesapp.data.model.Asset
 import com.msgkatz.ratesapp.data.model.Candle
+import com.msgkatz.ratesapp.data.model.PlatformInfo
+import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
 import com.msgkatz.ratesapp.data.network.rest.RestDataSource
 import com.msgkatz.ratesapp.data.network.websocket.WebSocketController
@@ -26,16 +29,19 @@ import com.msgkatz.ratesapp.data.repos.base.ToolRepository
 import com.msgkatz.ratesapp.data.repos.base.ToolRepositoryImpl
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepository
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepositoryImpl
+import com.msgkatz.ratesapp.presentation.ui.quoteasset2.QuoteAssetDataKeeper
+import com.msgkatz.ratesapp.presentation.ui.splash2.SplashDataKeeper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 
 class TmpDataKeeper(
     private val coroutineScope: CoroutineScope? = null,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
-) {
+): SplashDataKeeper, QuoteAssetDataKeeper {
     val ceh = CoroutineExceptionHandler { coroutineContext, throwable ->
         println(throwable.message ?: throwable.toString())
     }
@@ -51,7 +57,7 @@ class TmpDataKeeper(
     val webSocketDataSource: WebSocketDataSource = WebSocketController(
         coroutineScope = coroutineScope?: scope,
         coroutineDispatcher = ioDispatcher,
-        debug = true
+        debug = false //true
     )
 
     /** ******
@@ -112,10 +118,28 @@ class TmpDataKeeper(
     )
 
 
+    /** ****** ****** ****** ****** ****** ****** ****** ****** ******
+     * use cases:
+     * ****** ****** ****** ****** ****** ****** ****** ****** ******/
+
+    /** ******
+     * use cases splash
+     * ******/
+    override suspend fun getPlatformInfo(): PlatformInfo?
+        = toolRepository.getPlatformInfo()
 
 
+    /** ******
+     * use cases quote asset
+     * ******/
+    override suspend fun getQuoteAssetMap() : Map<String, Asset>?
+        = toolRepository.getQuoteAssetMap()
 
+    override suspend fun getToolPrices(): Map<String, Set<PriceSimple>>
+        = toolListPriceRepository.getToolPrices()
 
+    override fun subscribeToolPrices(): Flow<Map<String, Set<PriceSimple>>>
+        = toolListRealtimesPriceRepository.subscribeToolPrices()
 
 
 }

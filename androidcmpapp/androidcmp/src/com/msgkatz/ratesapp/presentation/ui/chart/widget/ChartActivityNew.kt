@@ -14,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.theme.GradientColors
-import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
-import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
-import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
+
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+
+import com.msgkatz.ratesapp.core.uikit.theme.GradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.LocalGradientColors
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrBackground
+import com.msgkatz.ratesapp.core.uikit.theme.component.CnrGradientBackground
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter
 import javax.inject.Inject

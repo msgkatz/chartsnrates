@@ -10,12 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
 import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
