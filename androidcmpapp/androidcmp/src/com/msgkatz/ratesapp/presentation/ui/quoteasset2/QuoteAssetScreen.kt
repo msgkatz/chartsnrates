@@ -2,6 +2,7 @@ package com.msgkatz.ratesapp.presentation.ui.quoteasset2
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,25 +14,49 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.NavBackStackEntry
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.data.model.PriceSimple
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+
 
 @Composable
 fun QuoteAssetRoute(
     quoteAssetName: String?,
     modifier: Modifier = Modifier,
-    interimVMKeeper : InterimVMKeeper,
+    interimVMKeeper : QuoteAssetKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
     owner: ViewModelStoreOwner,
     ) {
     val viewModel: QuoteAssetViewModel = interimVMKeeper.makeQuoteAsset5(quoteAssetName, owner)
     val quoteAssetUiState by viewModel.quoteAssetUiState.collectAsState()
     val priceListUiState by viewModel.priceListUiState.collectAsState()
+
+    val lifecycle = (owner as NavBackStackEntry).lifecycle
+    //val lifecycleOwner = LifecycleOwner ( lifecycle )
+    DisposableEffect(lifecycle) {
+        val observer = LifecycleEventObserver { _, event ->
+
+            if (event == Lifecycle.Event.ON_PAUSE) {
+                println("ONPAUSE")
+                viewModel.onStop()
+            } else if (event == Lifecycle.Event.ON_RESUME) {
+                // Resume video playback
+                println("ONRESUME")
+                viewModel.onStart()
+            }
+        }
+        lifecycle.addObserver(observer)
+        onDispose {
+            lifecycle.removeObserver(observer)
+        }
+    }
+
 
     QuoteAssetScreen(
         quoteAssetUIState = quoteAssetUiState,

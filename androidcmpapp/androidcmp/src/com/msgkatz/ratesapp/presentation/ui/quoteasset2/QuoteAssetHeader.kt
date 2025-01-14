@@ -26,8 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.R
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.core.uikit.theme.component.GradientBackground
 import com.msgkatz.ratesapp.data.model.Asset
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
 import java.util.Locale
 
 
@@ -135,29 +136,6 @@ fun QuoteAssetHeader(
     }
 }
 
-@Composable
-fun GradientBackground(
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .padding(
-                horizontal = 40.dp,
-                vertical = 0.dp
-            )
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(0x1AFFFFFF),
-                        Color(0xFFE0E9D1),
-                        Color(0x1AFFFFFF)
-                    )
-                )
-            )
-    )
-}
 
 @Preview
 @Composable

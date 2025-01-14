@@ -30,14 +30,16 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.Placeholder
 import com.bumptech.glide.integration.compose.placeholder
 import com.msgkatz.ratesapp.R
+
 import com.msgkatz.ratesapp.data.model.Asset
 
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.model.Tool
 
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.theme.Green80
-import com.msgkatz.ratesapp.presentation.theme.Red40
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+import com.msgkatz.ratesapp.core.uikit.theme.Green80
+import com.msgkatz.ratesapp.core.uikit.theme.Red40
+
 import com.msgkatz.ratesapp.presentation.ui.main.widget.DynamicAsyncImage
 import com.msgkatz.ratesapp.utils.NumFormatUtil
 import java.util.Locale

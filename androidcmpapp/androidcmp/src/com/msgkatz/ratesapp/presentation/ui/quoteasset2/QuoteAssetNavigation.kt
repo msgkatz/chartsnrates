@@ -9,8 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.msgkatz.ratesapp.data.model.PriceSimple
-import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
-import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
+
+//import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
 //const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
 //const val forYouNavigationRoute = "for_you_route/{$LINKED_NEWS_RESOURCE_ID}"
@@ -25,41 +25,41 @@ private const val DEEP_LINK_URI_PATTERN =
 
 
 
-
-fun NavController.navigateToQuoteAsset(quoteAssetName: String, navOptions: NavOptions? = null) {
-    val route = ("$quoteAssetNavigationRoute/$quoteAssetName")
-    this.navigate(route, navOptions)
-}
-
-fun NavGraphBuilder.quoteAssetNavScreen(
-    interimVMKeeper : InterimVMKeeper,
-    onPriceItemClick: (PriceSimple) -> Unit,
-    navController: NavController,
-) {
-    composable(
-        route = quoteAssetNavigationRouteWithArgs,
-        deepLinks = listOf(
-            navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },
-        ),
-        arguments = listOf(
-            navArgument(QUOTE_ASSET_NAME) { type = NavType.StringType },
-        ),
-    ) {navBackStackEntry ->
-        val quoteAssetName = navBackStackEntry.arguments?.getString(QUOTE_ASSET_NAME)
-        val entry = navBackStackEntry
-        val parentEntry = remember(navBackStackEntry) {
-            //navController.getBackStackEntry("parentNavigationRoute")
-            navController.getBackStackEntry(quoteAssetNavigationRouteWithArgs)
-
-        }
-        QuoteAssetRoute(
-            quoteAssetName = quoteAssetName,
-            interimVMKeeper = interimVMKeeper,
-            onPriceItemClick = onPriceItemClick,
-            owner = parentEntry,
-        )
-    }
-}
+//
+//fun NavController.navigateToQuoteAsset(quoteAssetName: String, navOptions: NavOptions? = null) {
+//    val route = ("$quoteAssetNavigationRoute/$quoteAssetName")
+//    this.navigate(route, navOptions)
+//}
+//
+//fun NavGraphBuilder.quoteAssetNavScreen(
+//    interimVMKeeper : InterimVMKeeper,
+//    onPriceItemClick: (PriceSimple) -> Unit,
+//    navController: NavController,
+//) {
+//    composable(
+//        route = quoteAssetNavigationRouteWithArgs,
+//        deepLinks = listOf(
+//            navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },
+//        ),
+//        arguments = listOf(
+//            navArgument(QUOTE_ASSET_NAME) { type = NavType.StringType },
+//        ),
+//    ) {navBackStackEntry ->
+//        val quoteAssetName = navBackStackEntry.arguments?.getString(QUOTE_ASSET_NAME)
+//        val entry = navBackStackEntry
+//        val parentEntry = remember(navBackStackEntry) {
+//            //navController.getBackStackEntry("parentNavigationRoute")
+//            navController.getBackStackEntry(quoteAssetNavigationRouteWithArgs)
+//
+//        }
+//        QuoteAssetRoute(
+//            quoteAssetName = quoteAssetName,
+//            interimVMKeeper = interimVMKeeper,
+//            onPriceItemClick = onPriceItemClick,
+//            owner = parentEntry,
+//        )
+//    }
+//}
 
 //TODO naming fixes
 fun NavController.navigateToQuoteAsset2(quoteAssetName: String, navOptions: NavOptions? = null) {
@@ -70,7 +70,7 @@ fun NavController.navigateToQuoteAsset2(quoteAssetName: String, navOptions: NavO
 
 fun NavGraphBuilder.quoteAssetNavScreen2(
     route: String, //as quoteAssetName
-    interimVMKeeper : InterimVMKeeper,
+    interimVMKeeper : QuoteAssetKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
     navController: NavController,
 ) {
