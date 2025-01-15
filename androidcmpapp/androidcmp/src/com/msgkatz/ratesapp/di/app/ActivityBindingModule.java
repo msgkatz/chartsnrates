@@ -1,8 +1,8 @@
 package com.msgkatz.ratesapp.di.app;
 
 import com.msgkatz.ratesapp.di.scope.PerActivity;
-import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartActivityNewModule;
-import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew;
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.ChartActivityNewModule;
+import com.msgkatz.ratesapp.presentation.ui.chart2.widget.ChartActivityNew;
 import com.msgkatz.ratesapp.presentation.ui.main.base.MainActivityNewModule;
 import com.msgkatz.ratesapp.presentation.ui.main.widget.MainActivityNew;
 

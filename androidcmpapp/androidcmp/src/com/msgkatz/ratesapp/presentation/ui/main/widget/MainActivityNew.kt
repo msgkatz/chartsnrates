@@ -19,7 +19,7 @@ import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
 import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
-import com.msgkatz.ratesapp.presentation.ui.chart.widget.ChartActivityNew
+import com.msgkatz.ratesapp.presentation.ui.chart2.widget.ChartActivityNew
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

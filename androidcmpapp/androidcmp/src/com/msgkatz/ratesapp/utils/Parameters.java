@@ -31,7 +31,7 @@ public class Parameters {
     public static final int DEFAULT_MAX_FRACTION_DIGITS = 8;
 
     /** When =true enables extra logging and few testing functionality **/
-    public static boolean DEBUG                         = false;
+    public static boolean DEBUG                         = true;
 
     /** when =true uses mock backend responses **/
     public static boolean DEBUG_STUB_WS                 = false;

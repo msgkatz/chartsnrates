@@ -13,7 +13,7 @@ import com.msgkatz.ratesapp.di.common.BaseFragmentModule;
 import com.msgkatz.ratesapp.presentation.common.fragment.gdx.BaseGdxAppFragment;
 import com.msgkatz.ratesapp.presentation.common.mvp.BasePresenter;
 import com.msgkatz.ratesapp.presentation.common.mvp.BaseView;
-import com.msgkatz.ratesapp.presentation.ui.chart.base.ChartRouter;
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.ChartRouter;
 import com.msgkatz.ratesapp.utils.Logs;
 
 import javax.inject.Inject;
