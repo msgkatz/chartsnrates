@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.main.widget
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,27 +11,49 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import com.msgkatz.ratesapp.App
 import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
+import com.msgkatz.ratesapp.di.app.AppComponent
 import com.msgkatz.ratesapp.domain.entities.PriceSimpleJava
+import com.msgkatz.ratesapp.domain.interactors.GetAssets
+import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
+import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap
+import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
-import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
+import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsStore
 import com.msgkatz.ratesapp.presentation.ui.chart2.widget.ChartActivityNew
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is App -> appComponent
+        else -> this.applicationContext.appComponent
+    }
 class MainActivityNew : BaseCompActivity() {
 
     //private val viewModel: MainActivityNewViewModel by viewModels()
 
+    //@Inject
+    //lateinit var viewModel: MainActivityNewViewModel
+
     @Inject
-    lateinit var viewModel: MainActivityNewViewModel
+    lateinit var mGetAssets: GetAssets
+    @Inject
+    lateinit var mGetPlatformInfo: GetPlatformInfo
+    @Inject
+    lateinit var mGetQuoteAssetsMap: GetQuoteAssetsMap
+    @Inject
+    lateinit var mGetToolListPrices: GetToolListPrices
 
     @Inject
     lateinit var tabInfoStorer: TabInfoStorer
@@ -39,6 +62,10 @@ class MainActivityNew : BaseCompActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.appComponent.inject(this)
+        //.inject(this);
+        ChartDepsStore.deps = appComponent
         mgr = getSystemService(POWER_SERVICE) as PowerManager
 
         val coroutineScope = lifecycle.coroutineScope
@@ -47,13 +74,16 @@ class MainActivityNew : BaseCompActivity() {
             ioDispatcher = ioDispatcher
         )
         interimVMKeeper = InterimVMKeeper(this,
-            viewModel.mGetAssets,
-            viewModel.mGetPlatformInfo,
-            viewModel.mGetQuoteAssetsMap,
-            viewModel.mGetToolListPrices,
+            mGetAssets,
+            mGetPlatformInfo,
+            mGetQuoteAssetsMap,
+            mGetToolListPrices,
             tabInfoStorer,
             tmpDataKeeper = keeper
         )
+
+
+
         setContent {
             CnrThemeAlter(
                 darkTheme = true,

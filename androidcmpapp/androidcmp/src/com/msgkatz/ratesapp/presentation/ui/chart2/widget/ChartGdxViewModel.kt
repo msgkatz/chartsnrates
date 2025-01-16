@@ -36,7 +36,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ChartGdxViewModel @Inject constructor(
-    @Named(AppModule.APP_CONTEXT)
+    //@Named(AppModule.APP_CONTEXT)
     private val appContext: Context,
     private val mGetPriceHistory: GetPriceHistory,
     private val mGetCurrentPricesInterim: GetCurrentPricesInterim,

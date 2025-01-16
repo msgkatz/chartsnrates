@@ -1,5 +1,7 @@
 package com.msgkatz.ratesapp.presentation.ui.chart2.widget
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseGdxCompFragment
 import com.msgkatz.ratesapp.presentation.entities.ToolFormat
+import com.msgkatz.ratesapp.presentation.ui.main.widget.appComponent
 import com.msgkatz.ratesapp.utils.Logs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -41,6 +44,12 @@ class ChartGdxFragmentNew : BaseGdxCompFragment() { //BaseChartGdxFragment() {
     private var mToolFormat: ToolFormat? = null
     private var mInterval: String? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (context as? ChartActivityNew)?.chartComponent?.inject(this)
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

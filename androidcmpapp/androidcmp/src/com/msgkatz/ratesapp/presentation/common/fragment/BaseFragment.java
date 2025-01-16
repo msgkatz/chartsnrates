@@ -27,13 +27,13 @@ import butterknife.Unbinder;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.HasSupportFragmentInjector;
+//import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Created by msgkatz on 09/09/2018.
  */
 
-public abstract class BaseFragment extends BaseLayoutDummyFragment implements BaseView, HasSupportFragmentInjector {
+public abstract class BaseFragment extends BaseLayoutDummyFragment implements BaseView /**, HasSupportFragmentInjector**/ {
 
     @Inject
     protected Context activityContext;
@@ -114,10 +114,10 @@ public abstract class BaseFragment extends BaseLayoutDummyFragment implements Ba
         super.onDestroyView();
     }
 
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return childFragmentInjector;
-    }
+//    @Override
+//    public AndroidInjector<Fragment> supportFragmentInjector() {
+//        return childFragmentInjector;
+//    }
 
     public String getFragmentName()
     {

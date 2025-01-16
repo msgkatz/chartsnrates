@@ -6,26 +6,32 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import com.msgkatz.ratesapp.di.app.AppComponent;
 import com.msgkatz.ratesapp.di.app.DaggerAppComponent;
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider;
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsStore;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+//import dagger.android.HasActivityInjector;
+import dagger.android.HasAndroidInjector;
 
 /**
  * Created by msgkatz on 20/07/2018.
  */
 
-public class App extends MultiDexApplication implements HasActivityInjector {
+public class App extends MultiDexApplication /** implements HasAndroidInjector HasActivityInjector**/ {
 
     private static App sInstance;
     private static Context appContext;
     //private static AppComponentOld component;
 
-    @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    public AppComponent appComponent;
+
+//    @Inject
+//    DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -37,11 +43,11 @@ public class App extends MultiDexApplication implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent
+        appComponent = DaggerAppComponent
                 .builder()
                 .application(this)
-                .build()
-                .inject(this);
+                .build();
+                //.inject(this);
 
         appContext = getApplicationContext();
         sInstance = this;
@@ -56,8 +62,18 @@ public class App extends MultiDexApplication implements HasActivityInjector {
         return sInstance;
     }
 
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
-    }
+//    @Override
+//    //public AndroidInjector<Object> androidInjector() {
+//        return dispatchingAndroidInjector;
+//    }
+
+//    @Override
+//    public AndroidInjector<Object> androidInjector() {
+//        return dispatchingAndroidInjector;
+//    }
+
+    //@Override
+//    public AndroidInjector<Activity> androidInjector() {
+//        return dispatchingAndroidInjector;
+//    }
 }

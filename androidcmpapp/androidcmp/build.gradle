@@ -88,7 +88,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'junit:junit:4.12'
-    def daggerVersion = '2.19' //'2.48.1'//'2.19' //'2.50' //'2.18' //'2.6'
+    def daggerVersion = '2.48.1' //'2.19' //'2.48.1'//'2.19' //'2.50' //'2.18' //'2.6'
     def retrofitVersion = '2.3.0'
     def butterknife_version = '8.5.1'
     def lifecycle_version = '1.1.1'

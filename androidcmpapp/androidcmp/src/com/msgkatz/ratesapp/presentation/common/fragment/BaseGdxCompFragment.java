@@ -22,9 +22,9 @@ import javax.inject.Named;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.HasSupportFragmentInjector;
 
-public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements BaseView, HasSupportFragmentInjector {
+
+public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements BaseView /**, HasSupportFragmentInjector**/ {
 
     @Inject
     protected Context activityContext;
@@ -34,8 +34,8 @@ public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements 
 //    @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
 //    protected FragmentManager childFragmentManager;
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> childFragmentInjector;
+//    @Inject
+//    DispatchingAndroidInjector<Fragment> childFragmentInjector;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -43,7 +43,7 @@ public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // Perform injection here before M, L (API 22) and below because onAttach(Context)
             // is not yet available at L.
-            AndroidSupportInjection.inject(this);
+            //AndroidSupportInjection.inject(this);
         }
         super.onAttach(activity);
     }
@@ -52,7 +52,7 @@ public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements 
     public void onAttach(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Perform injection here for M (API 23) due to deprecation of onAttach(Activity).
-            AndroidSupportInjection.inject(this);
+            //AndroidSupportInjection.inject(this);
         }
         super.onAttach(context);
     }
@@ -108,10 +108,10 @@ public abstract class BaseGdxCompFragment extends BaseGdxAppFragment implements 
     }
 
 
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return childFragmentInjector;
-    }
+//    @Override
+//    public AndroidInjector<Fragment> supportFragmentInjector() {
+//        return childFragmentInjector;
+//    }
 
     public abstract BasePresenter getPresenter();
 }

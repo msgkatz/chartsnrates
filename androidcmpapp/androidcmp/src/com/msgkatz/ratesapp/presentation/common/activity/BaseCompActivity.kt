@@ -8,24 +8,24 @@ import com.msgkatz.ratesapp.presentation.common.activity.rotation.behavior.Defau
 import com.msgkatz.ratesapp.presentation.common.activity.rotation.behavior.TabletOrientationBehaviour
 import com.msgkatz.ratesapp.utils.isTablet
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
+//import dagger.android.AndroidInjector
+//import dagger.android.DispatchingAndroidInjector
+//import dagger.android.support.HasSupportFragmentInjector
+//import javax.inject.Inject
 
-open class BaseCompActivity : BaseRotationCompActivity(), HasSupportFragmentInjector {
+open class BaseCompActivity : BaseRotationCompActivity() /**, HasSupportFragmentInjector**/ {
 
-    @Inject
-    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+//    @Inject
+//    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     public override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        //AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
     }
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-        return fragmentDispatchingAndroidInjector
-    }
+//    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+//        return fragmentDispatchingAndroidInjector
+//    }
 
     override fun setFullscreenMode(isFullscreen: Boolean) {
     }

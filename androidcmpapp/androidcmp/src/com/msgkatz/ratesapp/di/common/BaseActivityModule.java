@@ -18,6 +18,7 @@ import dagger.Provides;
  * The module of the subclasses of the BaseActivity are required to include the BaseActivityModule
  * and provide a concrete implementation of the Activity
  */
+@Deprecated
 @Module
 public abstract class BaseActivityModule {
 

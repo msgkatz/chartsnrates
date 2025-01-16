@@ -21,6 +21,9 @@ import com.msgkatz.ratesapp.core.uikit.theme.component.CnrGradientBackground
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.chart2.base.ChartRouter
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartComponent
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider
+import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.DaggerChartComponent
 import javax.inject.Inject
 
 class ChartActivityNew : BaseActivity(), ChartRouter, AndroidFragmentApplication.Callbacks {
@@ -32,6 +35,8 @@ class ChartActivityNew : BaseActivity(), ChartRouter, AndroidFragmentApplication
         val KEY_TOOL_PRICE: String = "com.msgkatz.ratesapp.tool.price"
     }
 
+    lateinit var chartComponent: ChartComponent
+
     @Inject
     lateinit var viewModel: ChartParentViewModel
 
@@ -41,6 +46,9 @@ class ChartActivityNew : BaseActivity(), ChartRouter, AndroidFragmentApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        chartComponent = DaggerChartComponent.builder().deps(ChartDepsProvider.deps).build()
+        chartComponent.inject(this)
 
         //interimVMKeeper = InterimVMKeeper()
 

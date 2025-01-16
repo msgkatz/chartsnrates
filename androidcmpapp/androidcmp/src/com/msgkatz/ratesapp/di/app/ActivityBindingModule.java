@@ -10,6 +10,7 @@ import com.msgkatz.ratesapp.presentation.ui.main.widget.MainActivityNew;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+@Deprecated
 @Module
 public abstract class ActivityBindingModule {
 

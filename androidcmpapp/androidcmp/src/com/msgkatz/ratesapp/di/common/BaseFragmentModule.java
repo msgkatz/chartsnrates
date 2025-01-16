@@ -13,7 +13,9 @@ import dagger.Provides;
 /**
  * The module of the subclasses of the BaseFragment are required to include the BaseFragmentModule
  * and provide a concrete implementation of the Fragment named FRAGMENT
+
  */
+@Deprecated
 @Module
 public abstract class BaseFragmentModule {
 
