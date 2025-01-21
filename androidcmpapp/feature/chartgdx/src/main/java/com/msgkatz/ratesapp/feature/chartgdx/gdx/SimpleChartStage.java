@@ -29,7 +29,7 @@ import com.msgkatz.ratesapp.feature.chartgdx.gdx.common.ChartCamera;
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.prerenderer.PreRenderer;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxSettings;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxUtil;
-import com.msgkatz.ratesapp.utils.NumFormatUtil;
+import com.msgkatz.ratesapp.old.utils.NumFormatUtil;
 
 
 import java.util.HashMap;

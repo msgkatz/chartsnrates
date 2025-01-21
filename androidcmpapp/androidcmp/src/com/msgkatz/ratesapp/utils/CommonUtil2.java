@@ -20,7 +20,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
  * Created by msgkatz on 09/09/2018.
  */
 
-public class CommonUtil {
+public class CommonUtil2 {
 
     public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);

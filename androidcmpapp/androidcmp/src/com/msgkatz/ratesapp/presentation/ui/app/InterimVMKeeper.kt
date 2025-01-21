@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.msgkatz.ratesapp.feature.chartgdx.widget.ChartParentViewModel
 
 import com.msgkatz.ratesapp.old.domain.interactors.GetAssets
 import com.msgkatz.ratesapp.old.domain.interactors.GetIntervals
@@ -52,11 +53,11 @@ class InterimVMKeeper(
     }
 
 
-//    fun makeChartParentViewModel(toolName: String, toolPrice: Double, _owner: ViewModelStoreOwner): ChartParentViewModel {
-//        val viewModelFactory = ChartParentViewModelFactory(toolName, toolPrice, mGetTools, mGetIntervals, rxBus)
-//        val viewModel = ViewModelProvider(_owner, viewModelFactory)[ChartParentViewModel::class.java]
-//        return viewModel
-//    }
+    fun makeChartParentViewModel(toolName: String, toolPrice: Double, _owner: ViewModelStoreOwner): ChartParentViewModel {
+        val viewModelFactory = ChartParentViewModelFactory(toolName, toolPrice, mGetTools, mGetIntervals, rxBus)
+        val viewModel = ViewModelProvider(_owner, viewModelFactory)[ChartParentViewModel::class.java]
+        return viewModel
+    }
 
 
 
@@ -108,31 +109,31 @@ class QuoteAssetSavedStateViewModelFactory2(private val quoteAssetName: String?,
 
 }
 
-//class ChartParentViewModelFactory(private val toolName: String,
-//                                  private val toolPrice: Double,
-//                                  private val mGetTools: GetTools?,
-//                                  private val mGetIntervals: GetIntervals?,
-//                                  private val rxBus: IRxBus?
-//) : AbstractSavedStateViewModelFactory() {
-//    override fun <T : ViewModel> create(
-//        key: String,
-//        modelClass: Class<T>,
-//        handle: SavedStateHandle
-//    ): T {
-//        if (modelClass.isAssignableFrom(ChartParentViewModel::class.java)){
-//            handle.set("toolName", toolName)
-//            handle.set("toolPrice", toolPrice)
-//            return ChartParentViewModel(mGetTools!!,
-//                mGetIntervals!!,
-//                rxBus,
-//                //handle
-//            ) as T
-//        }
-//        throw IllegalArgumentException("Unknown View Model Class")
-//    }
-//
-//    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-//        return super.create(modelClass, extras)
-//    }
-//
-//}
+class ChartParentViewModelFactory(private val toolName: String,
+                                  private val toolPrice: Double,
+                                  private val mGetTools: GetTools?,
+                                  private val mGetIntervals: GetIntervals?,
+                                  private val rxBus: IRxBus?
+) : AbstractSavedStateViewModelFactory() {
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
+        if (modelClass.isAssignableFrom(ChartParentViewModel::class.java)){
+            handle.set("toolName", toolName)
+            handle.set("toolPrice", toolPrice)
+            return ChartParentViewModel(mGetTools!!,
+                mGetIntervals!!,
+                rxBus,
+                //handle
+            ) as T
+        }
+        throw IllegalArgumentException("Unknown View Model Class")
+    }
+
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        return super.create(modelClass, extras)
+    }
+
+}

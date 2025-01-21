@@ -37,9 +37,11 @@ import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.core.uikit.theme.Green80
 import com.msgkatz.ratesapp.core.uikit.theme.Red40
 import com.msgkatz.ratesapp.core.uikit.theme.component.GradientBackground
-import com.msgkatz.ratesapp.domain.entities.ToolJava
+
 import com.msgkatz.ratesapp.feature.chartgdx.R
-import com.msgkatz.ratesapp.utils.NumFormatUtil
+import com.msgkatz.ratesapp.old.domain.entities.ToolJava
+import com.msgkatz.ratesapp.old.utils.NumFormatUtil
+
 import java.util.Locale
 
 @Composable
@@ -137,7 +139,7 @@ fun CurrentRateComposable(
                         .padding(horizontal = 3.dp)
                         .size(8.dp),
 
-                    painter = painterResource(id = R.drawable.ic_triangle_right),
+                    painter = painterResource(id = R.drawable.ic_triangle_right2),
                     contentDescription = null,
                     tint = if (toUp) {
                         Green80
@@ -248,7 +250,7 @@ fun ChartAppBar(
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(horizontal = 4.dp, vertical = 4.dp),
-                    painter = painterResource(id = R.drawable.back_arrow),
+                    painter = painterResource(id = R.drawable.back_arrow2),
                     contentDescription = null,
                 )
             }
@@ -297,7 +299,7 @@ private fun ChartAppBarPreview() {
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(4.dp),
-                painter = painterResource(id = R.drawable.back_arrow),
+                painter = painterResource(id = R.drawable.back_arrow2),
                 contentDescription = null,
             )
         },

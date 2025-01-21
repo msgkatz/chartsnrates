@@ -28,10 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.data.entities.rest.AssetDT
-import com.msgkatz.ratesapp.domain.entities.IntervalJava
-import com.msgkatz.ratesapp.domain.entities.ToolJava
-import com.msgkatz.ratesapp.utils.Parameters
+import com.msgkatz.ratesapp.old.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.old.domain.entities.ToolJava
+import com.msgkatz.ratesapp.old.utils.Parameters
+
 
 @Composable
 fun ChartParentBody(

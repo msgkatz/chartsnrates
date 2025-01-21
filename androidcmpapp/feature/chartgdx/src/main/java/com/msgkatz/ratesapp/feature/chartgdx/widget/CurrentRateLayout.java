@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.msgkatz.ratesapp.feature.chartgdx.R;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.CommonUtil;
-import com.msgkatz.ratesapp.utils.NumFormatUtil;
+import com.msgkatz.ratesapp.old.utils.NumFormatUtil;
+
 
 import java.util.Locale;
 
@@ -45,7 +46,7 @@ public class CurrentRateLayout extends RelativeLayout {
     }
 
     private void initComponent() {
-        View view = inflate(getContext(), R.layout.view_current_rate, this);
+        View view = inflate(getContext(), R.layout.view_current_rate2, this);
 
         mPrice = view.findViewById(R.id.price);
         mDeltaLayout = view.findViewById(R.id.delta_layout);

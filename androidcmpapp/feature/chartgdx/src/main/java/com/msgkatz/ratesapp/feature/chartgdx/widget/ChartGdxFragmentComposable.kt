@@ -3,7 +3,8 @@ package com.msgkatz.ratesapp.feature.chartgdx.widget
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import com.msgkatz.ratesapp.feature.chartgdx.databinding.FragmentChartGdxForComposeBinding
+import com.msgkatz.ratesapp.feature.chartgdx.databinding.FragmentChartGdxForCompose2Binding
+
 
 
 @Composable
@@ -12,7 +13,7 @@ fun ChartGdxFragmentNewInCompose(
 ) {
     AndroidViewBinding(
         modifier = modifier,
-        factory = FragmentChartGdxForComposeBinding::inflate) {
+        factory = FragmentChartGdxForCompose2Binding::inflate) {
         val myFragment = fragmentContainerView.getFragment<ChartGdxFragmentNew>()
         // ...
     }

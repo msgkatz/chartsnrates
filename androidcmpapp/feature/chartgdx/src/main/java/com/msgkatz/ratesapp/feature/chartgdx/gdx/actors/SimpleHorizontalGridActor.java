@@ -15,8 +15,8 @@ import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.ChartShaderUtil;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.Constants;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxSettings;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxUtil;
-import com.msgkatz.ratesapp.utils.NumFormatUtil;
-import com.msgkatz.ratesapp.utils.Parameters;
+import com.msgkatz.ratesapp.old.utils.NumFormatUtil;
+import com.msgkatz.ratesapp.old.utils.Parameters;
 
 
 import java.text.DecimalFormat;

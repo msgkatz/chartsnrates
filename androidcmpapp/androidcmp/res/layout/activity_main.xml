@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_gradient_two">
+    android:background="@drawable/bg_gradient_two2">
 
     <FrameLayout
         android:id="@+id/content"
@@ -24,7 +24,7 @@
             android:id="@+id/fakeShadowRoute"
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@drawable/shadow"
+            android:background="@drawable/shadow2"
             android:layout_gravity="top"/>
 
         <com.google.android.material.tabs.TabLayout
@@ -32,7 +32,7 @@
             style="@style/AppTabLayout"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@drawable/bg_gradient_tabs"
+            android:background="@drawable/bg_gradient_tabs2"
             android:layout_gravity="bottom"
             android:elevation="5dp"
             />

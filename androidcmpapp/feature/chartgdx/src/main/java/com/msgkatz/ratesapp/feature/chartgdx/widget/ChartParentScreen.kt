@@ -13,8 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.ViewModelStoreOwner
 import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.domain.entities.IntervalJava
-import com.msgkatz.ratesapp.domain.entities.ToolJava
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.old.domain.entities.ToolJava
+
 //import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 
 //@Composable

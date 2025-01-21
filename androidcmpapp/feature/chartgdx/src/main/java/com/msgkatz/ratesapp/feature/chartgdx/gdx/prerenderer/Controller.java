@@ -1,8 +1,9 @@
 package com.msgkatz.ratesapp.feature.chartgdx.gdx.prerenderer;
 
-import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.ChartDataCallback;
+import com.msgkatz.ratesapp.old.data.entities.Candle;
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava;
 
 import java.util.ArrayList;
 

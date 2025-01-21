@@ -3,7 +3,7 @@ package com.msgkatz.ratesapp.feature.chartgdx.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.msgkatz.ratesapp.utils.Parameters;
+//import com.msgkatz.ratesapp.utils.Parameters;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -13,6 +13,9 @@ import java.text.DecimalFormatSymbols;
  */
 
 public class ToolFormat implements Parcelable {
+
+    public static final String QUOTE_NUMBER_FORMAT_NO_DEC
+            = "#######0";
 
     private int maxFractionDigits = 8;
     private double priceExample;
@@ -76,7 +79,7 @@ public class ToolFormat implements Parcelable {
     }
 
     public DecimalFormat getQuotesFormat(int digits) {
-        String pattern = Parameters.QUOTE_NUMBER_FORMAT_NO_DEC;
+        String pattern = QUOTE_NUMBER_FORMAT_NO_DEC;
         String zeros = "";
         if (digits > 0) {
             pattern = pattern.concat(".");

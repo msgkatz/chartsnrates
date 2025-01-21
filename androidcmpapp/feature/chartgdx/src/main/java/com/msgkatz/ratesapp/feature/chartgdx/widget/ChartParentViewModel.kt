@@ -2,20 +2,21 @@ package com.msgkatz.ratesapp.feature.chartgdx.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msgkatz.ratesapp.domain.entities.IntervalJava
-import com.msgkatz.ratesapp.domain.entities.ToolJava
-import com.msgkatz.ratesapp.domain.interactors.GetIntervals
-import com.msgkatz.ratesapp.domain.interactors.GetTools
-import com.msgkatz.ratesapp.domain.interactors.base.Optional
-import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
+
 import com.msgkatz.ratesapp.feature.chartgdx.entities.ToolFormat
 import com.msgkatz.ratesapp.feature.chartgdx.entities.events.BaseEvent
 import com.msgkatz.ratesapp.feature.chartgdx.entities.events.NewIntervalEvent
 import com.msgkatz.ratesapp.feature.chartgdx.entities.events.PriceEvent
 import com.msgkatz.ratesapp.feature.common.messaging.IRxBus
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.old.domain.entities.ToolJava
+import com.msgkatz.ratesapp.old.domain.interactors.*
+import com.msgkatz.ratesapp.old.domain.interactors.base.Optional
+import com.msgkatz.ratesapp.old.domain.interactors.base.ResponseObserver
+import com.msgkatz.ratesapp.old.utils.Logs
+import com.msgkatz.ratesapp.old.utils.Parameters
 
-import com.msgkatz.ratesapp.utils.Logs
-import com.msgkatz.ratesapp.utils.Parameters
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

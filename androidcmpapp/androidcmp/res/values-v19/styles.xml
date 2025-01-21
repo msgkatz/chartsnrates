@@ -6,7 +6,7 @@
 
     <style name="AppThemeSplash.BrandedLaunch" parent="AppThemeSplash">
 
-        <item name="android:windowBackground">@drawable/branded_logo</item>
+        <item name="android:windowBackground">@drawable/branded_logo2</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
 

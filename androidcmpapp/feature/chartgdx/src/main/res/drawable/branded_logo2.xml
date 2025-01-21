@@ -15,7 +15,7 @@
     </item>
     <item>
         <bitmap
-            android:src="@drawable/logo"
+            android:src="@drawable/logo2"
             android:tileMode="disabled"
             android:gravity="center"/>
     </item>

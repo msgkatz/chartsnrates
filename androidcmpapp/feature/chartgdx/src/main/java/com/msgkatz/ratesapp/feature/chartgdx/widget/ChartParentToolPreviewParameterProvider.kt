@@ -1,8 +1,8 @@
 package com.msgkatz.ratesapp.feature.chartgdx.widget
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.msgkatz.ratesapp.data.entities.rest.AssetDT
-import com.msgkatz.ratesapp.domain.entities.ToolJava
+import com.msgkatz.ratesapp.old.data.entities.rest.AssetDT
+import com.msgkatz.ratesapp.old.domain.entities.ToolJava
 
 class ChartParentToolPreviewParameterProvider: PreviewParameterProvider<List<ToolJava>> {
     override val values : Sequence<List<ToolJava>>

@@ -2,15 +2,16 @@ package com.msgkatz.ratesapp.feature.chartgdx.gdx.prerenderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.msgkatz.ratesapp.data.entities.Candle;
-import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+
 
 import com.msgkatz.ratesapp.feature.chartgdx.entities.*;
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.ChartDataCallback;
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.StageControllerListener;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxSettings;
-import com.msgkatz.ratesapp.utils.Logs;
-import com.msgkatz.ratesapp.utils.TimeUtil;
+import com.msgkatz.ratesapp.feature.common.utils.Logs;
+import com.msgkatz.ratesapp.old.data.entities.Candle;
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava;
+import com.msgkatz.ratesapp.old.utils.TimeUtil;
 
 
 import java.util.ArrayList;

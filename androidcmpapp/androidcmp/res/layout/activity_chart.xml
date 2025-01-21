@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_gradient_chart_top">
+    android:background="@drawable/bg_gradient_chart_top2">
 
     <!--
     android:background="@drawable/bg_gradient_chart_top">
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_gravity="top"
-        android:src="@drawable/bg_gradient_chart_top"/>
+        android:src="@drawable/bg_gradient_chart_top2"/>
     <ImageView
         android:id="@+id/image2"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="bottom"
-        android:src="@drawable/bg_gradient_chart_bottom"/>
+        android:src="@drawable/bg_gradient_chart_bottom2"/>
 
     <FrameLayout
         android:id="@+id/content"

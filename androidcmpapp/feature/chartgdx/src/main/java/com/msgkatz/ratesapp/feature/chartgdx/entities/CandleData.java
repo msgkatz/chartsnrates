@@ -1,7 +1,8 @@
 package com.msgkatz.ratesapp.feature.chartgdx.entities;
 
-import com.msgkatz.ratesapp.data.entities.Candle;
+//import com.msgkatz.ratesapp.data.entities.Candle;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.GdxSettings;
+import com.msgkatz.ratesapp.old.data.entities.Candle;
 
 
 import java.util.Locale;

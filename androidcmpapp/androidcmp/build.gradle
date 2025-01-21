@@ -13,7 +13,8 @@ android {
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
-            assets.srcDirs = ['../../assets']
+            //assets.srcDirs = ['../../assets']
+            assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['libs']
         }
 
@@ -83,7 +84,7 @@ dependencies {
     implementation project(':androidcmpapp:core:uikit')
     implementation project(':androidcmpapp:feature:splash')
     implementation project(':androidcmpapp:feature:quoteasset')
-    //implementation project(':androidcmpapp:feature:chartgdx')
+    implementation project(':androidcmpapp:feature:chartgdx')
     implementation project(':androidcmpapp:data:olddata')
     implementation(project(":androidcmpapp:feature:common"))
 

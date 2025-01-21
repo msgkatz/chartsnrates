@@ -15,9 +15,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
 import com.msgkatz.ratesapp.feature.chartgdx.base.BaseGdxCompFragment
 import com.msgkatz.ratesapp.feature.chartgdx.entities.ToolFormat
-
-
-import com.msgkatz.ratesapp.utils.Logs
+import com.msgkatz.ratesapp.old.utils.Logs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject

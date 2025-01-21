@@ -5,19 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModel
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
-import com.msgkatz.ratesapp.data.entities.Candle
 
-import com.msgkatz.ratesapp.domain.entities.IntervalJava
-import com.msgkatz.ratesapp.domain.interactors.GetCurrentPrice
-import com.msgkatz.ratesapp.domain.interactors.GetCurrentPricesInterim
-import com.msgkatz.ratesapp.domain.interactors.GetIntervalByName
-import com.msgkatz.ratesapp.domain.interactors.GetPriceHistory
-import com.msgkatz.ratesapp.domain.interactors.base.Optional
-import com.msgkatz.ratesapp.domain.interactors.base.ResponseObserver
-import com.msgkatz.ratesapp.domain.interactors.params.IntervalParams
-import com.msgkatz.ratesapp.domain.interactors.params.PriceHistoryParams
-import com.msgkatz.ratesapp.domain.interactors.params.PriceParams
-import com.msgkatz.ratesapp.domain.interactors.params.PriceRealtimeParams
 import com.msgkatz.ratesapp.feature.chartgdx.entities.*
 import com.msgkatz.ratesapp.feature.chartgdx.entities.events.BaseEvent
 import com.msgkatz.ratesapp.feature.chartgdx.entities.events.NewIntervalEvent
@@ -28,7 +16,17 @@ import com.msgkatz.ratesapp.feature.chartgdx.gdx.common.ChartGdxGame
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.prerenderer.Controller
 import com.msgkatz.ratesapp.feature.chartgdx.gdx.prerenderer.PreRenderer
 import com.msgkatz.ratesapp.feature.common.messaging.IRxBus
-import com.msgkatz.ratesapp.utils.Logs
+import com.msgkatz.ratesapp.old.data.entities.Candle
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava
+import com.msgkatz.ratesapp.old.domain.interactors.*
+import com.msgkatz.ratesapp.old.domain.interactors.base.Optional
+import com.msgkatz.ratesapp.old.domain.interactors.base.ResponseObserver
+import com.msgkatz.ratesapp.old.domain.interactors.params.IntervalParams
+import com.msgkatz.ratesapp.old.domain.interactors.params.PriceHistoryParams
+import com.msgkatz.ratesapp.old.domain.interactors.params.PriceParams
+import com.msgkatz.ratesapp.old.domain.interactors.params.PriceRealtimeParams
+import com.msgkatz.ratesapp.old.utils.Logs
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

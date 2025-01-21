@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
 
-import com.msgkatz.ratesapp.R;
+
 import com.msgkatz.ratesapp.feature.chartgdx.entities.CandleData;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.ChartShaderUtil;
 import com.msgkatz.ratesapp.feature.chartgdx.utils.gdx.Constants;

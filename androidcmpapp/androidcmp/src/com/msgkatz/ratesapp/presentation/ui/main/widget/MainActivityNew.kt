@@ -16,6 +16,8 @@ import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
 import com.msgkatz.ratesapp.di.app.AppComponent
+import com.msgkatz.ratesapp.feature.chartgdx.base.di.ChartDepsStore
+import com.msgkatz.ratesapp.feature.chartgdx.widget.ChartActivityNew
 import com.msgkatz.ratesapp.old.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.old.domain.interactors.GetAssets
 import com.msgkatz.ratesapp.old.domain.interactors.GetPlatformInfo
@@ -68,7 +70,7 @@ class MainActivityNew : BaseCompActivity() {
 
         this.appComponent.inject(this)
         //.inject(this);
-        //ChartDepsStore.deps = appComponent
+        ChartDepsStore.deps = appComponent
         mgr = getSystemService(POWER_SERVICE) as PowerManager
 
         val coroutineScope = lifecycle.coroutineScope
@@ -177,12 +179,12 @@ class MainActivityNew : BaseCompActivity() {
     }
 
     private fun showChart(priceSimple: PriceSimple?) {
-//        val intent: Intent = Intent(this, ChartActivityNew::class.java)
-//        priceSimple?.let {
-//            intent.putExtra(ChartActivityNew.KEY_TOOL_NAME, it.tool.name)
-//            intent.putExtra(ChartActivityNew.KEY_TOOL_PRICE, it.price)
-//        }
-//        startActivity(intent)
+        val intent: Intent = Intent(this, ChartActivityNew::class.java)
+        priceSimple?.let {
+            intent.putExtra(ChartActivityNew.KEY_TOOL_NAME, it.tool.name)
+            intent.putExtra(ChartActivityNew.KEY_TOOL_PRICE, it.price)
+        }
+        startActivity(intent)
     }
 
     /** ChartScreen related funcs **/
