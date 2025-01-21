@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.app.cnrapp2
+package com.msgkatz.ratesapp.presentation.ui.app.cnrapp
 
 //import androidx.compose.material3.windowsizeclass.WindowSizeClass
 //import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass

@@ -1,10 +1,9 @@
-package com.msgkatz.ratesapp.presentation.ui.app.cnrapp2
+package com.msgkatz.ratesapp.presentation.ui.app.cnrapp
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.msgkatz.ratesapp.data.model.PriceSimple
-import com.msgkatz.ratesapp.old.domain.entities.PriceSimpleJava
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.feature.quoteasset.quoteAssetNavScreen2
 import com.msgkatz.ratesapp.feature.splash.splashNavScreen

@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.ui.app.cnrapp2
+package com.msgkatz.ratesapp.presentation.ui.app.cnrapp
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi

@@ -41,7 +41,7 @@ class MainActivityNewViewModel @Inject constructor(
     }
 
     companion object {
-        private val TAG: String = MainActivityNewViewModel::class.java.simpleName
+        private val TAG: String = "MainActivityNewViewModel"
     }
 
 }

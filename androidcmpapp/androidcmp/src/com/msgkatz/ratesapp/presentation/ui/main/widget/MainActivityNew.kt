@@ -30,7 +30,7 @@ import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 //import com.msgkatz.ratesapp.presentation.common.activity.BaseCompActivity
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
 import com.msgkatz.ratesapp.presentation.ui.app.TmpDataKeeper
-import com.msgkatz.ratesapp.presentation.ui.app.cnrapp2.CnrApp
+import com.msgkatz.ratesapp.presentation.ui.app.cnrapp.CnrApp
 //import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider
 //import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsStore
 //import com.msgkatz.ratesapp.presentation.ui.chart2.widget.ChartActivityNew

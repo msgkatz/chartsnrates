@@ -15,8 +15,6 @@ import com.msgkatz.ratesapp.old.domain.IDataRepo;
 import com.msgkatz.ratesapp.feature.common.messaging.IRxBus;
 import com.msgkatz.ratesapp.feature.common.messaging.RxBus;
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
-//import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus;
-//import com.msgkatz.ratesapp.presentation.common.messaging.RxBus;
 import com.msgkatz.ratesapp.utils.Parameters;
 
 import javax.inject.Named;
