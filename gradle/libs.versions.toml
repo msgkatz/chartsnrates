@@ -29,6 +29,15 @@ daggerVersion = "2.19"
 glideVersion = "4.16.0"
 glideCmpVersion = "1.0.0-beta01"
 
+okhttpVersion = "3.14.9"
+retrofitVersion = "2.3.0"
+
+javaxannotationVersion = "10.0-b28"
+rxjava2Version = "2.2.13"
+rxandroid2Version = "2.1.1"
+rxrelay2Version = "2.1.0"
+guavaVersion = "27.0.1-android"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
@@ -73,6 +82,7 @@ androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-ui-viewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding" }
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
@@ -87,6 +97,23 @@ dagger-android-processor = { group = "com.google.dagger", name = "dagger-android
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glideCmpVersion" }
+
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpVersion" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVersion" }
+
+retrofit-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofitVersion" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
+
+javax-annotation = { group = "org.glassfish", name = "javax.annotation", version.ref = "javaxannotationVersion" }
+
+
+rxjava2-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid2Version" }
+rxjava2-rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2Version" }
+rxrelay2-rxrelay = { group = "com.jakewharton.rxrelay2", name = "rxrelay", version.ref = "rxrelay2Version" }
+
+guava = { group = "com.google.guava", name = "guava", version.ref = "guavaVersion" }
+
 
 
 
