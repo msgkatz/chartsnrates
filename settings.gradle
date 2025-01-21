@@ -21,9 +21,10 @@ project(':androidcmpapp:data:cnr-model-kmm').projectDir = new File('androidcmpap
 //include ':androidcmp'
 include ':androidcmpapp:core:uikit'
 
-//include ':androidcmpapp:feature:common'
+include ':androidcmpapp:feature:common'
 include ':androidcmpapp:feature:splash'
 include ':androidcmpapp:feature:quoteasset'
 include ':androidcmpapp:data:olddata'
 
 
+include ':androidcmpapp:feature:chartgdx'

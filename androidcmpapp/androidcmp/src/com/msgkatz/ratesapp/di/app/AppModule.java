@@ -1,17 +1,22 @@
 package com.msgkatz.ratesapp.di.app;
 
+import static com.msgkatz.ratesapp.old.data.DataParams.APP_CONTEXT;
+
 import android.content.Context;
 
 import com.msgkatz.ratesapp.App;
-import com.msgkatz.ratesapp.data.net.rest.ApiBuilder;
-import com.msgkatz.ratesapp.data.net.rest.BinanceHtmlApi;
-import com.msgkatz.ratesapp.data.net.rest.BinanceRestApi;
-import com.msgkatz.ratesapp.data.net.wsocks.BinanceWSocksApi;
-import com.msgkatz.ratesapp.data.repo.DataRepo;
-import com.msgkatz.ratesapp.domain.IDataRepo;
+import com.msgkatz.ratesapp.old.data.net.rest.ApiBuilder;
+import com.msgkatz.ratesapp.old.data.net.rest.BinanceHtmlApi;
+import com.msgkatz.ratesapp.old.data.net.rest.BinanceRestApi;
+
+import com.msgkatz.ratesapp.old.data.net.wsocks.BinanceWSocksApi;
+import com.msgkatz.ratesapp.old.data.repo.DataRepo;
+import com.msgkatz.ratesapp.old.domain.IDataRepo;
+import com.msgkatz.ratesapp.feature.common.messaging.IRxBus;
+import com.msgkatz.ratesapp.feature.common.messaging.RxBus;
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer;
-import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus;
-import com.msgkatz.ratesapp.presentation.common.messaging.RxBus;
+//import com.msgkatz.ratesapp.presentation.common.messaging.IRxBus;
+//import com.msgkatz.ratesapp.presentation.common.messaging.RxBus;
 import com.msgkatz.ratesapp.utils.Parameters;
 
 import javax.inject.Named;
@@ -23,7 +28,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    public static final String APP_CONTEXT = "AppModule.applicationContext";
+    //public static final String APP_CONTEXT = "AppModule.applicationContext";
 
     @Provides
     @Named(APP_CONTEXT)
@@ -59,7 +64,7 @@ public class AppModule {
     @Singleton
     BinanceWSocksApi providesWSocksApi(App application)
     {
-        return com.msgkatz.ratesapp.data.net.wsocks.ApiBuilder.getApiInterface(application.getApplicationContext());
+        return com.msgkatz.ratesapp.old.data.net.wsocks.ApiBuilder.getApiInterface(application.getApplicationContext());
     }
 
     @Provides

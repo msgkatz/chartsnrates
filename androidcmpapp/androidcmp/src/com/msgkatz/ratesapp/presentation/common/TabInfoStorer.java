@@ -8,7 +8,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import com.msgkatz.ratesapp.R;
-import com.msgkatz.ratesapp.presentation.entities.TabItem;
 import com.msgkatz.ratesapp.feature.quoteasset.QuoteAssetDrawableDataKeeper;
 import com.msgkatz.ratesapp.utils.CommonUtil;
 
@@ -24,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import kotlinx.coroutines.flow.Flow;
+
+import com.msgkatz.ratesapp.presentation.ui.app.TabItem;
 
 public class TabInfoStorer implements QuoteAssetDrawableDataKeeper {
 

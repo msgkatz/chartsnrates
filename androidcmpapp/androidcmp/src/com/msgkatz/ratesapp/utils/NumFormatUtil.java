@@ -1,6 +1,8 @@
 package com.msgkatz.ratesapp.utils;
 
-import com.msgkatz.ratesapp.presentation.entities.ToolFormat;
+//import com.msgkatz.ratesapp.presentation.entities.ToolFormat;
+
+//import com.msgkatz.ratesapp.feature.chartgdx.entities.ToolFormat;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -70,15 +72,15 @@ public class NumFormatUtil {
         //return getFormattedPriceViaDecFormat(price);
     }
 
-    private static String getFormattedPriceViaDecFormat(final double price)
-    {
-        ToolFormat retVal = new ToolFormat(Parameters.DEFAULT_MAX_FRACTION_DIGITS, price);
-
-        int maxDigits = retVal.getMaxFractionDigits();
-        DecimalFormat quoteFormat = retVal.getQuotesFormat(maxDigits);
-
-        return quoteFormat.format((double) price);
-    }
+//    private static String getFormattedPriceViaDecFormat(final double price)
+//    {
+//        ToolFormat retVal = new ToolFormat(Parameters.DEFAULT_MAX_FRACTION_DIGITS, price);
+//
+//        int maxDigits = retVal.getMaxFractionDigits();
+//        DecimalFormat quoteFormat = retVal.getQuotesFormat(maxDigits);
+//
+//        return quoteFormat.format((double) price);
+//    }
 
     private static String getFormattedPriceViaNumFormat(final double price)
     {

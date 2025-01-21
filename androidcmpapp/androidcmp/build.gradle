@@ -83,6 +83,10 @@ dependencies {
     implementation project(':androidcmpapp:core:uikit')
     implementation project(':androidcmpapp:feature:splash')
     implementation project(':androidcmpapp:feature:quoteasset')
+    //implementation project(':androidcmpapp:feature:chartgdx')
+    implementation project(':androidcmpapp:data:olddata')
+    implementation(project(":androidcmpapp:feature:common"))
+
     //implementation(":androidcmpapp:cnr-network-kmm")
     //implementation 'io.ktor:ktor-client-okhttp:2.3.6'
 

@@ -1,17 +1,8 @@
 package com.msgkatz.ratesapp.di.app;
 
-import com.msgkatz.ratesapp.domain.IDataRepo;
-import com.msgkatz.ratesapp.domain.interactors.GetAssets;
-import com.msgkatz.ratesapp.domain.interactors.GetCurrentPrice;
-import com.msgkatz.ratesapp.domain.interactors.GetCurrentPricesInterim;
-import com.msgkatz.ratesapp.domain.interactors.GetIntervalByName;
-import com.msgkatz.ratesapp.domain.interactors.GetIntervals;
-import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo;
-import com.msgkatz.ratesapp.domain.interactors.GetPriceHistory;
-import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssets;
-import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap;
-import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices;
-import com.msgkatz.ratesapp.domain.interactors.GetTools;
+import com.msgkatz.ratesapp.old.domain.IDataRepo;
+import com.msgkatz.ratesapp.old.domain.interactors.*;
+
 
 import javax.inject.Singleton;
 

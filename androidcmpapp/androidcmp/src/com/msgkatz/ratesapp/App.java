@@ -8,8 +8,8 @@ import androidx.multidex.MultiDexApplication;
 
 import com.msgkatz.ratesapp.di.app.AppComponent;
 import com.msgkatz.ratesapp.di.app.DaggerAppComponent;
-import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider;
-import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsStore;
+//import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsProvider;
+//import com.msgkatz.ratesapp.presentation.ui.chart2.base.di.ChartDepsStore;
 
 import javax.inject.Inject;
 
@@ -42,6 +42,7 @@ public class App extends MultiDexApplication /** implements HasAndroidInjector H
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         appComponent = DaggerAppComponent
                 .builder()

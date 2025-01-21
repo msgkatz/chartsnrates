@@ -2,10 +2,10 @@ package com.msgkatz.ratesapp.presentation.ui.main.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.msgkatz.ratesapp.domain.interactors.GetAssets
-import com.msgkatz.ratesapp.domain.interactors.GetPlatformInfo
-import com.msgkatz.ratesapp.domain.interactors.GetQuoteAssetsMap
-import com.msgkatz.ratesapp.domain.interactors.GetToolListPrices
+import com.msgkatz.ratesapp.old.domain.interactors.GetAssets
+import com.msgkatz.ratesapp.old.domain.interactors.GetPlatformInfo
+import com.msgkatz.ratesapp.old.domain.interactors.GetQuoteAssetsMap
+import com.msgkatz.ratesapp.old.domain.interactors.GetToolListPrices
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 import javax.inject.Inject
 

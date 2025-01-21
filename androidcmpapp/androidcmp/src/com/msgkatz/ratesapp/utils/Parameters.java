@@ -1,8 +1,12 @@
 package com.msgkatz.ratesapp.utils;
 
-import static com.msgkatz.ratesapp.domain.entities.IntervalJava.fromString;
+//import static com.msgkatz.ratesapp.domain.entities.IntervalJava.fromString;
+//
+//import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 
-import com.msgkatz.ratesapp.domain.entities.IntervalJava;
+import static com.msgkatz.ratesapp.old.domain.entities.IntervalJava.fromString;
+
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava;
 
 import java.util.Arrays;
 import java.util.List;

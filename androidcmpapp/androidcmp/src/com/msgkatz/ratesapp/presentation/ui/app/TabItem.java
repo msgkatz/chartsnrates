@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.presentation.entities;
+package com.msgkatz.ratesapp.presentation.ui.app;
 
 import android.graphics.drawable.Drawable;
 

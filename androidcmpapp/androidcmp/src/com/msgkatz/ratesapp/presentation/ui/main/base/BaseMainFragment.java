@@ -2,7 +2,9 @@ package com.msgkatz.ratesapp.presentation.ui.main.base;
 
 import android.os.Bundle;
 
-import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
+import com.msgkatz.ratesapp.feature.common.fragment.BaseFragment;
+
+//import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
 
 /**
  * Created by msgkatz on 10/09/2018.
