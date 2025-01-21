@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- theme colors -->
+    <color name="theme_torea_bay_dark">#0f104e</color>
+    <color name="theme_torea_bay">#242D77</color>
+    <color name="theme_governor_bay">#4853A3</color>
+
+    <color name="theme_chetwode_blue">#6974CA</color>
+    <color name="theme_portage">#909AD5</color>
+
+    <color name="theme_radical_red">#FB235F</color>
+    <color name="theme_cadet_blue">#6496A0</color>
+
+    <color name="theme_green">#23f58d</color>
+    <color name="theme_gray">#7981a5</color>
+    <color name="theme_white">#e0e9d1</color>
+
+    <!-- ui colors -->
+    <color name="colorPrimary">@color/theme_governor_bay</color>
+    <color name="colorPrimaryDark">@color/theme_torea_bay</color>
+    <color name="colorAccent">@color/theme_portage</color>
+
+    <!-- other colors -->
+    <color name="main_actionbar">#273a4c</color>
+    <color name="main_background">#24303e</color>
+
+
+    <color name="main_tabs_background">#1e2169</color>
+    <color name="main_tabs_item_selected">#f5e018</color>
+    <color name="main_tabs_item_not_selected">#FFFFFFFF</color>
+
+    <color name="main_tabs_text_selected">#f5e018</color>
+    <color name="main_tabs_text_appearance">#8AFFFFFF</color>
+
+    <color name="chart_bg_up">#6169c9</color>
+    <color name="chart_bg_chart1">#34398a</color>
+    <color name="chart_bg_chart2">#1d2068</color>
+
+    <color name="chart_bg_interval_selected">#14ffffff</color>
+
+    <color name="chart_title_main_2">#7de0e9d1</color>
+
+
+
+
+    <!-- GDX Color Control -->
+    <color name="chart_screen_clear_color">#34398A</color> <!-- (52.0f/255.0f), (57.0f/255.0f), (138.0f/255.0f), 1.0f); -->
+    <color name="chart_screen_clear_color_new">#00000000</color>
+
+    <color name="chart_color_rate_dot_1">#FFFFFF</color>
+    <color name="chart_color_rate_dot_2">#ff1edd78</color>
+    <color name="chart_color_rate_dot_3">#ff1edd78</color>
+    <color name="chart_color_loader">#ff34398A</color>
+    <color name="chart_color_void">#ff34398A</color>
+    <color name="chart_color_rate_line">#ffe8e8e8</color>
+    <color name="chart_color_vertical_grid">#19ffffff</color> <!-- TODO: !!! fonts for vert&horizon actors -->
+
+    <color name="chart_color_font_a">#7de0e9d1</color> <!-- ((224.0f/255.0f), (233.0f/255.0f), (209.0f/255.0f), .5f); -->
+    <color name="chart_color_font_b">#ff03a9f4</color>
+    <color name="chart_color_font_c">#FF0000</color>
+    <color name="chart_color_font_d">#ff5cdb79</color>
+    <color name="chart_color_font_e">#FFFFFF</color>
+    <color name="chart_color_font_f">#ff0b2033</color>
+    <color name="chart_color_font_g">#FFFFFF</color>
+    <color name="chart_color_font_h">#FFFFFF</color>
+    <color name="chart_color_font_i">#ff4da84b</color>
+    <color name="chart_color_font_j">#4cffffff</color>
+    <color name="chart_color_font_k">#ffdf3a3a</color>
+    <color name="chart_color_font_l">#ff192331</color>
+
+
+    <color name="shader_curve_old1">#3896ff</color> <!-- new Color((56.0f/255.0f), (150.0f/255.0f), (255.0f/255.0f), 1.0f); -->
+    <color name="shader_curve_old2">#03a9f4</color> <!-- new Color((3.0f/255.0f), (169.0f/255.0f), (244.0f/255.0f), 1.0f); -->
+
+    <color name="shader_curve_mid1">#1edd78</color> <!-- new Color((30.0f/255.0f), (221.0f/255.0f), (120.0f/255.0f), 1.0f); -->
+    <color name="shader_curve_mid2">#07d93f</color> <!-- new Color((7.0f/255.0f), (217.0f/255.0f), (63.0f/255.0f), 1.0f); -->
+
+    <color name="shader_curve_new1">#23f58d</color> <!-- new Color((35.0f/255.0f), (245.0f/255.0f), (141.0f/255.0f), 1.0f); -->
+    <color name="shader_curve_new2">#1edd78</color> <!-- new Color((32.0f/255.0f), (126.0f/255.0f), (82.0f/255.0f), 1.0f); -->
+
+    <color name="shader_curve_main">#23f58d</color>
+    <color name="shader_curve_border">#23f58d</color>
+</resources>
