@@ -28,3 +28,4 @@ include ':androidcmpapp:data:olddata'
 
 
 include ':androidcmpapp:feature:chartgdx'
+include ':androidcmpapp:chartdemo'
