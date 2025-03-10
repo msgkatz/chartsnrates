@@ -32,6 +32,8 @@ buildscript {
 plugins {
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.20"
+//    alias(libs.plugins.android.application) apply false
+//    alias(libs.plugins.jetbrains.kotlin.android) apply false
 //    alias(libs.plugins.androidLibrary) apply false
 //    alias(libs.plugins.jetbrains.kotlin.android) apply false
 //    alias(libs.plugins.androidLibrary) apply false
@@ -76,6 +78,32 @@ allprojects {
 
 
 }
+
+subprojects {
+
+    // task adds compose metrics
+    // use via terminal with the following command
+    // ./gradlew assembleRelease -Pmyapp.enableComposeCompilerReports=true
+    // https://chrisbanes.me/posts/composable-metrics/
+    // https://github.com/JetBrains/kotlin/blob/master/plugins/compose/design/compiler-metrics.md
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            if (project.findProperty("myapp.enableComposeCompilerReports") == "true") {
+                freeCompilerArgs += [
+                        "-P",
+                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+                                project.buildDir.absolutePath + "/compose_metrics"
+                ]
+                freeCompilerArgs += [
+                        "-P",
+                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+                                project.buildDir.absolutePath + "/compose_metrics"
+                ]
+            }
+        }
+    }
+}
+
 
 
 
