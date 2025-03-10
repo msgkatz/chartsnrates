@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.feature.quoteasset
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +11,12 @@ import com.msgkatz.ratesapp.data.model.Asset
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,6 +31,7 @@ class QuoteAssetViewModel @Inject constructor(
     companion object {
         private val TAG: String = "QuoteAssetViewModel"
         const val DEBUG = false
+        const val USE_FLOW_STATE = true
     }
 
     // UI state exposed to the UI
@@ -53,7 +58,7 @@ class QuoteAssetViewModel @Inject constructor(
 
                     }
                 }
-                if (quoteAsset != null)
+                if (quoteAsset != null && !USE_FLOW_STATE) {
                     merge(
                         flowOf(tmpDataKeeper.getToolPrices()),
                         tmpDataKeeper.subscribeToolPrices()
@@ -72,6 +77,11 @@ class QuoteAssetViewModel @Inject constructor(
                                 println("${TAG} :: ${quoteAsset?.nameShort}::${prices?.size ?: 0}")
                             }
                         }
+                } else if (quoteAsset != null && USE_FLOW_STATE) {
+                    withContext(Dispatchers.Main) {
+                        updatePriceListFlow()
+                    }
+                }
 
             }
         }
@@ -105,6 +115,25 @@ class QuoteAssetViewModel @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalGlideComposeApi::class)
+    private fun updatePriceListFlow() {
+        val flow = flow<List<PriceSimple>> {
+            val firstData = tmpDataKeeper.getToolPrices()
+            firstData[quoteAsset?.nameShort]?.let { priceSet ->
+                emit(priceSet.toList())
+            }
+
+            tmpDataKeeper.subscribeToolPrices().collect { it ->
+                it[quoteAsset?.nameShort]?.let { priceSet ->
+                    emit(priceSet.toList())
+                }
+            }
+        }.flowOn(Dispatchers.IO)
+        val data = PriceListData(flow = flow, placeHolder = placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName)))
+        val state = PriceListUIState.PriceListFlow(data = data)
+        _priceListUiState.value = state
+    }
+
     override fun onCleared() {
         onStop()
         super.onCleared()
@@ -116,15 +145,24 @@ class QuoteAssetViewModel @Inject constructor(
 
 }
 
+@Immutable
 sealed interface QuoteAssetUIState {
     data object Loading : QuoteAssetUIState
     data object Empty : QuoteAssetUIState
     data class Data(val quoteAsset: Asset) : QuoteAssetUIState
 }
 
+@Immutable
 sealed interface PriceListUIState {
     data object Loading : PriceListUIState
     data object Empty : PriceListUIState
-    data class PriceList @OptIn(ExperimentalGlideComposeApi::class) constructor(val priceList: List<PriceSimple>, var placeHolder: Placeholder) :
+    data class PriceList @OptIn(ExperimentalGlideComposeApi::class) constructor(val priceList: List<PriceSimple>, val placeHolder: Placeholder) :
         PriceListUIState
+
+    data class PriceListFlow constructor(val data: PriceListData): PriceListUIState
+
 }
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Immutable
+data class PriceListData(val flow: Flow<List<PriceSimple>>, val placeHolder: Placeholder)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
@@ -24,14 +25,16 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.core.uikit.theme.component.GradientBackground
 import com.msgkatz.ratesapp.data.model.Asset
 import java.util.Locale
+import kotlin.math.roundToInt
 
 
-private val headerHeight = 128.dp
+val headerHeight = 128.dp
 
 @Composable
 fun QuoteAssetHeader(
@@ -48,19 +51,19 @@ fun QuoteAssetHeader(
             //.heightIn(max = headerHeight)
 
             .height(headerHeight)
-            .graphicsLayer {
-                val scroll = scrollProvider()
-                val newOffset = headerOffsetHeightPx.value + scroll
-                headerOffsetHeightPx.value = newOffset.coerceIn(-headerHeightPx, 0f)
-                translationY = headerOffsetHeightPx.value
-            }
-
-//            .offset {
+//            .graphicsLayer {
 //                val scroll = scrollProvider()
 //                val newOffset = headerOffsetHeightPx.value + scroll
 //                headerOffsetHeightPx.value = newOffset.coerceIn(-headerHeightPx, 0f)
-//                IntOffset(x = 0, y = headerOffsetHeightPx.value.roundToInt())
+//                translationY = headerOffsetHeightPx.value
 //            }
+
+            .offset {
+                val scroll = scrollProvider()
+                val newOffset = headerOffsetHeightPx.value + scroll
+                headerOffsetHeightPx.value = newOffset.coerceIn(-headerHeightPx, 0f)
+                IntOffset(x = 0, y = headerOffsetHeightPx.value.roundToInt())
+            }
         ,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start

@@ -49,7 +49,8 @@ fun PriceListItem(
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
-    iconPlaceholder: Placeholder,
+    priceListUIState: PriceListUIState,
+    //iconPlaceholder: Placeholder,
     description: String = "",
 ) {
     val isLocalInspection = LocalInspectionMode.current
@@ -57,7 +58,8 @@ fun PriceListItem(
         leadingContent = {
             PriceListItemIcon(
                 imageUrl = imageUrl,
-                iconPlaceholder = iconPlaceholder,
+                priceListUIState = priceListUIState,
+                //iconPlaceholder = iconPlaceholder,
                 modifier = iconModifier.size(42.dp)
             )
         },
@@ -155,8 +157,15 @@ fun PriceSimple.priceFormatted(): String = NumFormatUtil.getFormattedPrice(this.
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun PriceListItemIcon(imageUrl: String, iconPlaceholder: Placeholder, modifier: Modifier = Modifier) {
-    if (imageUrl.isEmpty() || 1==1) {
+private fun PriceListItemIcon(
+    imageUrl: String,
+    priceListUIState: PriceListUIState,
+    //iconPlaceholder: Placeholder,
+    modifier: Modifier = Modifier
+) {
+    if (imageUrl.isEmpty()
+        //|| 1==1
+        ) {
         Icon(
             modifier = modifier
                 .background(MaterialTheme.colorScheme.surface)
@@ -170,7 +179,8 @@ private fun PriceListItemIcon(imageUrl: String, iconPlaceholder: Placeholder, mo
             imageUrl = imageUrl,
             contentDescription = null,
             modifier = modifier,
-            placeholder = iconPlaceholder
+            priceListUIState = priceListUIState,
+            //placeholder = iconPlaceholder,
         )
     }
 }
@@ -242,7 +252,8 @@ private fun PriceListItemPreview() {
                 ),
                 imageUrl = "",
                 onItemClick = { },
-                iconPlaceholder = placeholder(R.drawable.cur_bnb),
+                priceListUIState = PriceListUIState.Empty,
+                //iconPlaceholder = placeholder(R.drawable.cur_bnb),
 
             )
         }
@@ -255,3 +266,98 @@ sealed class PriceDiff {
     data object Down: PriceDiff()
 }
 
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+fun PriceListItemFlowed(
+    priceSimple: PriceSimple,
+    imageUrl: String,
+    onItemClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
+    priceListUIState: PriceListUIState,
+    //iconPlaceholder: Placeholder,
+    description: String = "",
+) {
+    val isLocalInspection = LocalInspectionMode.current
+    ListItem(
+        leadingContent = {
+            PriceListItemIcon(
+                imageUrl = imageUrl,
+                priceListUIState = priceListUIState,
+                //iconPlaceholder = iconPlaceholder,
+                modifier = iconModifier.size(42.dp)
+            )
+        },
+        headlineContent = {
+            Text(text = priceSimple.pair())
+        },
+        supportingContent = {
+            Text(
+                text = priceSimple.tool.baseAsset.nameLong ?: "",
+                color = MaterialTheme.colorScheme.outline //surfaceVariant
+            )
+        },
+        trailingContent = {
+            Column(
+                modifier = Modifier,
+                //.fillMaxSize()
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.End,
+            ) {
+                val finalToUp = if (priceSimple.pricePrev == 0.0 || priceSimple.pricePrev < priceSimple.price) true
+                else if (priceSimple.pricePrev > priceSimple.price) false
+                else true
+
+                if (priceSimple.pricePrev == 0.0 || isLocalInspection) {
+                    Text(
+                        text = priceSimple.priceFormatted(),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                } else {
+                    Text(
+                        text = priceSimple.priceFormatted(),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = if (finalToUp) { Green80 } else { Red40 }
+                    )
+                }
+
+                if (priceSimple.pricePrev != 0.0 || isLocalInspection) {
+                    Row(
+                        modifier = Modifier.padding(top = 5.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            modifier = modifier
+                                //.background(MaterialTheme.colorScheme.surface)
+                                .rotate(if (finalToUp) 270f else 90f)
+                                .padding(horizontal = 3.dp)
+                                .size(6.dp),
+
+                            painter = painterResource(id = R.drawable.ic_triangle_right),
+                            contentDescription = null,
+                            tint = if (finalToUp) { Green80 } else  { Red40 }
+                            //tint = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
+
+                        )
+
+                        Text(
+                            text = getPriceDelta(priceSimple.pricePrev, priceSimple.price),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = if (finalToUp) { Green80 } else  { Red40 }
+                            //color = if (toUp) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.error
+                        )
+                    }
+                }
+
+            }
+        },
+        colors = ListItemDefaults.colors(
+            containerColor = Color.Transparent,
+        ),
+        modifier = modifier
+            .semantics(mergeDescendants = true) { /* no-op */ }
+            .clickable(enabled = true, onClick = onItemClick),
+
+        )
+}

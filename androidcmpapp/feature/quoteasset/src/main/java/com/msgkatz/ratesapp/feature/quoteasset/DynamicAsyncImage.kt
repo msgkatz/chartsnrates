@@ -42,12 +42,15 @@ fun DynamicAsyncImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Placeholder = placeholder(R.drawable.cur_bnb),
+    priceListUIState: PriceListUIState,
+    //placeholder: Placeholder = placeholder(R.drawable.cur_bnb),
     //placeholder: Painter = painterResource(R.drawable.cur_bnb),
 ) {
     val iconTint = LocalTintTheme.current.iconTint
     var isLoading by remember { mutableStateOf(true) }
     var isError by remember { mutableStateOf(false) }
+
+    val placeholder by remember { mutableStateOf((priceListUIState as? PriceListUIState.PriceList)?.placeHolder ?: placeholder(R.drawable.cur_bnb) ) }
 //    val imageLoader = rememberAsyncImagePainter(
 //        model = imageUrl,
 //        onState = { state ->
