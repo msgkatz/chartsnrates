@@ -12,6 +12,7 @@ plugins {
 //    alias(libs.plugins.kotlinx.serialization)
 //    id("convention.publication")
 
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
     id(libs.plugins.kotlinMultiplatform.get().pluginId) //apply false
     id(libs.plugins.androidLibrary.get().pluginId) //apply false
     id(libs.plugins.kotlinx.serialization.get().pluginId)
@@ -87,6 +88,11 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
+
+            //to add compose runtime:
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.androidx.compose.runtime.android)
+
         }
 
         jvmMain.dependencies {
@@ -111,4 +117,15 @@ android {
     defaultConfig {
         minSdk = 21
     }
+
+    //to add compose runtime:
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
+    }
+
+
 }
+

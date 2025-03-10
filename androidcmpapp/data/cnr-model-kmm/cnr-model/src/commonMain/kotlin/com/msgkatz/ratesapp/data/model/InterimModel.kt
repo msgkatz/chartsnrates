@@ -220,6 +220,7 @@ data class StreamComboBaseDomain (
  */
 
 @Serializable
+@Immutable
 data class Asset(
     val id: Int = 0,
     val nameShort: String,
@@ -289,15 +290,23 @@ data class PlatformInfo(
     val serverTime: Long
 )
 
+@Immutable
 data class PriceSimple(
     val tool: Tool, 
-    val price: Double
+    val price: Double,
+    val pricePrev: Double = 0.0
 ) : Comparable<PriceSimple> {
     override fun compareTo(other: PriceSimple): Int {
         return tool.baseAsset.nameShort.compareTo(other.tool.baseAsset.nameShort)
     }
 
     fun pair() = "${tool.baseAsset.nameShort}/${tool.quoteAsset.nameShort}"
+
+    /**
+     * equality affects mutableStateListOf<PriceSimple> inside compose
+     * so stateList values unable to update their price
+     *
+     * so equality using only toolName disabled
 
     override fun equals(other: Any?): Boolean {
         if (other == null) return false
@@ -309,6 +318,8 @@ data class PriceSimple(
     override fun hashCode(): Int {
         return tool.name.hashCode()
     }
+
+     */
 }
 
 data class Candle(
