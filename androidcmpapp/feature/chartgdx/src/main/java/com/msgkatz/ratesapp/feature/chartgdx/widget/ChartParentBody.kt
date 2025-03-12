@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.defaultMinSize
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,58 +36,50 @@ import com.msgkatz.ratesapp.old.utils.Parameters
 
 
 @Composable
-fun ChartParentBody(
+fun ColumnScope.ChartParentBody(
     modifier: Modifier = Modifier,
     chartParentToolUIState: ChartParentToolUIState,
     onIntervalClick: (IntervalJava) -> Unit
 ) {
     val isLocalInspection = LocalInspectionMode.current
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Top,// Arrangement.Center,
-        horizontalAlignment = Alignment.Start
-    ) {
-        if (isLocalInspection) {
-            Box(modifier = modifier
-                .defaultMinSize(minHeight = 50.dp)
-                //.fillMaxSize()
-                .fillMaxWidth()
-            ) {
-                Text(text = "ChartGdxScreen")
-            }
-        } else {
-            ChartGdxScreen(
-                modifier = modifier
-                    .defaultMinSize(minHeight = 50.dp)
-                    .height(200.dp)
-                    //.fillMaxSize()
-                .fillMaxWidth()
 
-            )
-        }
-
-        Box(
-            modifier = Modifier.height(100.dp).align(Alignment.End)
+    if (isLocalInspection) {
+        Box(modifier = modifier
+                .weight(1f)
+                .fillMaxWidth()
         ) {
-            when (chartParentToolUIState) {
-                is ChartParentToolUIState.Loading, is ChartParentToolUIState.Empty -> {}
-                is ChartParentToolUIState.Data -> {
-                    IntervalListComposable(
-                        intervals = chartParentToolUIState.intervals,
-                        onIntervalClick = onIntervalClick
-                    )
-                }
+            Text(text = "ChartGdxScreen")
+        }
+    } else {
+        ChartGdxScreen(
+            modifier = modifier
+                .weight(1f)
+                .fillMaxWidth()
+
+        )
+    }
+
+    Box(
+        modifier = Modifier
+            .height(100.dp)
+            .align(Alignment.End)
+    ) {
+        when (chartParentToolUIState) {
+            is ChartParentToolUIState.Loading, is ChartParentToolUIState.Empty -> {}
+            is ChartParentToolUIState.Data -> {
+                IntervalListComposable(
+                    intervals = chartParentToolUIState.intervals,
+                    onIntervalClick = onIntervalClick
+                )
             }
         }
-
-
     }
+
 }
 
 @Composable
 fun IntervalListComposable(
     modifier: Modifier = Modifier,
-    //chartParentToolUIState: ChartParentToolUIState,
     intervals: List<IntervalJava>?,
     onIntervalClick: (IntervalJava) -> Unit
 ) {
@@ -193,10 +186,15 @@ fun ChartParentBodyPreview(
         disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
     ) {
         Surface {
-            ChartParentBody(
-                chartParentToolUIState = ChartParentToolUIState.Data(tool, intervals = intervals),
-                onIntervalClick = {}
-            )
+            Column {
+                ChartParentBody(
+                    chartParentToolUIState = ChartParentToolUIState.Data(
+                        tool,
+                        intervals = intervals
+                    ),
+                    onIntervalClick = {}
+                )
+            }
         }
     }
 
