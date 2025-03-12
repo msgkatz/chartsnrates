@@ -10,7 +10,7 @@ Chart screen still uses previous stack (gdxlib for chart data and rxjava-based d
 
 **[Install last version 2.0.1 on Google Play](https://play.google.com/store/apps/details?id=com.msgkatz.ratesapp)**
 
-# Charts-n-Rates 1.0 (android)
+# Charts-n-Rates 1.0 
 
 ### Module: android
 *App for cryptocurrency charts and rates based on Binance exchange data*
