@@ -1,8 +1,12 @@
 package com.msgkatz.ratesapp.utils;
 
-import static com.msgkatz.ratesapp.domain.entities.Interval.fromString;
+//import static com.msgkatz.ratesapp.domain.entities.IntervalJava.fromString;
+//
+//import com.msgkatz.ratesapp.domain.entities.IntervalJava;
 
-import com.msgkatz.ratesapp.domain.entities.Interval;
+import static com.msgkatz.ratesapp.old.domain.entities.IntervalJava.fromString;
+
+import com.msgkatz.ratesapp.old.domain.entities.IntervalJava;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +44,7 @@ public class Parameters {
     public static boolean DEBUG_GDX_RENDERING_LOGGING   = true;
 
     /** Chart's scaling interval list (binance related) **/
-    public final static List<Interval> defaulScaletList
+    public final static List<IntervalJava> defaulScaletList
                                                         = Arrays.asList(
                                                         fromString("1s"),
                                                         fromString("1m"),

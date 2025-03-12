@@ -1,8 +1,6 @@
 package com.msgkatz.ratesapp.presentation.ui.app
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 
 import androidx.compose.material3.MaterialTheme
@@ -13,22 +11,12 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastFirst
-import androidx.compose.ui.util.fastFirstOrNull
 import com.msgkatz.ratesapp.R
-import com.msgkatz.ratesapp.presentation.theme.CnrThemeAlter
-import com.msgkatz.ratesapp.presentation.theme.GradientColors
-import com.msgkatz.ratesapp.presentation.theme.LocalGradientColors
-import com.msgkatz.ratesapp.presentation.theme.component.CnrBackground
-import com.msgkatz.ratesapp.presentation.theme.component.CnrGradientBackground
-import kotlin.math.roundToInt
+import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+
 
 /**
  * Charts-n-Rates navigation bar item with icon and label content slots. Wraps Material 3

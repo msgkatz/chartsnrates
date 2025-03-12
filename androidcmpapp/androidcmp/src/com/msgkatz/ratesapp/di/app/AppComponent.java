@@ -1,16 +1,59 @@
 package com.msgkatz.ratesapp.di.app;
 
-import com.msgkatz.ratesapp.App;
+import static com.msgkatz.ratesapp.old.data.DataParams.APP_CONTEXT;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import com.msgkatz.ratesapp.App;
+import com.msgkatz.ratesapp.feature.chartgdx.base.di.ChartDeps;
+import com.msgkatz.ratesapp.feature.common.messaging.IRxBus;
+import com.msgkatz.ratesapp.old.domain.interactors.*;
+import com.msgkatz.ratesapp.presentation.ui.main.widget.MainActivityNew;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
+
 
 @Singleton
-@Component(modules = {AndroidSupportInjectionModule.class, AppModule.class, ActivityBindingModule.class, InteractorsModule.class})
-public interface AppComponent {
+@Component(modules = {
+        AppModule.class,
+        InteractorsModule.class})
+public interface AppComponent extends ChartDeps {
+
+    @NonNull
+    @Override
+    GetIntervals getMGetIntervals();
+
+    @NonNull
+    @Override
+    GetTools getMGetTools();
+
+    //@Nullable
+    @Override
+    IRxBus getRxBus();
+
+    @Named(APP_CONTEXT)
+    Context getAppContext();
+
+    @NonNull
+    @Override
+    GetCurrentPrice getMGetCurrentPrice();
+
+    @NonNull
+    @Override
+    GetCurrentPricesInterim getMGetCurrentPricesInterim();
+
+    @NonNull
+    @Override
+    GetIntervalByName getMGetIntervalByName();
+
+    @NonNull
+    @Override
+    GetPriceHistory getMGetPriceHistory();
 
     @Component.Builder
     interface Builder {
@@ -20,4 +63,5 @@ public interface AppComponent {
     }
 
     void inject(App app);
+    void inject(MainActivityNew mainActivityNew);
 }

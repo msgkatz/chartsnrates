@@ -8,22 +8,20 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import com.msgkatz.ratesapp.R;
-import com.msgkatz.ratesapp.presentation.entities.TabItem;
-import com.msgkatz.ratesapp.utils.CommonUtil;
+import com.msgkatz.ratesapp.feature.quoteasset.QuoteAssetDrawableDataKeeper;
+import com.msgkatz.ratesapp.utils.CommonUtil2;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import kotlinx.coroutines.flow.Flow;
+import com.msgkatz.ratesapp.presentation.ui.app.TabItem;
 
-public class TabInfoStorer {
+public class TabInfoStorer implements QuoteAssetDrawableDataKeeper {
 
     private Context appContext;
     private boolean isInitialised = false;
@@ -41,7 +39,7 @@ public class TabInfoStorer {
         TypedArray icons = res.obtainTypedArray(R.array.tab_icons);
         TypedArray names = res.obtainTypedArray(R.array.tab_names);
         //int color = CommonUtil.getColor(App.getInstance(), R.color.main_tabs_item_selected);
-        int color = CommonUtil.getColor(appContext, R.color.main_tabs_item_selected);
+        int color = CommonUtil2.getColor(appContext, R.color.main_tabs_item_selected);
 
         for (int index = 0; index < icons.length(); index++)
         {
@@ -88,6 +86,8 @@ public class TabInfoStorer {
             return items.get(0).iconDrawable;
     }
 
+
+    @NonNull
     public Drawable getSmallDrawableByQuoteAssetName(String name) {
         if (tabPositions.containsKey(name))
             return items.get(tabPositions.get(name)).smallDrawable;
