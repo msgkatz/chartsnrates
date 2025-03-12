@@ -1,6 +1,16 @@
+# WIP Charts-n-Rates 2.0 
 
-# Charts-n-Rates 
+### Module: androidcmpapp
+New version of same app using jetpack compose, kmm, ktor and dew other libs
+interim app update:
+Splash and QuoteAsset screens rewritten using Jetpack Compose (data modules rewritten using kmp and ktor)
+Chart screen still uses previous stack (gdxlib for chart data and rxjava-based data modules)
 
+**[Install last version 2.0.1 on Google Play](https://play.google.com/store/apps/details?id=com.msgkatz.ratesapp)**
+
+# Charts-n-Rates 1.0 (android)
+
+### Module: android
 *App for cryptocurrency charts and rates based on Binance exchange data*
 
 <img src="screenshots/cnr_demo2.gif" width="200" align="right" hspace="20">
@@ -26,7 +36,7 @@ App demonstrates also the use of [material principles](https://www.google.com/de
 ### License
 
 ```
- Copyright 2019 msgkatz
+ Copyright 2025 msgkatz
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
