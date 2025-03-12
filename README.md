@@ -1,4 +1,4 @@
-# :construction: Work in progress :construction: Charts-n-Rates 2.0 :construction:
+# :construction: Charts-n-Rates 2.0 :construction: Work in progress :construction:
 
 ### Module: androidcmpapp
 New version of same app using jetpack compose, kmm, ktor and dew other libs
