@@ -40,6 +40,7 @@ class WebSocketClientTyped<T> constructor(
         cancel()
 
         val url = Url(path)
+
         curClient = getClient().also {
             curJob = coroutineScope.launch(coroutineDispatcher) {
                 try {
@@ -54,6 +55,10 @@ class WebSocketClientTyped<T> constructor(
         return messageFlow
     }
 
+    //TODO: refactor like in
+    //TODO: https://github.com/ktorio/ktor-documentation/blob/3.1.0/codeSnippets/snippets/client-websockets/src/main/kotlin/com/example/Application.kt
+    //TODO: prolly no need in async - can use while(true)
+    //TODO: or just use launch
     private suspend fun innerConnectTyped(client: HttpClient, url : Url, converter: (String) -> T?) {
         client.wss(method = HttpMethod.Get, host = url.host, port = url.port, path = url.encodedPathAndQuery) {
             async {
@@ -67,6 +72,7 @@ class WebSocketClientTyped<T> constructor(
                             addStatus("msg", msg)
                         }
 
+                        //TODO: there's no control frames in incoming
                         is Frame.Close ->
                             addStatus("closed", closeReason.await()!!.message)
 
