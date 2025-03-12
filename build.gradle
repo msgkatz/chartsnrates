@@ -1,4 +1,4 @@
-apply from: 'buildsystem/dependenciesCR.gradle'
+
 
 buildscript {
 
@@ -53,6 +53,8 @@ plugins {
     //alias(libs.plugins.jetbrains.kotlin.android) apply false
 
 }
+
+apply from: 'buildsystem/dependenciesCR.gradle'
 
 allprojects {
     apply plugin: "eclipse"

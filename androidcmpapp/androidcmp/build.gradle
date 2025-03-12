@@ -3,9 +3,11 @@ plugins {
 }
 
 android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
     namespace "com.msgkatz.ratesapp"
     //buildToolsVersion "33.0.2"
     compileSdkVersion 34
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -26,8 +28,8 @@ android {
         applicationId "com.msgkatz.ratesapp"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 24
+        versionName "2.0.1"
 
         multiDexEnabled true
 
@@ -35,10 +37,41 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        config_debug {
+            //noinspection GroovyAssignabilityCheck
+//            keyAlias globalConfiguration.getAt("CR_DEBUG_KEY_ALIAS")
+//            //noinspection GroovyAssignabilityCheck
+//            keyPassword globalConfiguration.getAt("CR_DEBUG_KEY_PASSWORD")
+//
+//            storeFile file(globalConfiguration.getAt("CR_RELEASE_KEY_PATH"))
+//            //noinspection GroovyAssignabilityCheck
+//            storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
+
+        }
+        config_release {
+            //noinspection GroovyAssignabilityCheck
+            keyAlias globalConfiguration.getAt("CR_RELEASE_KEY_ALIAS")
+            //noinspection GroovyAssignabilityCheck
+            keyPassword globalConfiguration.getAt("CR_RELEASE_KEY_PASSWORD")
+            storeFile file(globalConfiguration.getAt("CR_RELEASE_KEY_PATH"))
+            //noinspection GroovyAssignabilityCheck
+            storePassword globalConfiguration.getAt("CR_STORE_PASSWORD")
+        }
+    }
     buildTypes {
         release {
+            minifyEnabled true
+            multiDexKeepFile file('multidex-config.txt')
+            multiDexKeepProguard file('multidex-config.pro')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config_release
+            manifestPlaceholders.useCrashlytics = "true"
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config_debug
             firebaseCrashlytics {
                 // If you don't need crash reporting for your debug build,
                 // you can speed up your build by disabling mapping file uploading.
