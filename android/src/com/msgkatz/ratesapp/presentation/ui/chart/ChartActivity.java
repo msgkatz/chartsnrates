@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.msgkatz.ratesapp.App;
 import com.msgkatz.ratesapp.R;
+import com.msgkatz.ratesapp.databinding.ActivityChartBinding;
 import com.msgkatz.ratesapp.presentation.common.Layout;
 import com.msgkatz.ratesapp.presentation.common.activity.BaseActivity;
 import com.msgkatz.ratesapp.presentation.common.fragment.BaseFragment;
@@ -34,7 +35,7 @@ import butterknife.BindView;
  */
 
 @SuppressWarnings ("WeakerAccess")
-@Layout(id = R.layout.activity_chart)
+//@Layout(id = R.layout.activity_chart)
 public class ChartActivity extends BaseActivity implements ChartRouter, AndroidFragmentApplication.Callbacks
 {
     private final static String TAG = ChartActivity.class.getSimpleName();
@@ -42,9 +43,11 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     public static final String KEY_TOOL_NAME = "com.msgkatz.ratesapp.tool.name";
     public static final String KEY_TOOL_PRICE = "com.msgkatz.ratesapp.tool.price";
 
-    @BindView(R.id.image1) ImageView mImage1;
-    @BindView(R.id.image2) ImageView mImage2;
-    @BindView(R.id.image3) ImageView mImage3;
+    private ActivityChartBinding binding;
+
+//    @BindView(R.id.image1) ImageView mImage1;
+//    @BindView(R.id.image2) ImageView mImage2;
+//    @BindView(R.id.image3) ImageView mImage3;
     private String mToolName;
     private double mToolPrice;
 
@@ -55,6 +58,10 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        binding = ActivityChartBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         /**
          * Flags keeps screen On, but better to use wakelock (somewhere in bg)
@@ -156,12 +163,12 @@ public class ChartActivity extends BaseActivity implements ChartRouter, AndroidF
 
     @Override
     public void removeExtras() {
-        if (mImage1 != null && (((ViewManager)mImage1.getParent()) != null))
-            ((ViewManager)mImage1.getParent()).removeView(mImage1);
-        if (mImage2 != null && (((ViewManager)mImage2.getParent()) != null))
-            ((ViewManager)mImage2.getParent()).removeView(mImage2);
-        if (mImage3 != null && (((ViewManager)mImage3.getParent()) != null))
-            ((ViewManager)mImage3.getParent()).removeView(mImage3);
+        if (binding.image1 != null && (((ViewManager)binding.image1.getParent()) != null))
+            ((ViewManager)binding.image1.getParent()).removeView(binding.image1);
+        if (binding.image2 != null && (((ViewManager)binding.image2.getParent()) != null))
+            ((ViewManager)binding.image2.getParent()).removeView(binding.image2);
+        if (binding.image3 != null && (((ViewManager)binding.image3.getParent()) != null))
+            ((ViewManager)binding.image3.getParent()).removeView(binding.image3);
     }
 
     @Override

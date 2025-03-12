@@ -1,1 +1,31 @@
-include 'desktop', 'android', 'ios', 'html', 'core'
+include 'desktop', 'android', 'ios', 'core' //, 'html'
+//include 'desktop', 'ios', 'core' //, 'html' , 'android'
+include ':androidcmpapp:androidcmp'
+include ':androidcmpapp:data:cnr-network-kmm'
+
+include ':androidcmpapp:data:cnr-network-kmm'
+project(':androidcmpapp:data:cnr-network-kmm').projectDir = new File('androidcmpapp/data/cnr-network-kmm/library')
+
+include ':androidcmpapp:data:cnr-repos-kmm'
+project(':androidcmpapp:data:cnr-repos-kmm').projectDir = new File('androidcmpapp/data/cnr-repos-kmm/cnr-repos')
+
+include ':androidcmpapp:data:cnr-model-kmm'
+project(':androidcmpapp:data:cnr-model-kmm').projectDir = new File('androidcmpapp/data/cnr-model-kmm/cnr-model')
+
+//include ':androidcmpapp:cnr-network-kmm'
+//project(':androidcmpapp:cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
+
+//include ':cnr-network-kmm'
+//project(':cnr-network-kmm').projectDir = new File('../cnr-network-kmm/library')
+
+//include ':androidcmp'
+include ':androidcmpapp:core:uikit'
+
+include ':androidcmpapp:feature:common'
+include ':androidcmpapp:feature:splash'
+include ':androidcmpapp:feature:quoteasset'
+include ':androidcmpapp:data:olddata'
+
+
+include ':androidcmpapp:feature:chartgdx'
+include ':androidcmpapp:chartdemo'

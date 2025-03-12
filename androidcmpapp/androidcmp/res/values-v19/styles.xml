@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base Splash theme. -->
+    <style name="AppThemeSplash" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="AppThemeSplash.BrandedLaunch" parent="AppThemeSplash">
+
+        <item name="android:windowBackground">@drawable/branded_logo2</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+
+    </style>
+
+</resources>

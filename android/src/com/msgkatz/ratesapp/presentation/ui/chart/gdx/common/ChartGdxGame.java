@@ -1,6 +1,7 @@
 package com.msgkatz.ratesapp.presentation.ui.chart.gdx.common;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,19 +18,29 @@ import com.msgkatz.ratesapp.utils.gdx.ChartShaderUtil;
 public class ChartGdxGame extends Game {
 
     final private Activity activity;
+    final private Context context;
     private Screen screen;
     private PreRenderer preRenderer;
 
     public ChartGdxGame(Activity activity, PreRenderer preRenderer)
     {
         this.activity = activity;
+        this.context = activity;
+        this.preRenderer = preRenderer;
+    }
+
+    public ChartGdxGame(Context context, PreRenderer preRenderer)
+    {
+        this.activity = null;
+        this.context = context;
         this.preRenderer = preRenderer;
     }
 
     @Override
     public void create() {
         Gdx.app.getPreferences(getPrefName()).flush();
-        GdxUtil.init(this.activity);
+        //GdxUtil.init(this.activity);
+        GdxUtil.init(this.context);
         ChartShaderUtil.init();
 
         if (getScreen() == null) {
@@ -48,6 +59,6 @@ public class ChartGdxGame extends Game {
     }
 
     private String getPrefName() {
-        return this.activity.getPackageName() + "_preferences";
+        return this.context.getPackageName() + "_preferences";
     }
 }
