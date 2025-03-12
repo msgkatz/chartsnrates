@@ -1,7 +1,7 @@
 # :construction: Charts-n-Rates 2.0 :construction: Work in progress :construction:
 
 ### Module: androidcmpapp
-New version of same app made using jetpack compose, kmm, ktor and dew other libs<br/>
+New version of same app made using jetpack compose, kmm, ktor and few other libs<br/>
 interim app update:<br/>
 Splash and QuoteAsset screens rewritten using Jetpack Compose (data modules rewritten using kmp and ktor)<br/>
 Chart screen still uses previous stack (gdxlib for chart data and rxjava-based data modules)<br/>
