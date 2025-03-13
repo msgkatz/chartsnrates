@@ -2,12 +2,11 @@ package com.msgkatz.ratesapp.feature.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msgkatz.ratesapp.data.model.PlatformInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -23,43 +22,17 @@ class SplashViewModel @Inject constructor(
         loadAssets()
     }
 
-    private fun loadAssets() {
-        val job = viewModelScope.launch {
-            var info: PlatformInfo? = null
-            withContext(Dispatchers.IO) {
-                info = tmpDataKeeper.getPlatformInfo()
-            }
-            if (info != null) {
-                initUI()
-            } else {
-                initErrorMessage()
-            }
+    private fun loadAssets() = viewModelScope.launch(Dispatchers.IO) {
+        if (tmpDataKeeper.getPlatformInfo() != null) {
+            _uiState.update { it.copy(loading = false, errorLoading = false, loaded = true) }
+        } else {
+            _uiState.update { it.copy(loading = false, errorLoading = true) }
         }
-
     }
 
     fun tryReconnect() {
-        viewModelScope.launch {
-            _uiState.value = _uiState
-                .value.copy(loading = true, errorLoading = false)
-            loadAssets()
-        }
-
-    }
-
-    private fun initErrorMessage() {
-        viewModelScope.launch {
-            _uiState.value = _uiState
-                .value.copy(loading = false, errorLoading = true)
-        }
-    }
-
-    private fun initUI() {
-        viewModelScope.launch {
-            _uiState.value = _uiState
-                .value.copy(loading = false, errorLoading = false, loaded = true)
-        }
-
+        _uiState.update { it.copy(loading = true, errorLoading = false) }
+        loadAssets()
     }
 
     fun interface Factory {
