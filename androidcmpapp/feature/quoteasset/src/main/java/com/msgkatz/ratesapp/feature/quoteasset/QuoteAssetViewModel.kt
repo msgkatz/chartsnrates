@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -46,73 +47,72 @@ class QuoteAssetViewModel @Inject constructor(
 
 
     fun onStart() {
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                if (quoteAsset == null) {
-                    tmpDataKeeper.getQuoteAssetMap()?.let { map ->
-                        quoteAsset = map[quoteAssetName]
-                        withContext(Dispatchers.Main) {
-                            updateQuoteAsset(quoteAsset)
-                        }
-
-                    }
-                }
-                if (quoteAsset != null && !USE_FLOW_STATE) {
-                    merge(
-                        flowOf(tmpDataKeeper.getToolPrices()),
-                        tmpDataKeeper.subscribeToolPrices()
-                    )
-                        .collect {
-                            val prices = it[quoteAsset?.nameShort]
-                            prices?.let { priceSet ->
-                                val priceSimpleList = priceSet.toList()
-                                println("listlen = ${priceSimpleList.size}")
-                                withContext(Dispatchers.Main) {
-                                    updatePriceList(priceSimpleList)
-                                }
-                            }
-
-                            if (DEBUG) {
-                                println("${TAG} :: ${quoteAsset?.nameShort}::${prices?.size ?: 0}")
-                            }
-                        }
-                } else if (quoteAsset != null && USE_FLOW_STATE) {
-                    withContext(Dispatchers.Main) {
-                        updatePriceListFlow()
-                    }
-                }
-
-            }
-        }
-
-
+        getPrices()
     }
 
     fun onStop() {
         viewModelScope.coroutineContext.cancelChildren()
     }
 
-    private fun updateQuoteAsset(quoteAsset: Asset?) {
-        viewModelScope.launch {
-            if (quoteAsset != null)
-                _quoteAssetUiState.value = QuoteAssetUIState.Data(quoteAsset)
-            else
-                _quoteAssetUiState.value = QuoteAssetUIState.Empty
+    private fun getPrices() = viewModelScope.launch(Dispatchers.IO) {
+        if (quoteAsset == null) {
+            tmpDataKeeper.getQuoteAssetMap()?.let { map ->
+                quoteAsset = map[quoteAssetName]
+                withContext(Dispatchers.Main) {
+                    updateQuoteAsset(quoteAsset)
+                }
+
+            }
         }
+        if (quoteAsset != null && !USE_FLOW_STATE) {
+            merge(
+                flowOf(tmpDataKeeper.getToolPrices()),
+                tmpDataKeeper.subscribeToolPrices()
+            )
+                .collect {
+                    val prices = it[quoteAsset?.nameShort]
+                    prices?.let { priceSet ->
+                        val priceSimpleList = priceSet.toList()
+                        if (DEBUG) { println("listlen = ${priceSimpleList.size}") }
+                        withContext(Dispatchers.Main) {
+                            updatePriceList(priceSimpleList)
+                        }
+                    }
+
+                    if (DEBUG) {
+                        println("${TAG} :: ${quoteAsset?.nameShort}::${prices?.size ?: 0}")
+                    }
+                }
+        } else if (quoteAsset != null && USE_FLOW_STATE) {
+            withContext(Dispatchers.Main) {
+                updatePriceListFlow()
+            }
+        }
+
+    }
+
+    private fun updateQuoteAsset(quoteAsset: Asset?) {
+        quoteAsset?.let {
+            _quoteAssetUiState.update { QuoteAssetUIState.Data(quoteAsset) }
+            return
+        }
+
+        _quoteAssetUiState.update { QuoteAssetUIState.Empty }
     }
 
     @OptIn(ExperimentalGlideComposeApi::class)
     private fun updatePriceList(list: List<PriceSimple>?) {
-        viewModelScope.launch {
-            if (list != null)
-                _priceListUiState.value = PriceListUIState.PriceList(
+        list?.let {
+            _priceListUiState.update {
+                PriceListUIState.PriceList(
                     list,
                     placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName))
                 )
-            else
-                _priceListUiState.value = PriceListUIState.Empty
+            }
+            return
         }
+
+        _priceListUiState.update { PriceListUIState.Empty }
     }
 
     @OptIn(ExperimentalGlideComposeApi::class)
