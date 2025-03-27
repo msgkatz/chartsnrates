@@ -7,6 +7,7 @@ import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
 import com.msgkatz.ratesapp.data.network.rest.RestDataSource
 import com.msgkatz.ratesapp.data.network.websocket.WebSocketController
+import com.msgkatz.ratesapp.data.network.websocket.WebSocketController3rd
 import com.msgkatz.ratesapp.data.network.websocket.WebSocketDataSource
 import com.msgkatz.ratesapp.data.repos.base.AssetRepository
 import com.msgkatz.ratesapp.data.repos.base.AssetRepositoryImpl
@@ -54,10 +55,12 @@ class TmpDataKeeper(
         coroutineScope = coroutineScope ?: scope,
         coroutineDispatcher = ioDispatcher
     )
-    val webSocketDataSource: WebSocketDataSource = WebSocketController(
+    val webSocketDataSource: WebSocketDataSource =
+        WebSocketController3rd(
+        //WebSocketController(
         coroutineScope = coroutineScope?: scope,
         coroutineDispatcher = ioDispatcher,
-        debug = false //true
+        debug = true //false //true
     )
 
     /** ******

@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.data.network.websocket
 
+import io.ktor.http.ContentType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,8 @@ class WebSocketController constructor(
 
     private val client: WebSocketClient
     private var clientTyped: WebSocketClientTyped<*>? = null
+    ///private var clientTyped: WebSocketClientTyped<StreamCommonWSModel>? = null
+    //: StreamCommonWSModel()
 
     init {
         client = WebSocketClient(coroutineScope, coroutineDispatcher, debug)
