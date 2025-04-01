@@ -54,7 +54,7 @@ class QuoteAssetViewModel @Inject constructor(
         viewModelScope.coroutineContext.cancelChildren()
     }
 
-    private fun getPrices() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getPrices() = viewModelScope.launch(Dispatchers.Default) {
         if (quoteAsset == null) {
             tmpDataKeeper.getQuoteAssetMap()?.let { map ->
                 quoteAsset = map[quoteAssetName]
@@ -128,7 +128,7 @@ class QuoteAssetViewModel @Inject constructor(
                     emit(priceSet.toList())
                 }
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
         val data = PriceListData(flow = flow, placeHolder = placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName)))
         val state = PriceListUIState.PriceListFlow(data = data)
         _priceListUiState.value = state

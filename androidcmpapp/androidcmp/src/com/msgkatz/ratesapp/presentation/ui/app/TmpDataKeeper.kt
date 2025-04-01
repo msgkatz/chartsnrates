@@ -6,7 +6,6 @@ import com.msgkatz.ratesapp.data.model.PlatformInfo
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.data.network.rest.RestController
 import com.msgkatz.ratesapp.data.network.rest.RestDataSource
-import com.msgkatz.ratesapp.data.network.websocket.WebSocketController
 import com.msgkatz.ratesapp.data.network.websocket.WebSocketController3rd
 import com.msgkatz.ratesapp.data.network.websocket.WebSocketDataSource
 import com.msgkatz.ratesapp.data.repos.base.AssetRepository
@@ -53,13 +52,13 @@ class TmpDataKeeper(
     val localJsonDataSource: LocalJsonDataSource = LocalJsonDataSourceImpl()
     val restDataSource: RestDataSource = RestController(
         coroutineScope = coroutineScope ?: scope,
-        coroutineDispatcher = ioDispatcher
+        ioDispatcher = ioDispatcher
     )
     val webSocketDataSource: WebSocketDataSource =
         WebSocketController3rd(
         //WebSocketController(
         coroutineScope = coroutineScope?: scope,
-        coroutineDispatcher = ioDispatcher,
+        ioDispatcher = ioDispatcher,
         debug = true //false //true
     )
 

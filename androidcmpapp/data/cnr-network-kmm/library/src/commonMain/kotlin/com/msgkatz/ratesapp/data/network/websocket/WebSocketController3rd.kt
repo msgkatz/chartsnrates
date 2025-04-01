@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 
 class WebSocketController3rd constructor(
     private val coroutineScope: CoroutineScope,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val debug: Boolean = false,
 ) : WebSocketDataSource {
 
@@ -27,7 +27,7 @@ class WebSocketController3rd constructor(
 
     private fun renewClient(): WebSocketClient3rd {
         client?.cancel()
-        return WebSocketClient3rd(coroutineScope, coroutineDispatcher, debug)
+        return WebSocketClient3rd(coroutineScope, ioDispatcher, debug)
     }
 
     override fun getKlineStream(symbol: String, interval: String): Flow<StreamKlineEventWSModel> {

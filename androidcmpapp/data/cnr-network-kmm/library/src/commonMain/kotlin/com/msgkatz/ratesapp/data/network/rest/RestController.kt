@@ -9,6 +9,7 @@ import io.ktor.utils.io.core.use
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -16,13 +17,13 @@ import kotlinx.coroutines.Dispatchers
  */
 class RestController constructor(
     private val coroutineScope: CoroutineScope,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default,
     //private val client: HttpClient = getRestClient()
 ) : RestDataSource {
     private val client: HttpClient
         get() = getRestClient()
 
-    override suspend fun getPlatformInfo(): Result<PlatformInfoDTApiModel> =
+    override suspend fun getPlatformInfo(): Result<PlatformInfoDTApiModel> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -34,8 +35,9 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
-    override suspend fun getServerTime(): Result<Long> =
+    override suspend fun getServerTime(): Result<Long> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -47,8 +49,9 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
-    override suspend fun getPong(): Result<Int> =
+    override suspend fun getPong(): Result<Int> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -60,8 +63,9 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
-    override suspend fun getPriceByTicker(): Result<PriceByTickerApiModel> =
+    override suspend fun getPriceByTicker(): Result<PriceByTickerApiModel> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -73,8 +77,9 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
-    override suspend fun getPriceSimple(): Result<List<PriceSimpleDTApiModel>> =
+    override suspend fun getPriceSimple(): Result<List<PriceSimpleDTApiModel>> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -86,6 +91,7 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
     override suspend fun getPriceByCandle(
         symbol: String?,
@@ -93,7 +99,7 @@ class RestController constructor(
         startTime: Long?,
         endTime: Long?,
         limit: Int?
-    ): Result<List<List<String>>> =
+    ): Result<List<List<String>>> = withContext(ioDispatcher) {
         runCatching {
             client.use { сit -> // for single request use 'use' it automatically release the resources and calls close
                 сit.get { // get method
@@ -110,9 +116,9 @@ class RestController constructor(
                 }
             }.body()
         }
+    }
 
-
-    override suspend fun getAssets(): Result<List<AssetApiModel>> =
+    override suspend fun getAssets(): Result<List<AssetApiModel>> = withContext(ioDispatcher) {
         runCatching {
             client.use { // for single request use 'use' it automatically release the resources and calls close
                 it.get { // get method
@@ -124,7 +130,7 @@ class RestController constructor(
                 }
             }.body<List<AssetApiModel>>()
         }
-
+    }
 
     companion object {
         //const val BASE_URL: String = "https://www.binance.com/"

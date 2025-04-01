@@ -2,18 +2,16 @@ package com.msgkatz.ratesapp.data.network.websocket
 
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
-import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.*
 
 class WebSocketClient3rd constructor( // Use "out T" for covariance
     private val coroutineScope: CoroutineScope,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Default, // Changed to Dispatchers.Default
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default, // Changed to Dispatchers.Default
     private val debug: Boolean = false,
 ) {
 
@@ -38,7 +36,7 @@ class WebSocketClient3rd constructor( // Use "out T" for covariance
 
         val url = Url(path)
         curClient = getClient().also { client -> // Renamed to 'client' for clarity
-            curJob = coroutineScope.launch(coroutineDispatcher) {
+            curJob = coroutineScope.launch(ioDispatcher) {
                 while (true) {
                     try {
                         innerConnect(client, url)
