@@ -5,9 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
-import com.msgkatz.ratesapp.feature.quoteasset.quoteAssetNavScreen2
-import com.msgkatz.ratesapp.feature.splash.splashNavScreen
-import com.msgkatz.ratesapp.feature.splash.splashNavigationRoute
+import com.msgkatz.ratesapp.feature.quoteasset.quoteAssetNavScreen
 
 
 /**
@@ -20,26 +18,21 @@ import com.msgkatz.ratesapp.feature.splash.splashNavigationRoute
 @Composable
 fun CnrNavHost(
     appState: CnrAppState,
-    //onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     destinations: List<CnrTopLevelDestination>,
-    startDestination: String = splashNavigationRoute,
+    startDestination: String = "",
     interimVMKeeper: InterimVMKeeper,
     onPriceItemClick: (PriceSimple) -> Unit,
-    onContinue: () -> Unit = {},
 ) {
     val navController = appState.navController
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = destinations[0].route ?: startDestination,
         modifier = modifier,
     ) {
-        splashNavScreen(interimVMKeeper, onContinue)
-        //TODO clean
         destinations.forEach { it ->
-            quoteAssetNavScreen2(it.route, interimVMKeeper, onPriceItemClick, navController)
+            quoteAssetNavScreen(it.route, interimVMKeeper, onPriceItemClick, navController)
         }
-        //quoteAssetNavScreen(interimVMKeeper, onPriceItemClick, navController)
-        //quoteAssetNavScreen(interimVMKeeper, onPriceItemClick)
+
     }
 }
