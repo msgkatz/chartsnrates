@@ -1,4 +1,4 @@
-package com.msgkatz.ratesapp.chartdemo.ui
+package com.msgkatz.ratesapp.chartdemo.ui.chart1
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxHeight
