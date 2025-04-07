@@ -31,7 +31,7 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
                                                     //.limitedParallelism(1),
 ) : CurToolRealtimeBalancedPriceRepository {
-
+    private val defDispatcher: CoroutineDispatcher = Dispatchers.Default
     private val mutableSharedFlow = MutableSharedFlow<Candle>(replay = 0)
     private val sharedFlow: SharedFlow<Candle> = mutableSharedFlow
 
@@ -41,7 +41,7 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
         CoroutineExceptionHandler { coroutineContext, throwable ->
             println("CurToolRealtimeBalancedV2PriceRepositoryImpl err: ${throwable.message ?: throwable.toString()}")
         }
-    private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
+    private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + defDispatcher + exh)
 
     private val candlesInternalMutex = Mutex()
 
@@ -52,6 +52,7 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
         scope.coroutineContext.cancelChildren()
         candlesInternal.clear()
 
+        //FIXME: need of control flow and cancelling
         scope.launch {
             val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
             val name = "${symbol}_${interval}"
