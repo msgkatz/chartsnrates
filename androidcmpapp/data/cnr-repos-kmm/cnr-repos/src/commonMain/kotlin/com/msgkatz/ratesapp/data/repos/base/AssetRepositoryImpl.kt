@@ -16,6 +16,7 @@ class AssetRepositoryImpl(
     private val tools: ToolRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
 ): AssetRepository {
+    private val defDispatcher: CoroutineDispatcher = Dispatchers.Default
     private val mutex: Mutex = Mutex()
     private var data : Map<String, Asset>? = null
     private var isEmpty : Boolean = data == null
@@ -23,7 +24,7 @@ class AssetRepositoryImpl(
     val exh : CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         println("ToolRepositoryImpl err: ${throwable.message ?: throwable.toString()}")
     }
-    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
+    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + defDispatcher + exh)
 
     override fun getAssets(): Flow<Map<String, Tool>?> = tools.getToolMapAsFlow()
 

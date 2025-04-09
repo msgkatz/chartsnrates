@@ -1,11 +1,7 @@
-package com.msgkatz.ratesapp.chartdemo.ui
+package com.msgkatz.ratesapp.chartdemo.ui.chart1
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

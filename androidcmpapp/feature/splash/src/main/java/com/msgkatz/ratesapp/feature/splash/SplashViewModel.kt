@@ -22,7 +22,7 @@ class SplashViewModel @Inject constructor(
         loadAssets()
     }
 
-    private fun loadAssets() = viewModelScope.launch(Dispatchers.IO) {
+    private fun loadAssets() = viewModelScope.launch(Dispatchers.Default) {
         if (tmpDataKeeper.getPlatformInfo() != null) {
             _uiState.update { it.copy(loading = false, errorLoading = false, loaded = true) }
         } else {

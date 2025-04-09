@@ -35,6 +35,7 @@ import com.msgkatz.ratesapp.core.uikit.theme.GradientColors
 import com.msgkatz.ratesapp.core.uikit.theme.LocalGradientColors
 import com.msgkatz.ratesapp.core.uikit.theme.component.CnrBackground
 import com.msgkatz.ratesapp.core.uikit.theme.component.CnrGradientBackground
+import com.msgkatz.ratesapp.feature.splash.SplashRoute
 import com.msgkatz.ratesapp.presentation.ui.app.CnrNavigationBar
 import com.msgkatz.ratesapp.presentation.ui.app.CnrNavigationBarItem
 import com.msgkatz.ratesapp.presentation.ui.app.InterimVMKeeper
@@ -70,6 +71,7 @@ fun CnrAppContent(
     interimVMKeeper: InterimVMKeeper
 ) {
     val shouldShowGradientBackground = true
+    val topLevelDestination by appState.tabList.collectAsStateWithLifecycle()
 
     CnrBackground {
         CnrGradientBackground(
@@ -79,92 +81,90 @@ fun CnrAppContent(
                 GradientColors()
             },
         ) {
-            val topLevelDestination by appState.tabList.collectAsStateWithLifecycle()
             var showSplash by rememberSaveable { mutableStateOf(true) }
-            Scaffold(
-                modifier = modifier,
-//                modifier = Modifier.semantics {
-//                    testTagsAsResourceId = true
-//                },
-                containerColor = Color.Transparent,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                bottomBar = {
-                    if (appState.shouldShowNavBar && !showSplash) {
-                        CnrNavBar(
-                            destinations = topLevelDestination,
-                            onNavigateToDestination = appState::navigateToTopLevelDestination,
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-
-                            /** not in use **/
-                            currentDestination = appState.currentDestination,
-                            appState = appState,
-                            modifier = Modifier.testTag("NiaBottomBar"),
-                        )
-                    }
-                },
-            ) { padding ->
-                Row(
-                    Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .consumeWindowInsets(padding)
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(
-                                WindowInsetsSides.Horizontal,
-                            ),
-                        ),
-                ) {
-                    if (appState.shouldShowNavRail) {
-                    }
-
-                    Column(Modifier.fillMaxSize()) {
-                        /**
-                         * place for appbar
-                         *
-                         **/
-
-                        CnrNavHost(
-                            destinations = topLevelDestination,
-                            appState = appState,
-//                            onShowSnackbar = { message, action ->
-//                                snackbarHostState.showSnackbar(
-//                                    message = message,
-//                                    actionLabel = action,
-//                                    duration = SnackbarDuration.Short,
-//                                ) == SnackbarResult.ActionPerformed
-//                            }
-                            interimVMKeeper = interimVMKeeper,
-                            onPriceItemClick = onPriceItemClick,
-                            onContinue = {
-                                if (topLevelDestination.isNotEmpty())
-                                    appState.navigateToTopLevelDestination(topLevelDestination[0])
-                                showSplash = false
-                            },
-
-                        )
-                    }
-                }
-
+            if (showSplash || !appState.tabsReady) {
+                SplashRoute(
+                    interimVMKeeper = interimVMKeeper,
+                    onContinue = {
+                        showSplash = false
+                                 },
+                )
+            } else {
+                ScreenMain(
+                    modifier = modifier,
+                    appState = appState,
+                    onPriceItemClick = onPriceItemClick,
+                    interimVMKeeper = interimVMKeeper,
+                    topLevelDestination = topLevelDestination
+                )
             }
+
 
         }
     }
 
 }
 
+@Composable
+fun ScreenMain(
+    modifier: Modifier = Modifier,
+    appState: CnrAppState,
+    onPriceItemClick: (PriceSimple) -> Unit,
+    interimVMKeeper: InterimVMKeeper,
+    topLevelDestination: List<CnrTopLevelDestination>
+) {
+
+    Scaffold(
+        modifier = modifier,
+//                modifier = Modifier.semantics {
+//                    testTagsAsResourceId = true
+//                },
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.onBackground,
+        bottomBar = {
+            if (appState.shouldShowNavBar) {
+                CnrNavBar(
+                    destinations = topLevelDestination,
+                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    currentDestination = appState.currentDestination,
+                    appState = appState,
+                    modifier = Modifier.testTag("NiaBottomBar"),
+                )
+            }
+        },
+    ) { padding ->
+        Row(
+            Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .consumeWindowInsets(padding)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal,
+                    ),
+                ),
+        ) {
+            if (appState.shouldShowNavRail) {
+            }
+
+            Column(Modifier.fillMaxSize()) {
+                /**
+                 * place for appbar
+                 *
+                 **/
+
+                CnrNavHost(
+                    destinations = topLevelDestination,
+                    appState = appState,
+                    startDestination = appState.currentDestination?.route ?: "",
+                    interimVMKeeper = interimVMKeeper,
+                    onPriceItemClick = onPriceItemClick,
+                    )
+            }
+        }
+
+    }
+}
 
 @Composable
 fun CnrNavBar(

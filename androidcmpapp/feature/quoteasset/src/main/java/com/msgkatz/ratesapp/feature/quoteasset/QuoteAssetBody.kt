@@ -126,13 +126,14 @@ fun QuoteAssetBodyFlowed(
             is PriceListUIState.PriceList -> {}
             is PriceListUIState.PriceListFlow -> {
 
-                val priceListState = remember { mutableStateListOf<PriceSimple>() }
+                val priceListState = remember { mutableStateListOf<PriceSimpleUI>() }
                 LaunchedEffect(Unit) {
                     priceListUIState.data.flow
                         //.flowOn(Dispatchers.Main)
                         .collect { list ->
                             println("QuoteAssetBodyFlowed :: ::${list?.size ?: 0}")
-                            list.forEach { price ->
+                            list.forEach { _price ->
+                                val price = _price.toUI()
                                 val idx = priceListState.indexOfFirst { it.tool.name == price.tool.name }
                                 withContext(Dispatchers.Main) {
                                     if (idx != -1 && price.price != priceListState[idx].price) {
@@ -168,7 +169,7 @@ fun QuoteAssetBodyFlowed(
                         PriceListItemFlowed(
                             priceSimple = it,
                             imageUrl = it.tool.baseAsset.getLogoFullUrlM() ?: "",
-                            onItemClick = { onPriceItemClick(it) },
+                            onItemClick = { onPriceItemClick(it.toPriceSimple()) },
                             priceListUIState = priceListUIState,
                         )
 

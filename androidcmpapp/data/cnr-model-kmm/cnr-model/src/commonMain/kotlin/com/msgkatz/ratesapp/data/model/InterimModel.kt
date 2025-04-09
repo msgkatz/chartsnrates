@@ -302,12 +302,6 @@ data class PriceSimple(
 
     fun pair() = "${tool.baseAsset.nameShort}/${tool.quoteAsset.nameShort}"
 
-    /**
-     * equality affects mutableStateListOf<PriceSimple> inside compose
-     * so stateList values unable to update their price
-     *
-     * so equality using only toolName disabled
-
     override fun equals(other: Any?): Boolean {
         if (other == null) return false
         if (other !is PriceSimple) return false
@@ -319,8 +313,10 @@ data class PriceSimple(
         return tool.name.hashCode()
     }
 
-     */
+
 }
+
+
 
 data class Candle(
     val priceHigh: Double = 0.0,
