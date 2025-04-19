@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Charts-n-Rates</string>
+
+    <string name="ws_kline">%1$s\@kline_%2$s</string>
+    <string name="ws_mini_ticker">%1$s\@miniTicker</string>
+    <string name="ws_mini_ticker_all">!miniTicker\@arr</string>
+    <string name="ws_ticker">%1$s\@ticker</string>
+    <string name="ws_ticker_all">!ticker\@arr</string>
+
+    <string name="screen_splash">Reconnect</string>
+</resources>

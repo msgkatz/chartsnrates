@@ -179,6 +179,9 @@ dependencies {
 
     implementation "androidx.compose.ui:ui-viewbinding"
 
+    implementation(libs.decompose.decompose)
+    implementation(libs.decompose.extensionsCompose)
+
 
     //Old stuff
     //implementation "androidx.appcompat:appcompat:1.5.1" //$adxAppComp"

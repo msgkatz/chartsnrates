@@ -24,6 +24,9 @@ include ':androidcmpapp:core:uikit'
 include ':androidcmpapp:feature:common'
 include ':androidcmpapp:feature:splash'
 include ':androidcmpapp:feature:quoteasset'
+include ':androidcmpapp:feature:rootkmp'
+include ':androidcmpapp:feature:splashkmp'
+include ':androidcmpapp:feature:quoteassetkmp'
 include ':androidcmpapp:data:olddata'
 
 
