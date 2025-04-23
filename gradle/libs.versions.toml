@@ -40,6 +40,7 @@ guavaVersion = "27.0.1-android"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 
+compose-multiplatform = "1.7.1" #"1.8.0-beta02"
 decompose = "3.0.0"
 essenty = "2.1.0"
 
@@ -140,3 +141,4 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

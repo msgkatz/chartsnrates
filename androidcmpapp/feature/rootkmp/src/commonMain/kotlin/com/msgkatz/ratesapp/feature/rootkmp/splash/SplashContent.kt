@@ -21,8 +21,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.logo
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.screen_splash
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SplashContent(

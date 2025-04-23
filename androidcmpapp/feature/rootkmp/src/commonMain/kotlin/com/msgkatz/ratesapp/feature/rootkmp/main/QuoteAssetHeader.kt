@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.data.model.Asset
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.screen_one_markets
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.screen_one_your_stocks
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
 

@@ -13,6 +13,8 @@ interface RootIFace {
 
     val childStack: Value<ChildStack<*, Child>>
 
+    fun navigateToMain()
+
     sealed class Child {
         data class Splash(val component: SplashIFace) : Child()
         data class Main(val component: MainIFace) : Child()

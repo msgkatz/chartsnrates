@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 
-class QuoteAssetComponent internal constructor(
+class QuoteAssetComponent //internal
+constructor(
     componentContext: ComponentContext,
     private val quoteAssetArgs: QuoteAssetArgs,
     private val tmpDataKeeper: QuoteAssetDataKeeper,

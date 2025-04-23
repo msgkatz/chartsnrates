@@ -18,8 +18,11 @@ fun RootContent(component: RootIFace) {
         animation = stackAnimation(fade() + scale()),
     ) {
         when (val child = it.instance) {
-            is Child.Main -> MainContent(child.component)
-            is Child.Splash -> SplashContent(component = child.component)
+            is Child.Main -> MainContent(component = child.component)
+            is Child.Splash -> SplashContent(
+                component = child.component,
+                onContinue = { component.navigateToMain() }
+            )
         }
     }
 }

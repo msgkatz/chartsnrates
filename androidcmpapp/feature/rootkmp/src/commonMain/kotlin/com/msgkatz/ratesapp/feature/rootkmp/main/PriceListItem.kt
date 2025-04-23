@@ -24,6 +24,7 @@ import com.msgkatz.ratesapp.feature.rootkmp.main.CnrQuoteAssetDefaults.priceList
 import com.msgkatz.ratesapp.feature.rootkmp.main.CnrQuoteAssetDefaults.priceListItemColorRed
 import com.msgkatz.ratesapp.feature.rootkmp.main.icons.Triangle
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_bnb
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.abs
 

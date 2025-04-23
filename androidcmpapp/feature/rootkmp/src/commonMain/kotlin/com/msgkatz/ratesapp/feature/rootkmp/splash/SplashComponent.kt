@@ -10,7 +10,8 @@ import com.msgkatz.ratesapp.feature.rootkmp.decompose.coroutineScope
 
 //import com.msgkatz.ratesapp.feature.splashkmp.SplashIFace
 
-class SplashComponent internal constructor(
+class SplashComponent //internal
+constructor(
     componentContext: ComponentContext,
     private val tmpDataKeeper: SplashDataKeeper,
 ): SplashIFace, ComponentContext by componentContext {
@@ -38,7 +39,8 @@ class SplashComponent internal constructor(
     }
 
     fun interface Factory {
-        operator fun invoke(): SplashComponent
+        operator fun invoke(componentContext: ComponentContext,
+                            tmpDataKeeper: SplashDataKeeper): SplashComponent
     }
 }
 

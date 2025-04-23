@@ -14,8 +14,10 @@ plugins {
 //    alias(libs.plugins.kotlinx.serialization)
 //    id("convention.publication")
 
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-    id("org.jetbrains.compose") version "1.8.0-beta02"
+    //id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    id(libs.plugins.kotlin.compose.get().pluginId)
+    id("org.jetbrains.compose") version "1.7.1" //"1.8.0-beta02"
+    //id(libs.plugins.compose.multiplatform.get().pluginId)
     id(libs.plugins.kotlinMultiplatform.get().pluginId) //apply false
     id(libs.plugins.androidLibrary.get().pluginId) //apply false
     id(libs.plugins.kotlinx.serialization.get().pluginId)
@@ -90,6 +92,7 @@ kotlin {
             implementation(compose.material3)
             //implementation(compose.material.icons)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(libs.decompose.decompose)
             implementation(libs.decompose.extensionsCompose)
@@ -134,7 +137,7 @@ kotlin {
 
 android {
     namespace = "com.msgkatz.ratesapp.feature.rootkmp"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
@@ -145,7 +148,10 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+//        kotlinCompilerExtensionVersion = "1.2.0"
+//        configure {
+//            generated = File("$buildDir/generated/compose/commonMain")
+//        }
     }
 
 

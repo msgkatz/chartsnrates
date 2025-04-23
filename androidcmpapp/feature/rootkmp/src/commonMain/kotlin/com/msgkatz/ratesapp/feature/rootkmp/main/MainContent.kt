@@ -29,6 +29,10 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.msgkatz.ratesapp.data.model.PriceSimple
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_bnb
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_btc
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_eth
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_usdt
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -54,7 +58,7 @@ fun ScreenMain(
     onPriceItemClick: (PriceSimple) -> Unit,
     topLevelDestination: List<CnrTopLevelDestination>
 ) {
-    val isBottomBarVisible = false //windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+    val isBottomBarVisible = true //windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
     val isNavigationRailVisible = !isBottomBarVisible
     Scaffold(
         modifier = modifier,
@@ -113,10 +117,10 @@ fun Children(
         ),
     ) {
         when (val child = it.instance) {
-            is MainIFace.Child.QAUsdt -> QuoteAssetContent(child.component)
-            is MainIFace.Child.QABnb -> QuoteAssetContent(child.component)
-            is MainIFace.Child.QABtc -> QuoteAssetContent(child.component)
-            is MainIFace.Child.QAEth -> QuoteAssetContent(child.component)
+            is MainIFace.Child.QAUsdt -> QuoteAssetContent(component = child.component, onPriceItemClick = onPriceItemClick)
+            is MainIFace.Child.QABnb -> QuoteAssetContent(component = child.component, onPriceItemClick = onPriceItemClick)
+            is MainIFace.Child.QABtc -> QuoteAssetContent(component = child.component, onPriceItemClick = onPriceItemClick)
+            is MainIFace.Child.QAEth -> QuoteAssetContent(component = child.component, onPriceItemClick = onPriceItemClick)
         }
     }
 }
@@ -189,29 +193,29 @@ enum class CnrTopLevelDestination(
     QAUSDT(
         route = "USDT",
         selectedIcon = Res.drawable.cur_usdt,
-        selectedIconId = Res.drawable.cur_usdt,
-        unselectedIconId = Res.drawable.cur_usdt,
+        selectedIconId = Res.drawable.cur_usdt.hashCode(),
+        unselectedIconId = Res.drawable.cur_usdt.hashCode(),
         //iconTextId = R.string.qa_usdt
     ),
     QABNB(
         route = "BNB",
         selectedIcon = Res.drawable.cur_bnb,
-        selectedIconId = Res.drawable.cur_bnb,
-        unselectedIconId = Res.drawable.cur_bnb,
+        selectedIconId = Res.drawable.cur_bnb.hashCode(),
+        unselectedIconId = Res.drawable.cur_bnb.hashCode(),
         //iconTextId = R.string.qa_usdt
     ),
     QABTC(
         route = "BTC",
         selectedIcon = Res.drawable.cur_btc,
-        selectedIconId = Res.drawable.cur_btc,
-        unselectedIconId = Res.drawable.cur_btc,
+        selectedIconId = Res.drawable.cur_btc.hashCode(),
+        unselectedIconId = Res.drawable.cur_btc.hashCode(),
         //iconTextId = R.string.qa_usdt
     ),
     QAETH(
     route = "ETH",
     selectedIcon = Res.drawable.cur_eth,
-    selectedIconId = Res.drawable.cur_eth,
-    unselectedIconId = Res.drawable.cur_eth,
+    selectedIconId = Res.drawable.cur_eth.hashCode(),
+    unselectedIconId = Res.drawable.cur_eth.hashCode(),
     //iconTextId = R.string.qa_usdt
     )
 }

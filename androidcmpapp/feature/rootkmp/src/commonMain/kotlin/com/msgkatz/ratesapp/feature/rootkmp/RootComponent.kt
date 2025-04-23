@@ -6,13 +6,17 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
+import com.msgkatz.ratesapp.feature.rootkmp.main.MainComponent
 import com.msgkatz.ratesapp.feature.rootkmp.main.MainIFace
+import com.msgkatz.ratesapp.feature.rootkmp.splash.SplashComponent
+import com.msgkatz.ratesapp.feature.rootkmp.splash.SplashDataKeeper
 import com.msgkatz.ratesapp.feature.rootkmp.splash.SplashIFace
 //import com.msgkatz.ratesapp.feature.quoteassetkmp.MainIFace
 //import com.msgkatz.ratesapp.feature.splashkmp.SplashIFace
 import kotlinx.serialization.Serializable
 
-class RootComponent internal constructor(
+class RootComponent //internal
+constructor(
     componentContext: ComponentContext,
     private val splash: (ComponentContext) -> SplashIFace,
     private val main: (ComponentContext) -> MainIFace
@@ -32,7 +36,7 @@ class RootComponent internal constructor(
     override val childStack: Value<ChildStack<*, RootIFace.Child>>
         get() = stack
 
-    fun navigateToMain() {
+    override fun navigateToMain() {
         navigation.replaceAll(Configuration.Main)
     }
 
@@ -41,6 +45,13 @@ class RootComponent internal constructor(
             is Configuration.Main -> RootIFace.Child.Main(main(componentContext))
             is Configuration.Splash -> RootIFace.Child.Splash(splash(componentContext))
         }
+
+    fun interface Factory {
+        operator fun invoke(componentContext: ComponentContext,
+                            splash: (ComponentContext) -> SplashIFace,
+                            main: (ComponentContext) -> MainIFace
+        ): RootComponent// = RootComponent(componentContext, splash, main)
+    }
 
     @Serializable
     private sealed class Configuration {

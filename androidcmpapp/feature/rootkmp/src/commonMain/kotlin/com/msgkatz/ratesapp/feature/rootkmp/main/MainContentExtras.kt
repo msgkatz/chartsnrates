@@ -11,7 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_bnb
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_btc
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_eth
+import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_usdt
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Charts-n-Rates navigation bar item with icon and label content slots. Wraps Material 3

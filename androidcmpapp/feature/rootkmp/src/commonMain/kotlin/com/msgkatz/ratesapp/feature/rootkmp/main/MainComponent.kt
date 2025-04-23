@@ -11,7 +11,8 @@ import kotlinx.serialization.Serializable
 
 //import com.msgkatz.ratesapp.feature.quoteassetkmp.MainIFace
 
-class MainComponent internal constructor(
+class MainComponent //internal
+constructor(
     componentContext: ComponentContext,
     private val quoteAsset: (ComponentContext, String) -> QuoteAssetIFace
 ): MainIFace, ComponentContext by componentContext  {
@@ -52,10 +53,10 @@ class MainComponent internal constructor(
 
     private fun createChild(configuration: Configuration, componentContext: ComponentContext): MainIFace.Child =
         when (configuration) {
-            is Configuration.QAUSDT -> MainIFace.Child.QAUsdt(quoteAsset(componentContext, "usdt"))
-            is Configuration.QABNB -> MainIFace.Child.QAUsdt(quoteAsset(componentContext, "bnb"))
-            is Configuration.QABTC -> MainIFace.Child.QABtc(quoteAsset(componentContext, "btc"))
-            is Configuration.QAETH -> MainIFace.Child.QABtc(quoteAsset(componentContext, "eth"))
+            is Configuration.QAUSDT -> MainIFace.Child.QAUsdt(quoteAsset(componentContext, "USDT"))
+            is Configuration.QABNB -> MainIFace.Child.QAUsdt(quoteAsset(componentContext, "BNB"))
+            is Configuration.QABTC -> MainIFace.Child.QABtc(quoteAsset(componentContext, "BTC"))
+            is Configuration.QAETH -> MainIFace.Child.QABtc(quoteAsset(componentContext, "ETH"))
         }
 
     @Serializable
