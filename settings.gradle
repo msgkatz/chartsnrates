@@ -32,3 +32,6 @@ include ':androidcmpapp:data:olddata'
 
 include ':androidcmpapp:feature:chartgdx'
 include ':androidcmpapp:chartdemo'
+
+include ':androidcmpapp:kmpappfull:android'
+project(':androidcmpapp:kmpappfull:android').projectDir = new File('androidcmpapp/kmpappfull/android')
