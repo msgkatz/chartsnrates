@@ -12,7 +12,9 @@ plugins {
 //    alias(libs.plugins.kotlinx.serialization)
 //    id("convention.publication")
 
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    //id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    id(libs.plugins.kotlin.compose.get().pluginId)
+    id("org.jetbrains.compose") version "1.7.1"
     id(libs.plugins.kotlinMultiplatform.get().pluginId) //apply false
     id(libs.plugins.androidLibrary.get().pluginId) //apply false
     id(libs.plugins.kotlinx.serialization.get().pluginId)
@@ -96,6 +98,7 @@ kotlin {
         }
 
         jvmMain.dependencies {
+            implementation(compose.runtime)
             implementation(libs.kotlinx.coroutines.swing)
         }
 

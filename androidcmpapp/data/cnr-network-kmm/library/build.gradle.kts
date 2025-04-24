@@ -63,9 +63,9 @@ kotlin {
             }
         }
 
-//        desktopMain.dependencies {
-//            implementation(libs.ktor.client.java)
-//        }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.java)
+        }
 
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)

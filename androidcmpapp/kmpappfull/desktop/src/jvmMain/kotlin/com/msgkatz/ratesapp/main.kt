@@ -1,11 +1,16 @@
 package com.msgkatz.ratesapp
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.compose.runtime.remember
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.defaultComponentContext
-import com.msgkatz.ratesapp.core.uikit.theme.CnrThemeAlter
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.badoo.reaktive.coroutinesinterop.asScheduler
+import com.badoo.reaktive.scheduler.overrideSchedulers
+import com.msgkatz.ratesapp.core.uikitkmp.theme.CnrThemeAlter
 import com.msgkatz.ratesapp.feature.rootkmp.RootComponent
 import com.msgkatz.ratesapp.feature.rootkmp.main.MainComponent
 import com.msgkatz.ratesapp.feature.rootkmp.main.QuoteAssetArgs
@@ -16,18 +21,21 @@ import com.msgkatz.ratesapp.feature.rootkmp.splash.SplashDataKeeper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+/**
+ * to run app use ./gradlew :androidcmpapp:kmpappfull:desktop:run
+ */
+fun main() {
+    overrideSchedulers(main = Dispatchers.Main::asScheduler)
+    val lifecycle = LifecycleRegistry()
 
+    application {
         val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
         val keeper = TmpDataKeeper(coroutineScope = null, //coroutineScope,
             ioDispatcher = ioDispatcher
         )
         val splash = { childContext: ComponentContext -> SplashComponent(childContext,
-                keeper as SplashDataKeeper)
+            keeper as SplashDataKeeper)
         }
-
 
         val qacmp = { childContext: ComponentContext, string: String ->
             QuoteAssetComponent(
@@ -44,11 +52,16 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        val root = RootComponent(defaultComponentContext(), splash, main)
+        val root = remember { RootComponent(DefaultComponentContext(lifecycle = lifecycle), splash, main) }
 
+        val windowState = rememberWindowState()
+        LifecycleController(lifecycle, windowState)
 
-
-        setContent {
+        Window(
+            onCloseRequest = ::exitApplication,
+            state = windowState,
+            title = "Charts-n-Rates"
+        ) {
             CnrThemeAlter(
                 darkTheme = true,
                 androidTheme = false,
@@ -59,9 +72,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun AppAndroidPreview() {
-//    App()
-//}

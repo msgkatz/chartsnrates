@@ -44,6 +44,8 @@ compose-multiplatform = "1.7.1" #"1.8.0-beta02"
 decompose = "3.0.0"
 essenty = "2.1.0"
 
+jb-androidx-lifecycle = "2.8.4"
+badoo-reaktive = "2.2.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -122,6 +124,9 @@ rxrelay2-rxrelay = { group = "com.jakewharton.rxrelay2", name = "rxrelay", versi
 
 guava = { group = "com.google.guava", name = "guava", version.ref = "guavaVersion" }
 
+jb-androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "jb-androidx-lifecycle" }
+jb-androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "jb-androidx-lifecycle" }
+
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -131,6 +136,11 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensionsCompose = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
+
+# Badoo libraries
+badoo-reaktive = { module = "com.badoo.reaktive:reaktive", version.ref = "badoo-reaktive" }
+badoo-reaktive-coroutines-interop = { module = "com.badoo.reaktive:coroutines-interop", version.ref = "badoo-reaktive" }
+badoo-reaktive-testing = { module = "com.badoo.reaktive:reaktive-testing", version.ref = "badoo-reaktive" }
 
 
 
