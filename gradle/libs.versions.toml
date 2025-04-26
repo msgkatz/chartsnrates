@@ -1,10 +1,10 @@
 [versions]
 agp = "8.2.2" #"8.5.0"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 nexus-publish = "2.0.0"
 android-minSdk = "21"
 android-compileSdk = "34"
-ktor-client = "2.3.6" #latest version of Ktor
+ktor-client = "3.0.0-rc-1" #"2.3.6" #latest version of Ktor
 compose-plugin = "1.6.11"
 
 androidxComposeBom = "2024.03.00"  #"2023.10.01"
@@ -65,6 +65,8 @@ ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor-client
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-js = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-wasm-js = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-wasm-js", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 

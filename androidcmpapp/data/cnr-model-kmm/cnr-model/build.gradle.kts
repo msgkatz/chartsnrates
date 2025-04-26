@@ -41,10 +41,10 @@ kotlin {
         binaries.executable()
     }
 
-//    wasmJs {
-//        browser()
-//        binaries.executable()
-//    }
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
 
 //    @OptIn(ExperimentalWasmDsl::class)
 //    wasmJs {
@@ -100,6 +100,16 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.runtime)
             implementation(libs.kotlinx.coroutines.swing)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(compose.runtime)
+            implementation(libs.kotlinx.coroutines.wasm.js)
+        }
+
+        jsMain.dependencies {
+            implementation(compose.runtime)
+            implementation(libs.kotlinx.coroutines.js)
         }
 
     }

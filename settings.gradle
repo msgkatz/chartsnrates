@@ -39,3 +39,6 @@ project(':androidcmpapp:kmpappfull:android').projectDir = new File('androidcmpap
 
 include ':androidcmpapp:kmpappfull:desktop'
 project(':androidcmpapp:kmpappfull:desktop').projectDir = new File('androidcmpapp/kmpappfull/desktop')
+
+include ':androidcmpapp:kmpappfull:web'
+project(':androidcmpapp:kmpappfull:web').projectDir = new File('androidcmpapp/kmpappfull/web')

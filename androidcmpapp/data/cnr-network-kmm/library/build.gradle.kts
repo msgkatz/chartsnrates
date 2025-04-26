@@ -22,11 +22,11 @@ kotlin {
         }
         binaries.executable()
     }
-//
-//    wasmJs {
-//        browser()
-//        binaries.executable()
-//    }
+
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
 
     androidTarget {
         publishLibraryVariants("debug", "release")
@@ -65,6 +65,10 @@ kotlin {
 
         jvmMain.dependencies {
             implementation(libs.ktor.client.java)
+        }
+
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
         }
 
         wasmJsMain.dependencies {
