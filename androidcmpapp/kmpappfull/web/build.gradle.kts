@@ -3,14 +3,10 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-//    alias(libs.plugins.kotlinMultiplatform)
-//    alias(libs.plugins.composeMultiplatform)
-//    alias(libs.plugins.composeCompiler)
-
     id(libs.plugins.kotlinMultiplatform.get().pluginId) //apply false
     id(libs.plugins.kotlin.compose.get().pluginId)
     id("org.jetbrains.compose") version "1.7.1" //"1.8.0-beta02"
-    //id(libs.plugins.kotlinx.serialization.get().pluginId)
+    id(libs.plugins.kotlinx.serialization.get().pluginId)
 }
 
 kotlin {
@@ -51,18 +47,6 @@ kotlin {
 //    }
     
     sourceSets {
-
-//        val jsMain by getting {
-//            dependencies {
-//                configurations.all {
-//                    //exclude(group = "androidx.collection")
-//                    resolutionStrategy {
-//                        force("androidx.collection:collection:1.4.3")
-//                    }
-//
-//                }
-//            }
-//        }
         
         commonMain.dependencies {
             implementation(compose.runtime)

@@ -1,7 +1,5 @@
 package com.msgkatz.ratesapp.data.repos.base
 
-import androidx.collection.MutableOrderedScatterSet
-import androidx.collection.mutableOrderedScatterSetOf
 import com.msgkatz.ratesapp.data.model.Candle
 import com.msgkatz.ratesapp.data.model.Interval
 import com.msgkatz.ratesapp.data.model.normalizeInSeconds
@@ -138,7 +136,6 @@ class CurToolRealtimeBalancedV2PriceRepositoryImpl(
     ): List<Candle> = coroutineScope {
         val _interval: Interval = intervalListRepository.getIntervalByName(interval) ?: throw Exception("No interval")
         val ret = mutableListOf<Candle>()
-        val set: MutableOrderedScatterSet<Candle> = mutableOrderedScatterSetOf<Candle>()
 
         val name = "${symbol}_${_interval.symbol}"
         candlesInternalMutex.withLock {
