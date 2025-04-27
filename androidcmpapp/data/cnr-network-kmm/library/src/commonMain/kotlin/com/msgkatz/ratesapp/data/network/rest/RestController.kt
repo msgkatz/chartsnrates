@@ -30,7 +30,8 @@ class RestController constructor(
                     url {
                         protocol = URLProtocol.HTTPS
                         host = BASE_URL
-                        path("$BASE_PATH_REST/v1/exchangeInfo")
+                        //path("$BASE_PATH_REST/v1/exchangeInfo")
+                        path("$BASE_PATH_REST/v3/exchangeInfo")
                     }
                 }
             }.body()
