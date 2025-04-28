@@ -82,13 +82,13 @@ fun QuoteAssetBodyFlowed(
 
                 LazyColumn(
                     modifier = Modifier
-                        .padding(horizontal = 24.dp)
+                        //.padding(horizontal = 24.dp)
                     //.testTag("quoteasset:body")
                     ,
                     contentPadding = PaddingValues(
                         top = headerHeight, //140.dp,
-                        start = 16.dp,
-                        end = 16.dp
+                        start = 0.dp,
+                        end = 0.dp
                     ),
                     state = scrollableState,
                 ) {

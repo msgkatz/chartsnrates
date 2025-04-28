@@ -22,9 +22,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.msgkatz.ratesapp.feature.rootkmp.main.CnrQuoteAssetDefaults.priceListItemColorGreen
 import com.msgkatz.ratesapp.feature.rootkmp.main.CnrQuoteAssetDefaults.priceListItemColorRed
+import com.msgkatz.ratesapp.feature.rootkmp.main.PriceListUIState.PriceListFlow
 import com.msgkatz.ratesapp.feature.rootkmp.main.icons.Triangle
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.Res
 import com.msgkatz.ratesapp.feature.rootkmp.rootkmp.generated.resources.cur_bnb
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.abs
 
@@ -37,7 +39,7 @@ fun PriceListItemFlowed(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
     priceListUIState: PriceListUIState,
-    //iconPlaceholder: Placeholder,
+    //iconPlaceholder: DrawableResource,
     description: String = "",
 ) {
     val isLocalInspection = LocalInspectionMode.current
@@ -93,7 +95,7 @@ fun PriceListItemFlowed(
                                 //.background(MaterialTheme.colorScheme.surface)
                                 .rotate(if (finalToUp) 270f else 90f)
                                 .padding(horizontal = 3.dp)
-                                .size(6.dp),
+                                .size(12.dp),
                             imageVector = Triangle,
                             //painter = painterResource(resource = Res.drawable.ic_triangle_right),
                             contentDescription = null,
@@ -129,7 +131,7 @@ private fun getPriceDelta(prevPrice: Double?, curPrice: Double) : String {
     if (isLocalInspection) return "0.20%"
     if (prevPrice == null) return ""
     val delta = 100 * abs(curPrice - prevPrice) / prevPrice
-    return formatPrice(delta)
+    return "${formatPrice(delta, 2)}%"
 }
 
 //@OptIn(ExperimentalGlideComposeApi::class)
@@ -145,10 +147,11 @@ private fun PriceListItemIcon(
     ) {
         Icon(
             modifier = modifier
-                .background(MaterialTheme.colorScheme.surface)
+                .background(Color.Transparent)
+                //.background(MaterialTheme.colorScheme.surface)
                 .padding(4.dp),
             //imageVector =  NiaIcons.Person,
-            painter = painterResource(resource = Res.drawable.cur_bnb),
+            painter = painterResource(resource = (priceListUIState as PriceListFlow).data.placeHolder),
             contentDescription = null, // decorative image
         )
     } else {

@@ -43,7 +43,7 @@ data class PriceSimpleUI(
 
 fun PriceSimpleUI.priceFormatted(): String = formatPrice(this.price)
 
-fun formatPrice(price: Double): String {
+fun formatPrice(price: Double, fraclen: Int = -1): String {
     // 1. Handle non-finite numbers
     if (price.isNaN()) {
         return "NaN"
@@ -85,7 +85,10 @@ fun formatPrice(price: Double): String {
     val fractionalPartFormatted = if (paddingNeeded > 0) {
         fractionalPartRaw + "0".repeat(paddingNeeded)
     } else {
-        fractionalPartRaw // Already has 2 or more digits
+        if (fraclen == -1)
+            fractionalPartRaw // Already has 2 or more digits
+        else
+            fractionalPartRaw.substring(0, fraclen)
     }
 
     // 6. Reconstruct the final string

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.DrawableResource
 
 class QuoteAssetComponent //internal
 constructor(
@@ -43,6 +44,7 @@ constructor(
 
     private var quoteAsset: Asset? = null
     private val quoteAssetName: String? = quoteAssetArgs.quoteAssetName
+    private val destination = CnrTopLevelDestination.getByName(quoteAssetName ?: "")
 
     init {
         lifecycle.subscribe(object : Lifecycle.Callbacks {
@@ -98,7 +100,7 @@ constructor(
             _priceListUiState.update {
                 PriceListUIState.PriceList(
                     priceList = list,
-                    placeHolder = quoteAssetName ?: ""
+                    placeHolder = destination.selectedIcon
                     //placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName))
                 )
             }
@@ -123,7 +125,7 @@ constructor(
             }
         }.flowOn(Dispatchers.Default)
         //val data = PriceListData(flow = flow, placeHolder = placeholder(tabInfoStorer.getSmallDrawableByQuoteAssetName(quoteAssetName)))
-        val data = PriceListData(flow = flow, placeHolder = quoteAssetName ?: "")
+        val data = PriceListData(flow = flow, placeHolder = destination.selectedIcon)
         val state = PriceListUIState.PriceListFlow(data = data)
         _priceListUiState.value = state
     }
@@ -154,7 +156,7 @@ sealed interface PriceListUIState {
     data object Empty : PriceListUIState
     data class PriceList
     //@OptIn(ExperimentalGlideComposeApi::class)
-    constructor(val priceList: List<PriceSimple>, val placeHolder: String) :
+    constructor(val priceList: List<PriceSimple>, val placeHolder: DrawableResource) :
         PriceListUIState
 
     data class PriceListFlow constructor(val data: PriceListData): PriceListUIState
@@ -163,4 +165,4 @@ sealed interface PriceListUIState {
 
 //@OptIn(ExperimentalGlideComposeApi::class)
 @Immutable
-data class PriceListData(val flow: Flow<List<PriceSimple>>, val placeHolder: String)
+data class PriceListData(val flow: Flow<List<PriceSimple>>, val placeHolder: DrawableResource)

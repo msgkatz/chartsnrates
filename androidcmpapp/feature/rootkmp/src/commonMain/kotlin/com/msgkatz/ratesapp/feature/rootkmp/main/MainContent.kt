@@ -217,5 +217,17 @@ enum class CnrTopLevelDestination(
     selectedIconId = Res.drawable.cur_eth.hashCode(),
     unselectedIconId = Res.drawable.cur_eth.hashCode(),
     //iconTextId = R.string.qa_usdt
-    )
+    );
+
+    companion object{
+        fun getByName(name: String): CnrTopLevelDestination {
+            return when {
+                name.equals(QAUSDT.route) -> QAUSDT
+                name.equals(QABNB.route) -> QABNB
+                name.equals(QABTC.route) -> QABTC
+                name.equals(QAETH.route) -> QAETH
+                else -> QAUSDT
+            }
+        }
+    }
 }
