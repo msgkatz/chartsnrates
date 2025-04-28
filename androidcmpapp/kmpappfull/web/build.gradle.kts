@@ -74,6 +74,20 @@ kotlin {
             implementation(libs.badoo.reaktive)
             implementation(libs.badoo.reaktive.coroutines.interop)
             implementation(libs.kotlinx.serialization.json)
+
+            // Ktor Client
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+        }
+
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js)
+            //implementation(libs.ktor.client.wasm)
         }
     }
 }
