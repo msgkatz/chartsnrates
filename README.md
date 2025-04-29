@@ -1,4 +1,4 @@
-# :construction: Charts-n-Rates 2.0 :construction: Work in progress :construction:
+# :construction: Charts-n-Rates for Android 2.1a :construction: Work in progress :construction:
 
 ### Module: androidcmpapp
 New version of same app made using jetpack compose, kmm, ktor and few other libs<br/>
@@ -9,6 +9,16 @@ Chart screen still uses previous stack (gdxlib for chart data and rxjava-based d
 *Still row codebase and partially tested*
 
 **[Install last version 2.0.1 on Google Play](https://play.google.com/store/apps/details?id=com.msgkatz.ratesapp)**
+
+# :construction: Charts-n-Rates KMM 2.1b :construction: Work in progress :construction:
+
+### Modules: androidcmpapp:kmpappfull here's [link to decompose branch](https://github.com/msgkatz/chartsnrates/tree/decompose/androidcmpapp/kmpappfull)
+New version of same app made using jetpack compose, decompose, kmm, ktor and few other libs<br/>
+interim app update:<br/>
+Splash and QuoteAsset screens rewritten using Jetpack Compose and Decompose (data modules rewritten using kmm and ktor)<br/>
+No chart screen - feel free to take part in development of it<br/>
+
+**[You can find deployed web version here](https://msgkatz.github.io/chartsnrates/)**
 
 # Charts-n-Rates 1.0 
 
