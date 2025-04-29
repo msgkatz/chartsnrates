@@ -53,7 +53,7 @@ class DataRepository {
     suspend fun loadPlatformInfo(): Result<PlatformInfoDTApiModel> {
         return runCatching {
             // Use the path relative to your web server's root
-            val urlPath = "/platform_info.json" // Adjust if your file is in a subdirectory within resources
+            val urlPath = "platform_info.json" // Adjust if your file is in a subdirectory within resources
 
             httpClient.get(urlPath).body<PlatformInfoDTApiModel>()
         }
@@ -62,7 +62,7 @@ class DataRepository {
     suspend fun loadPriceSimple(): Result<List<PriceSimpleDTApiModel>> {
         return runCatching {
             // Use the path relative to your web server's root
-            val urlPath = "/price_simple.json" // Adjust if your file is in a subdirectory within resources
+            val urlPath = "price_simple.json" // Adjust if your file is in a subdirectory within resources
 
             httpClient.get(urlPath).body<List<PriceSimpleDTApiModel>>()
         }

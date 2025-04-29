@@ -27,9 +27,10 @@ import org.w3c.dom.set
 
 /**
  * to run app use
- * js     ./gradlew :androidcmpapp:kmpappfull:web:jsBrowserDevelopmentRun
- * ./gradlew :androidcmpapp:kmpappfull:web:jsBrowserRun
- * wasm   ./gradlew :androidcmpapp:kmpappfull:web:wasmJsBrowserDevelopmentRun
+ *             js: ./gradlew :androidcmpapp:kmpappfull:web:jsBrowserDevelopmentRun
+ *                 ./gradlew :androidcmpapp:kmpappfull:web:jsBrowserRun
+ *           wasm: ./gradlew :androidcmpapp:kmpappfull:web:wasmJsBrowserDevelopmentRun
+ * to deploy wasm: ./gradlew :androidcmpapp:kmpappfull:web:wasmJsBrowserDistribution
  */
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -107,44 +108,3 @@ private fun LifecycleRegistry.attachToDocument() {
 @JsFun("(document) => document.visibilityState")
 private external fun visibilityState(document: Document): String
 
-//@OptIn(ExperimentalComposeUiApi::class)
-//fun mainOld() {
-//    val lifecycle = LifecycleRegistry()
-//
-//    val ioDispatcher: CoroutineDispatcher = Dispatchers.Default //.IO
-//    val keeper = TmpDataKeeper(coroutineScope = null, //coroutineScope,
-//        ioDispatcher = ioDispatcher
-//    )
-//    val splash = { childContext: ComponentContext -> SplashComponent(childContext,
-//        keeper as SplashDataKeeper)
-//    }
-//
-//    val qacmp = { childContext: ComponentContext, string: String ->
-//        QuoteAssetComponent(
-//            componentContext = childContext,
-//            quoteAssetArgs = QuoteAssetArgs(string),
-//            keeper as QuoteAssetDataKeeper
-//        )
-//    }
-//
-//    val main = { childContext: ComponentContext ->
-//        MainComponent(
-//            componentContext = childContext,
-//            qacmp
-//        )
-//    }
-//
-//    val root = RootComponent(DefaultComponentContext(lifecycle = lifecycle), splash, main)
-//
-//    lifecycle.resume()
-//
-//    ComposeViewport(document.body!!) {
-//        CnrThemeAlter(
-//            darkTheme = true,
-//            androidTheme = false,
-//            disableDynamicTheming = true
-//        ) {
-//            CnrApp(root)
-//        }
-//    }
-//}
