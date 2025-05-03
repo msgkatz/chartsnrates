@@ -31,6 +31,7 @@ import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepository
 import com.msgkatz.ratesapp.data.repos.composite.CurrentToolPriceRepositoryImpl
 import com.msgkatz.ratesapp.feature.rootkmp.main.QuoteAssetDataKeeper
 import com.msgkatz.ratesapp.feature.rootkmp.splash.SplashDataKeeper
+import com.msgkatz.ratesapp.webtest.LocalRestController
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +51,9 @@ class TmpDataKeeper(
      * data sources
      * ******/
     val localJsonDataSource: LocalJsonDataSource = LocalJsonDataSourceImpl()
-    val restDataSource: RestDataSource = RestController(
+    val restDataSource: RestDataSource =
+        //LocalRestController(
+        RestController(
         coroutineScope = coroutineScope ?: scope,
         ioDispatcher = ioDispatcher
     )

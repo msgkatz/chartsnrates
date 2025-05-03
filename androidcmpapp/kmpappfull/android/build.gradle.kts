@@ -44,6 +44,8 @@ kotlin {
             implementation(libs.decompose.decompose)
             implementation(libs.decompose.extensionsCompose)
             implementation(libs.essenty.lifecycle)
+
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,6 +56,11 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
 //            implementation(libs.androidx.lifecycle.viewmodel)
 //            implementation(libs.androidx.lifecycle.runtime.ktx)
+
+            // Ktor Client
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
     }
 }
