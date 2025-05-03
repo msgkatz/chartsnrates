@@ -25,9 +25,10 @@ class ToolListRealtimesPriceRepositoryImpl(
             .map { list ->
                 val newmap: MutableMap<String, Set<PriceSimple>> = mutableMapOf()
                 val multimap = toolListPriceRepository.getMultiMap()
-                list.map {
-                    val tool = toolRepository.getToolMap()?.get(it.symbol)
-                    PriceSimple(tool!!, it.close)
+                list.mapNotNull {
+                    toolRepository.getToolMap()?.get(it.symbol)?.let { tool ->
+                        PriceSimple(tool, it.close)
+                    }
                 }.groupBy {
                     it.tool.quoteAsset.nameShort
                 }.map {
