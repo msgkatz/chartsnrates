@@ -1,5 +1,6 @@
 package com.msgkatz.ratesapp.data.network.websocket
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 
 /**
@@ -12,20 +13,20 @@ interface WebSocketDataSource {
      */
     /** <symbol>@kline_<interval> </interval></symbol> */
     //fun getKlineStream(symbol: String, interval: String): Flow<String>
-    fun getKlineStream(symbol: String, interval: String): SharedFlow<StreamKlineEventWSModel>
+    fun getKlineStream(symbol: String, interval: String): Flow<StreamKlineEventWSModel>
 
     /** <symbol>@miniTicker </symbol> */
-    fun getMiniTickerStream(symbol: String): SharedFlow<String>
+    fun getMiniTickerStream(symbol: String): Flow<String>
 
     /** !miniTicker@arr  */
     //fun getMiniTickerStreamAll(): Flow<String>
-    fun getMiniTickerStreamAll(): SharedFlow<List<StreamMarketTickerMiniWSModel>>
+    fun getMiniTickerStreamAll(): Flow<List<StreamMarketTickerMiniWSModel>>
 
     /** <symbol>@ticker </symbol> */
-    fun getTickerStream(symbol: String): SharedFlow<String>
+    fun getTickerStream(symbol: String): Flow<String>
 
     /** !ticker@arr  */
-    fun getTickerStreamAll(): SharedFlow<String>
+    fun getTickerStreamAll(): Flow<String>
 
 
     /*******
@@ -33,7 +34,7 @@ interface WebSocketDataSource {
      */
     /** <symbol>@kline_<interval>/<symbol>@miniTicker </symbol></interval></symbol> */
     //fun getKlineAndMiniTickerComboStream(symbol: String, interval: String): Flow<String>
-    fun getKlineAndMiniTickerComboStream(symbol: String, interval: String): SharedFlow<StreamComboBaseWSModel>
+    fun getKlineAndMiniTickerComboStream(symbol: String, interval: String): Flow<StreamComboBaseWSModel>
 
-    fun getKlineAndMiniTickerComboStreamString(symbol: String, interval: String): SharedFlow<String>
+    fun getKlineAndMiniTickerComboStreamString(symbol: String, interval: String): Flow<String>
 }

@@ -154,6 +154,7 @@ private fun getPriceDelta(prevPrice: Double?, curPrice: Double) : String {
 }
 
 fun PriceSimple.priceFormatted(): String = NumFormatUtil.getFormattedPrice(this.price)
+fun PriceSimpleUI.priceFormatted(): String = NumFormatUtil.getFormattedPrice(this.price)
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -270,7 +271,7 @@ sealed class PriceDiff {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PriceListItemFlowed(
-    priceSimple: PriceSimple,
+    priceSimple: PriceSimpleUI,
     imageUrl: String,
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,

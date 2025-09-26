@@ -29,6 +29,7 @@ class ToolRepositoryImpl(
     private val networkds: RestDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ToolRepository {
+    private val defDispatcher: CoroutineDispatcher = Dispatchers.Default
     private val mutex: Mutex = Mutex()
     private var data : PlatformInfo? = null
     private var toolMap: MutableMap<String, Tool> = HashMap()
@@ -42,7 +43,7 @@ class ToolRepositoryImpl(
         println("ToolRepositoryImpl err: ${throwable.message ?: throwable.toString()}")
     }
 
-    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
+    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + defDispatcher + exh)
 
     override suspend fun getPlatformInfo(): PlatformInfo? = coroutineScope {
         if (isEmpty()) {
@@ -57,7 +58,7 @@ class ToolRepositoryImpl(
     }
     override fun getPlatformInfoAsFlow() : Flow<PlatformInfo?> = flow {
         emit(getPlatformInfo())
-    }.flowOn(ioDispatcher)
+    }.flowOn(defDispatcher)
 
     override suspend fun getToolMap() : Map<String, Tool>? = coroutineScope {
         if (isEmpty()) {
@@ -72,7 +73,7 @@ class ToolRepositoryImpl(
     }
     override fun getToolMapAsFlow() : Flow<Map<String, Tool>?> = flow {
         emit(getToolMap())
-    }.flowOn(ioDispatcher)
+    }.flowOn(defDispatcher)
 
     override suspend fun getQuoteAssetMap() : Map<String, Asset>? = coroutineScope {
         if (isEmpty()) {
@@ -87,7 +88,7 @@ class ToolRepositoryImpl(
     }
     override fun getQuoteAssetMapAsFlow() : Flow<Map<String, Asset>?> = flow {
         emit(getQuoteAssetMap())
-    }.flowOn(ioDispatcher)
+    }.flowOn(defDispatcher)
 
     override suspend fun getQuoteAssetSet() : Set<Asset>? = coroutineScope {
         if (isEmpty()) {
@@ -102,31 +103,35 @@ class ToolRepositoryImpl(
     }
     override fun getQuoteAssetSetAsFlow() : Flow<Set<Asset>?> = flow {
         emit(getQuoteAssetSet())
-    }.flowOn(ioDispatcher)
+    }.flowOn(defDispatcher)
 
-    private suspend fun update(): Boolean = scope.async {
-        mutex.withLock {
-            var retVal = false
-            try {
-                //displayChildren(0, this.coroutineContext.job)
-                val pi = networkds.getPlatformInfo()
-                if (pi.isFailure) throw Exception("getPlatformInfo failure")
-                val curdata = pi.getOrNull()?.toDomain()
-                curdata?.let {
-                    it.toolList
+    private suspend fun update(): Boolean =
+        coroutineScope {
+        //scope.async {
+            mutex.withLock {
+                var retVal = false
+                try {
+                    //displayChildren(0, this.coroutineContext.job)
+                    val pi = networkds.getPlatformInfo()
+
+                    if (pi.isFailure) throw Exception("getPlatformInfo failure")
+                    val curdata = pi.getOrNull()?.toDomain()
+                    curdata?.let {
+                        it.toolList
+                    }
+
+                    pi.getOrNull()?.toEntity(toolMap, quoteAssetSet, quoteAssetMap)?.let {
+                        data = it
+                        retVal = it != null
+                    }
+
+                } catch (e: Exception) {
+                    println("ToolRepositoryImpl err: ${e.message ?: e.toString()}")
                 }
-
-                pi.getOrNull()?.toEntity(toolMap, quoteAssetSet, quoteAssetMap)?.let {
-                    data = it
-                    retVal = it != null
-                }
-
-            } catch (e: Exception) {
-                println("ToolRepositoryImpl err: ${e.message ?: e.toString()}")
+                retVal
             }
-            retVal
         }
-    }.await()
+        //.await()
 
     private fun displayChildren(depth: Int = 0, job: Job) {
         job.children.forEach {
@@ -142,9 +147,11 @@ class ToolRepositoryImpl(
 
 
     private suspend fun isEmpty() : Boolean =
-        scope.async {
+        coroutineScope {
+        //scope.async {
             mutex.withLock { isEmpty }
-        }.await()
+        }
+        //.await()
 
 
     companion object {

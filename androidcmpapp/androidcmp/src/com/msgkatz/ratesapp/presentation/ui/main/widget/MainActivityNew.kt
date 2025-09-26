@@ -45,12 +45,6 @@ val Context.appComponent: AppComponent
         else -> this.applicationContext.appComponent
     }
 class MainActivityNew : BaseCompActivity() {
-
-    //private val viewModel: MainActivityNewViewModel by viewModels()
-
-    //@Inject
-    //lateinit var viewModel: MainActivityNewViewModel
-
     @Inject
     lateinit var mGetAssets: GetAssets
     @Inject
@@ -69,7 +63,6 @@ class MainActivityNew : BaseCompActivity() {
         super.onCreate(savedInstanceState)
 
         this.appComponent.inject(this)
-        //.inject(this);
         ChartDepsStore.deps = appComponent
         mgr = getSystemService(POWER_SERVICE) as PowerManager
 
@@ -87,95 +80,19 @@ class MainActivityNew : BaseCompActivity() {
             tmpDataKeeper = keeper
         )
 
-
-
         setContent {
             CnrThemeAlter(
                 darkTheme = true,
                 androidTheme = false, //shouldUseAndroidTheme(uiState),
                 disableDynamicTheming = true //shouldDisableDynamicTheming(uiState),
             ) {
-                if (1 == 2) makeTEsts2(keeper = keeper)
-                else
                 CnrApp(
                     tabInfoStorer = tabInfoStorer,
                     onPriceItemClick = { it -> showChart(it) },
                     interimVMKeeper = interimVMKeeper!!
                 )
-
-            }
-
-        }
-
-
-    }
-
-    private fun makeTEsts2(keeper: TmpDataKeeper) {
-        val coroutineScope = lifecycle.coroutineScope
-        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-        val symbol = "1000SATSUSDT"
-        val symbol2 = "btcusdt"
-        val interval = "5m"
-
-        val startTime = null
-        val endTime = 1724166300000
-        val limit = 300
-        lifecycleScope.launch {
-            //val keeper = TmpDataKeeper(coroutineScope, ioDispatcher)
-            val ver = 2
-            if (ver == 1) {
-                keeper.currentToolPriceRepository.getToolRealtimePriceCombo(symbol2, interval)
-                    .collect {
-                        println("${it?.toString()} ")
-
-                    }
-            } else if (ver == 2) {
-                keeper.currentToolPriceRepository.getToolRealtimePrice(symbol2, interval)
-                    .collect {
-                        println("${it.toString()} ")
-
-                    }
             }
         }
-    }
-
-    private fun makeTEsts() {
-        val coroutineScope = lifecycle.coroutineScope
-        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-        val symbol = "1000SATSUSDT"
-        val interval = "5m"
-
-        val startTime = null
-        val endTime = 1724166300000
-        val limit = 300
-        lifecycleScope.launch {
-            val res = RestController(coroutineScope, ioDispatcher)
-                .getPriceByCandle(
-                    symbol = symbol,
-                    interval = interval,
-                    startTime = startTime,
-                    endTime = endTime,
-                    limit = limit
-                )
-            if (res.isSuccess) {
-                res.getOrNull()?.forEach {
-                    println("list:")
-                    it.forEach { item -> println(item) }
-                }
-            } else {
-                res.exceptionOrNull()?.let { println("FOCKEN ERROR: ${it.message}") }
-            }
-            println("done kmm")
-        }
-    }
-
-    private fun showChart(priceSimple: PriceSimpleJava?) {
-//        val intent: Intent = Intent(this, ChartActivityNew::class.java)
-//        priceSimple?.let {
-//            intent.putExtra(ChartActivityNew.KEY_TOOL_NAME, it.getTool().name)
-//            intent.putExtra(ChartActivityNew.KEY_TOOL_PRICE, it.getPrice())
-//        }
-//        startActivity(intent)
     }
 
     private fun showChart(priceSimple: PriceSimple?) {

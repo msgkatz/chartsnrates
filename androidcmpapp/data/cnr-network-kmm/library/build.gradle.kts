@@ -3,13 +3,9 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    //alias(libs.plugins.kotlinMultiplatform)
-    //alias(libs.plugins.androidLibrary)
     id(libs.plugins.kotlinMultiplatform.get().pluginId) //apply false
     id(libs.plugins.androidLibrary.get().pluginId) //apply false
-    kotlin("plugin.serialization") version "2.0.20"
-
-    //id("module.publication")
+    id(libs.plugins.kotlinx.serialization.get().pluginId)
 }
 
 kotlin {
@@ -22,11 +18,11 @@ kotlin {
         }
         binaries.executable()
     }
-//
-//    wasmJs {
-//        browser()
-//        binaries.executable()
-//    }
+
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
 
     androidTarget {
         publishLibraryVariants("debug", "release")
@@ -63,9 +59,13 @@ kotlin {
             }
         }
 
-//        desktopMain.dependencies {
-//            implementation(libs.ktor.client.java)
-//        }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.java)
+        }
+
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
 
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)

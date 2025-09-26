@@ -20,12 +20,25 @@ project(':androidcmpapp:data:cnr-model-kmm').projectDir = new File('androidcmpap
 
 //include ':androidcmp'
 include ':androidcmpapp:core:uikit'
+include ':androidcmpapp:core:uikitkmp'
 
 include ':androidcmpapp:feature:common'
 include ':androidcmpapp:feature:splash'
 include ':androidcmpapp:feature:quoteasset'
+include ':androidcmpapp:feature:rootkmp'
+include ':androidcmpapp:feature:splashkmp'
+include ':androidcmpapp:feature:quoteassetkmp'
 include ':androidcmpapp:data:olddata'
 
 
 include ':androidcmpapp:feature:chartgdx'
 include ':androidcmpapp:chartdemo'
+
+include ':androidcmpapp:kmpappfull:android'
+project(':androidcmpapp:kmpappfull:android').projectDir = new File('androidcmpapp/kmpappfull/android')
+
+include ':androidcmpapp:kmpappfull:desktop'
+project(':androidcmpapp:kmpappfull:desktop').projectDir = new File('androidcmpapp/kmpappfull/desktop')
+
+include ':androidcmpapp:kmpappfull:web'
+project(':androidcmpapp:kmpappfull:web').projectDir = new File('androidcmpapp/kmpappfull/web')

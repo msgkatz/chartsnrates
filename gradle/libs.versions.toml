@@ -1,10 +1,10 @@
 [versions]
 agp = "8.2.2" #"8.5.0"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 nexus-publish = "2.0.0"
 android-minSdk = "21"
 android-compileSdk = "34"
-ktor-client = "2.3.6" #latest version of Ktor
+ktor-client = "3.0.0-rc-1" #"2.3.6" #latest version of Ktor
 compose-plugin = "1.6.11"
 
 androidxComposeBom = "2024.03.00"  #"2023.10.01"
@@ -40,6 +40,12 @@ guavaVersion = "27.0.1-android"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 
+compose-multiplatform = "1.7.1" #"1.8.0-beta02"
+decompose = "3.0.0"
+essenty = "2.1.0"
+
+jb-androidx-lifecycle = "2.8.4"
+badoo-reaktive = "2.2.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -55,10 +61,13 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-client" }
 ktor-client-java = {module = "io.ktor:ktor-client-java", version.ref = "ktor-client"}
 ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor-client" }
+ktor-client-wasm = { module = "io.ktor:ktor-client-wasm", version.ref = "ktor-client" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-js = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-wasm-js = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-wasm-js", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
@@ -118,12 +127,23 @@ rxrelay2-rxrelay = { group = "com.jakewharton.rxrelay2", name = "rxrelay", versi
 
 guava = { group = "com.google.guava", name = "guava", version.ref = "guavaVersion" }
 
+jb-androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "jb-androidx-lifecycle" }
+jb-androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "jb-androidx-lifecycle" }
+
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
+decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
+decompose-extensionsCompose = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
+essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 
+# Badoo libraries
+badoo-reaktive = { module = "com.badoo.reaktive:reaktive", version.ref = "badoo-reaktive" }
+badoo-reaktive-coroutines-interop = { module = "com.badoo.reaktive:coroutines-interop", version.ref = "badoo-reaktive" }
+badoo-reaktive-testing = { module = "com.badoo.reaktive:reaktive-testing", version.ref = "badoo-reaktive" }
 
 
 
@@ -134,3 +154,4 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

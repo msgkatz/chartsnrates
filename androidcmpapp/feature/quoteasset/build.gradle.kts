@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
 
+    implementation(libs.decompose.decompose)
+    implementation(libs.decompose.extensionsCompose)
+
     kapt(libs.dagger.compiler)
     implementation(libs.dagger)
     implementation(libs.dagger.android)

@@ -85,95 +85,6 @@ fun CnrNavigationBar(
         )
 }
 
-
-///**
-// * Base layout for a [NavigationBarItem].
-// *
-// * @param indicatorRipple indicator ripple for this item when it is selected
-// * @param indicator indicator for this item when it is selected
-// * @param icon icon for this item
-// * @param label text label for this item
-// * @param alwaysShowLabel whether to always show the label for this item. If false, the label will
-// * only be shown when this item is selected.
-// * @param animationProgress progress of the animation, where 0 represents the unselected state of
-// * this item and 1 represents the selected state. This value controls other values such as indicator
-// * size, icon and label positions, etc.
-// */
-//@Composable
-//private fun NavigationBarItemLayout(
-//    indicatorRipple: @Composable () -> Unit,
-//    indicator: @Composable () -> Unit,
-//    icon: @Composable () -> Unit,
-//    label: @Composable (() -> Unit)?,
-//    alwaysShowLabel: Boolean,
-//    animationProgress: () -> Float,
-//) {
-//    Layout({
-//        indicatorRipple()
-//        indicator()
-//
-//        Box(Modifier.layoutId(IconLayoutIdTag)) { icon() }
-//
-//        if (label != null) {
-//            Box(
-//                Modifier
-//                    .layoutId(LabelLayoutIdTag)
-//                    .graphicsLayer { alpha = if (alwaysShowLabel) 1f else animationProgress() }
-//                    .padding(horizontal = NavigationBarItemHorizontalPadding / 2)
-//            ) { label() }
-//        }
-//    }) { measurables, constraints ->
-//        @Suppress("NAME_SHADOWING")
-//        val animationProgress = animationProgress()
-//        val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
-//        val iconPlaceable =
-//            measurables.fastFirst { it.layoutId == IconLayoutIdTag }.measure(looseConstraints)
-//
-//        val totalIndicatorWidth = iconPlaceable.width + (IndicatorHorizontalPadding * 2).roundToPx()
-//        val animatedIndicatorWidth = (totalIndicatorWidth * animationProgress).roundToInt()
-//        val indicatorHeight = iconPlaceable.height + (IndicatorVerticalPadding * 2).roundToPx()
-//        val indicatorRipplePlaceable =
-//            measurables
-//                .fastFirst { it.layoutId == IndicatorRippleLayoutIdTag }
-//                .measure(
-//                    Constraints.fixed(
-//                        width = totalIndicatorWidth,
-//                        height = indicatorHeight
-//                    )
-//                )
-//        val indicatorPlaceable =
-//            measurables
-//                .fastFirstOrNull { it.layoutId == IndicatorLayoutIdTag }
-//                ?.measure(
-//                    Constraints.fixed(
-//                        width = animatedIndicatorWidth,
-//                        height = indicatorHeight
-//                    )
-//                )
-//
-//        val labelPlaceable =
-//            label?.let {
-//                measurables
-//                    .fastFirst { it.layoutId == LabelLayoutIdTag }
-//                    .measure(looseConstraints)
-//            }
-//
-//        if (label == null) {
-//            placeIcon(iconPlaceable, indicatorRipplePlaceable, indicatorPlaceable, constraints)
-//        } else {
-//            placeLabelAndIcon(
-//                labelPlaceable!!,
-//                iconPlaceable,
-//                indicatorRipplePlaceable,
-//                indicatorPlaceable,
-//                constraints,
-//                alwaysShowLabel,
-//                animationProgress
-//            )
-//        }
-//    }
-//}
-
 @Preview
 @Composable
 fun CnrNavigationPreview() {
@@ -184,11 +95,6 @@ fun CnrNavigationPreview() {
         painterResource(id = R.drawable.cur_btc),
         painterResource(id = R.drawable.cur_eth),
     )
-//    val selectedIcons = listOf(
-//        NiaIcons.Upcoming,
-//        NiaIcons.Bookmarks,
-//        NiaIcons.Grid3x3,
-//    )
 
     CnrThemeAlter {
         CnrNavigationBar {
@@ -200,13 +106,6 @@ fun CnrNavigationPreview() {
                             contentDescription = item,
                         )
                     },
-//                    selectedIcon = {
-//                        Icon(
-//                            imageVector = selectedIcons[index],
-//                            contentDescription = item,
-//                        )
-//                    },
-                    //label = { Text(item) },
                     selected = index == 0,
                     onClick = { },
                 )

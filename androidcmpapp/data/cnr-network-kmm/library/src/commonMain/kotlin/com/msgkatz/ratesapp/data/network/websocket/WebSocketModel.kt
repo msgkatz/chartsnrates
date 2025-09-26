@@ -26,6 +26,7 @@ sealed class StreamEventTypeWSModel(
 }
 
 
+
 @Serializable
 data class StreamEventWSModel (
     @SerialName("e") val eventType: String,

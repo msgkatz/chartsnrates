@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.msgkatz.ratesapp.presentation.common.TabInfoStorer
 //import com.msgkatz.ratesapp.presentation.entities.TabItem
-import com.msgkatz.ratesapp.feature.quoteasset.navigateToQuoteAsset2
+import com.msgkatz.ratesapp.feature.quoteasset.navigateToQuoteAsset
 import com.msgkatz.ratesapp.presentation.ui.app.TabItem
 import com.msgkatz.ratesapp.utils.Logs
 import kotlinx.coroutines.CoroutineScope
@@ -61,6 +61,8 @@ class CnrAppState(
         get() = true
     val shouldShowNavRail: Boolean
         get() = !shouldShowNavBar
+    val tabsReady: Boolean
+        get() = tabInfoStorer.isInitialised
 
     val tabList: StateFlow<List<CnrTopLevelDestination>> =
         getTabs()
@@ -118,7 +120,7 @@ class CnrAppState(
             }
 
             //TODO implement boyscout rule
-            navController.navigateToQuoteAsset2(topLevelDestination.route, topLevelNavOptions)
+            navController.navigateToQuoteAsset(topLevelDestination.route, topLevelNavOptions)
 
         }
     }

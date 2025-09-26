@@ -12,6 +12,7 @@ class LocalJsonDataSourceImpl(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val useAlter: Boolean = false,
 ): LocalJsonDataSource {
+    private val defDispatcher: CoroutineDispatcher = Dispatchers.Default
     override suspend fun <T> getLocalJsonData(path: String): Result<T> =
         runCatching {
             null as T
@@ -29,7 +30,7 @@ class LocalJsonDataSourceImpl(
             getLocalJsonIntervalsWithCtx()
 
     private suspend fun getLocalJsonIntervalsWithCtx(): Result<List<IntervalLocalJSON>> =
-        withContext(ioDispatcher)
+        withContext(defDispatcher)
         {
             runCatching {
                 val data = Json.decodeFromString<List<IntervalLocalJSON>>(LocalJsonData.intervalsData)

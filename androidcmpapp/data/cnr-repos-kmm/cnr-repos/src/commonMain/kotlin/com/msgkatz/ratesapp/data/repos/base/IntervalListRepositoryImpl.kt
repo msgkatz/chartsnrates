@@ -19,6 +19,7 @@ class IntervalListRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
 ): IntervalListRepository {
     private val jssource : LocalJsonDataSource = LocalJsonDataSourceImpl(ioDispatcher)
+    private val defDispatcher: CoroutineDispatcher = Dispatchers.Default
     private val mutex: Mutex = Mutex()
     private var data : MutableMap<String, Interval>? = null
     private var sortedIntervalList : MutableList<Interval>? = null
@@ -27,7 +28,7 @@ class IntervalListRepositoryImpl(
     val exh : CoroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         println("ToolRepositoryImpl err: ${throwable.message ?: throwable.toString()}")
     }
-    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher + exh)
+    val scope : CoroutineScope = CoroutineScope(SupervisorJob() + defDispatcher + exh)
 
     override fun getIntervalsAsFlow(): Flow<List<Interval>?> = flow {
         getIntervals()
@@ -60,7 +61,7 @@ class IntervalListRepositoryImpl(
         }
     }
 
-    private suspend fun update(): Boolean = scope.async {
+    private suspend fun update(): Boolean = coroutineScope {
         mutex.withLock {
             var retVal = false
             try {
@@ -81,12 +82,11 @@ class IntervalListRepositoryImpl(
             }
             retVal
         }
-    }.await()
+    }
 
-    private suspend fun isEmpty() : Boolean =
-        scope.async {
-            mutex.withLock { isEmpty }
-        }.await()
+    private suspend fun isEmpty() : Boolean = coroutineScope {
+        mutex.withLock { isEmpty }
+    }
 }
 
 
