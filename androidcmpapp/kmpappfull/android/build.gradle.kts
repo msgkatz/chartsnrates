@@ -67,12 +67,12 @@ kotlin {
 
 android {
     namespace = "com.msgkatz.ratesapp"
-    compileSdk = 34 //libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 36 //libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.msgkatz.ratesapp"
         minSdk = 21 //libs.versions.android.minSdk.get().toInt()
-        targetSdk = 34 //libs.versions.android.targetSdk.get().toInt()
+        targetSdk = 36 //libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -83,7 +83,8 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

@@ -56,6 +56,7 @@ fun DynamicCryptoChart2(
 
     // Update total width AND adjust scroll offset when data changes
     LaunchedEffect(dataPoints, viewPortSize.width, pixelsPerHour) {
+
         // Get the timestamp of the first data point *in the current list*
         val currentFirstTimestamp = dataPoints.firstOrNull()?.timestampMillis
 
