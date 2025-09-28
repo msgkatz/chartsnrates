@@ -66,6 +66,7 @@ kotlin {
 }
 
 android {
+    val globalConfiguration = rootProject.extra //.extensions.getByName("ext")
     namespace = "com.msgkatz.ratesapp"
     compileSdk = 36 //libs.versions.android.compileSdk.get().toInt()
 
@@ -73,20 +74,62 @@ android {
         applicationId = "com.msgkatz.ratesapp"
         minSdk = 21 //libs.versions.android.minSdk.get().toInt()
         targetSdk = 36 //libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 25
+        versionName = "2.0.2"
+
+        multiDexEnabled = true
+        manifestPlaceholders["useCrashlytics"] = "false"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    signingConfigs {
+        create("config_debug") {
+            //keyAlias = globalConfiguration["CR_DEBUG_KEY_ALIAS"] as String
+            //keyPassword = globalConfiguration["CR_DEBUG_KEY_PASSWORD"] as String
+            //storeFile = file(globalConfiguration["CR_RELEASE_KEY_PATH"] as String)
+            //storePassword = globalConfiguration["CR_STORE_PASSWORD"] as String
+        }
+
+        create("config_release") {
+            keyAlias = globalConfiguration["CR_RELEASE_KEY_ALIAS"] as String
+            keyPassword = globalConfiguration["CR_RELEASE_KEY_PASSWORD"] as String
+            storeFile = file(globalConfiguration["CR_RELEASE_KEY_PATH"] as String)
+            storePassword = globalConfiguration["CR_STORE_PASSWORD"] as String
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("debug")
+            multiDexKeepFile = file("multidex-config.txt")
+            multiDexKeepProguard = file("multidex-config.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("config_release")
+            manifestPlaceholders["useCrashlytics"] = "true"
+        }
+        getByName("debug") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            //signingConfig = signingConfigs.getByName("config_debug")
+//            firebaseCrashlytics {
+//                // If you don't need crash reporting for your debug build,
+//                // you can speed up your build by disabling mapping file uploading.
+//                mappingFileUploadEnabled = false
+//            }
+            signingConfig = signingConfigs.getByName("config_debug")
         }
     }
+
+    buildFeatures {
+        compose = true
+        viewBinding = true
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
